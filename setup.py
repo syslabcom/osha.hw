@@ -52,6 +52,7 @@ setup(name='osha.hw',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'SQLAlchemy'
       ],
       entry_points="""
       [z3c.autoinclude.plugin]
