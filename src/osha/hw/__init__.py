@@ -1,1 +1,6 @@
-__import__('pkg_resources').declare_namespace(__name__)
+osha_globals= globals()
+
+PROJECTNAME = 'OSHA 3.0'
+
+def initialize(context):
+    """Initializer called when used as a Zope 2 product."""
