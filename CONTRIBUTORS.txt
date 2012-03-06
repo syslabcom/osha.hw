@@ -1,6 +1,5 @@
-Note:  place names and roles of the people who contribute to this package
-       in this file, one to a line, like so:
-
-- Joe Schmoe, Original Author
-- Bob Slob, contributed monkey patches
-- Jane Main, wrote flibberty module
+- Wolfgang Thomas (Syslab.com GmbH)
+- Alexander Pilz (Syslab.com GmbH)
+- Cillian de Roiste (Syslab.com GmbH)
+- Jan-Carel Brand (Syslab.com GmbH)
+- Manuel Reinhard (Syslab.com GmbH)

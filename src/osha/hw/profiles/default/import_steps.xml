@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="osha_hw_various"
+               version="0000-01"
+               handler="osha.hw.setuphandlers.importVarious"
+               title="OSHA HW manual setup steps">
+    HW installer steps
+  </import-step>
+</import-steps>
+

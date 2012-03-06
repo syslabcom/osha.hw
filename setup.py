@@ -3,16 +3,27 @@ import os
 
 version = '0.1'
 
+def read(*rnames):
+    return open(os.path.join(os.path.dirname(__file__), *rnames)).read()
+    
+
 long_description = (
-    open('README.txt').read()
+    read('README.txt')
+    + '\n' +
+    'Change history\n'
+    '**************\n'
+    + '\n' +
+    read('CHANGES.txt')
+    + '\n' +
+    'Detailed Documentation\n'
+    '**********************\n'
     + '\n' +
     'Contributors\n'
-    '============\n'
+    '************\n'
     + '\n' +
-    open('CONTRIBUTORS.txt').read()
-    + '\n' +
-    open('CHANGES.txt').read()
-    + '\n')
+    read('CONTRIBUTORS.txt')
+    + '\n'
+    )
 
 setup(name='osha.hw',
       version=version,
@@ -21,12 +32,18 @@ setup(name='osha.hw',
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
+        "Framework :: Plone",
+        "Framework :: Zope2",
+        "Framework :: Zope3",
         "Programming Language :: Python",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "License :: OSI Approved :: GNU General Public License (GPL)",
+        "License :: OSI Approved :: European Union Public Licence 1.1 (EUPL 1.1)",
         ],
       keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      author='Syslab.com GmbH',
+      author_email='info@syslab.com',
+      url='https://code.gocept.com/svn/osha/osha.hw/',
       license='gpl',
       packages=find_packages('src'),
       package_dir = {'': 'src'},
@@ -35,9 +52,9 @@ setup(name='osha.hw',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # -*- Extra requirements: -*-
       ],
       entry_points="""
-      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )
