@@ -3,4 +3,19 @@
            xmlns:five="http://namespaces.zope.org/five"
            xmlns:zcml="http://namespaces.zope.org/zcml">
 
+    <browser:page
+        for="*"
+        name="hw_add_ocp"
+        class=".sync_receiver.AddOCP"
+        permission="zope.Public"
+        allowed_interface="osha.hw.interfaces.IAddOCP"
+        />
+
+    <browser:page
+        for="*"
+        name="hw_db_init"
+        class=".sync_receiver.DBSetup"
+        permission="cmf.ManagePortal"
+        />
+
 </configure>
