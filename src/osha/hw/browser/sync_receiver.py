@@ -4,7 +4,7 @@ from collective.lead.interfaces import IDatabase
 from Products.Five import BrowserView
 from zope.component import getUtility
 import sqlalchemy
-from osha.hw.queries import create_statements
+from osha.hw.queries import *
 
 
 class BaseDBView(BrowserView):
@@ -28,24 +28,12 @@ class AddOCP(BaseDBView):
         #targetfolder = getattr(context, 'eu-partners-folder')
         targetfolder = self.context
 
-
-        
         fieldnames, p_data = partners
-        values = dict()
-        for i in range(len(fieldnames)):
-            val = p_data[i]
-            if val == '':
-                val = None
-            values[fieldnames[i]] = val
-
-#        if bool(portal.scripts.hw2010_is_partner_available(id=values['id'])[0]['count']):
-#          try:
-#            ret = portal.scripts.hw2010_update_partner_data(values)
-#          except Exception, err:
-#            return str(err)
-#        else:
-#          portal.scripts.hw2010_insert_partner_data(values)
+        values = dict(zip(fieldnames, p_data))
+        if self.conn.scalar(is_ocp_available % values) > 0:
+            self.conn.execute(update_ocp % values)
+        else:
+            self.conn.execute(insert_ocp % values)
 
         print values
-
         return 0

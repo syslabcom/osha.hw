@@ -20,7 +20,7 @@ CREATE TABLE campaign_ocps
   organisationtype character varying(255),
   businesssector character varying(255),
   missionstatement text,
-  campaignpledge text,
+  campaign_pledge text,
   ceoname character varying(255),
   keyname character varying(255),
   keyposition character varying(255),
@@ -153,3 +153,45 @@ create_statements = (
     pg_create_ocp_news,
     pg_create_fop_news,
 )
+
+is_ocp_available = """
+SELECT count(*) from campaign_ocps
+WHERE id = '%(id)s'"""
+
+insert_ocp = """
+INSERT INTO campaign_ocps
+("id", "title", "description", "manager", "street",
+"addressextra", "city", "zipcode", "country", "email", "phone", "fax", "url",
+"campaignurl", "organisationtype", "businesssector", "missionstatement",
+"campaign_pledge","ceoname", "keyname", "keyposition", "keyemail", "keytel",
+"representativename", "representativeemail", "representativetel", "subject",
+"relateditems", "location", "language", "effectivedate", "expirationdate", 
+"creation_date", "modification_date")
+VALUES
+('%(id)s', '%(title)s', '%(description)s', '%(manager)s', '%(street)s',
+'%(addressextra)s', '%(city)s', '%(zipcode)s', '%(country)s', '%(email)s', '%(phone)s', '%(fax)s', '%(url)s',
+'%(campaignurl)s', '%(organisationtype)s', '%(businesssector)s', '%(missionstatement)s',
+'%(campaign_pledge)s','%(ceoname)s', '%(keyname)s', '%(keyposition)s', '%(keyemail)s', '%(keytel)s',
+'%(representativename)s', '%(representativeemail)s', '%(representativetel)s', '%(subject)s',
+'%(relateditems)s', '%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
+'%(creation_date)s', '%(modification_date)s')
+"""
+
+update_ocp = """
+UPDATE campaign_ocps SET
+("title", "description", "manager", "street",
+"addressextra", "city", "zipcode", "country", "email", "phone", "fax", "url",
+"campaignurl", "organisationtype", "businesssector", "missionstatement",
+"campaign_pledge","ceoname", "keyname", "keyposition", "keyemail", "keytel",
+"representativename", "representativeemail", "representativetel", "subject",
+"relateditems", "location", "language", "effectivedate", "expirationdate", 
+"creation_date", "modification_date") =
+('%(title)s', '%(description)s', '%(manager)s', '%(street)s',
+'%(addressextra)s', '%(city)s', '%(zipcode)s', '%(country)s', '%(email)s', '%(phone)s', '%(fax)s', '%(url)s',
+'%(campaignurl)s', '%(organisationtype)s', '%(businesssector)s', '%(missionstatement)s',
+'%(campaign_pledge)s','%(ceoname)s', '%(keyname)s', '%(keyposition)s', '%(keyemail)s', '%(keytel)s',
+'%(representativename)s', '%(representativeemail)s', '%(representativetel)s', '%(subject)s',
+'%(relateditems)s', '%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
+'%(creation_date)s', '%(modification_date)s')
+WHERE ID = '%(id)s'
+"""
