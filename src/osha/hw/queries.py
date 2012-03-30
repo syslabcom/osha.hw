@@ -30,7 +30,6 @@ CREATE TABLE campaign_ocps
   representativeemail character varying(255),
   representativetel character varying(255),
   subject character varying(255),
-  relateditems character varying(255),
   location character varying(255),
   language character varying(255),
   effectivedate date,
@@ -74,7 +73,6 @@ CREATE TABLE campaign_fops
   representativeemail character varying(255),
   representativetel character varying(255),
   subject character varying(255),
-  relateditems character varying(255),
   location character varying(255),
   language character varying(255),
   effectivedate date,
@@ -165,7 +163,7 @@ INSERT INTO campaign_ocps
 "campaignurl", "organisationtype", "businesssector", "missionstatement",
 "campaign_pledge","ceoname", "keyname", "keyposition", "keyemail", "keytel",
 "representativename", "representativeemail", "representativetel", "subject",
-"relateditems", "location", "language", "effectivedate", "expirationdate", 
+"location", "language", "effectivedate", "expirationdate", 
 "creation_date", "modification_date")
 VALUES
 ('%(id)s', '%(title)s', '%(description)s', '%(manager)s', '%(street)s',
@@ -173,7 +171,7 @@ VALUES
 '%(campaignurl)s', '%(organisationtype)s', '%(businesssector)s', '%(missionstatement)s',
 '%(campaign_pledge)s','%(ceoname)s', '%(keyname)s', '%(keyposition)s', '%(keyemail)s', '%(keytel)s',
 '%(representativename)s', '%(representativeemail)s', '%(representativetel)s', '%(subject)s',
-'%(relateditems)s', '%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
+'%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
 '%(creation_date)s', '%(modification_date)s')
 """
 
@@ -184,14 +182,14 @@ UPDATE campaign_ocps SET
 "campaignurl", "organisationtype", "businesssector", "missionstatement",
 "campaign_pledge","ceoname", "keyname", "keyposition", "keyemail", "keytel",
 "representativename", "representativeemail", "representativetel", "subject",
-"relateditems", "location", "language", "effectivedate", "expirationdate", 
+"location", "language", "effectivedate", "expirationdate", 
 "creation_date", "modification_date") =
 ('%(title)s', '%(description)s', '%(manager)s', '%(street)s',
 '%(addressextra)s', '%(city)s', '%(zipcode)s', '%(country)s', '%(email)s', '%(phone)s', '%(fax)s', '%(url)s',
 '%(campaignurl)s', '%(organisationtype)s', '%(businesssector)s', '%(missionstatement)s',
 '%(campaign_pledge)s','%(ceoname)s', '%(keyname)s', '%(keyposition)s', '%(keyemail)s', '%(keytel)s',
 '%(representativename)s', '%(representativeemail)s', '%(representativetel)s', '%(subject)s',
-'%(relateditems)s', '%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
+'%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
 '%(creation_date)s', '%(modification_date)s')
 WHERE ID = '%(id)s'
 """
