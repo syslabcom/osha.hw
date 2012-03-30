@@ -40,6 +40,24 @@ class AddOCP(BaseDBView):
         return 0
 
 
+class AddFOP(BaseDBView):
+
+    def __call__(self, partners):
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        pwt = portal.portal_workflow
+        targetfolder = self.context
+
+        fieldnames, p_data = partners
+        values = dict(zip(fieldnames, p_data))
+        if self.conn.scalar(is_fop_available % values) > 0:
+            self.conn.execute(update_fop % values)
+        else:
+            self.conn.execute(insert_fop % values)
+
+        print values
+        return 0
+
+
 class AddImage(BaseDBView):
 
     def __call__(self, id, image, path):

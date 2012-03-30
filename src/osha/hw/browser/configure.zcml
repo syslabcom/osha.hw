@@ -13,6 +13,14 @@
 
     <browser:page
         for="*"
+        name="ws_fop_add_partner"
+        class=".sync_receiver.AddFOP"
+        permission="zope.Public"
+        allowed_interface="osha.hw.interfaces.IAddFOP"
+        />
+
+    <browser:page
+        for="*"
         name="ws_add_image"
         class=".sync_receiver.AddImage"
         permission="zope.Public"

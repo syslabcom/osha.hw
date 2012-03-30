@@ -193,3 +193,45 @@ UPDATE campaign_ocps SET
 '%(creation_date)s', '%(modification_date)s')
 WHERE ID = '%(id)s'
 """
+
+is_fop_available = """
+SELECT count(*) from campaign_fops
+WHERE id = '%(id)s'"""
+
+insert_fop = """
+INSERT INTO campaign_fops
+("id", "title", "description", "manager", "street",
+"addressextra", "city", "zipcode", "country", "email", "phone", "fax", "url",
+"campaignurl", "organisationtype", "businesssector", "missionstatement",
+"ceoname", "keyname", "keyposition", "keyemail", "keytel",
+"representativename", "representativeemail", "representativetel", "subject",
+"location", "language", "effectivedate", "expirationdate", 
+"creation_date", "modification_date")
+VALUES
+('%(id)s', '%(title)s', '%(description)s', '%(manager)s', '%(street)s',
+'%(addressextra)s', '%(city)s', '%(zipcode)s', '%(country)s', '%(email)s', '%(phone)s', '%(fax)s', '%(url)s',
+'%(campaignurl)s', '%(organisationtype)s', '%(businesssector)s', '%(missionstatement)s',
+'%(ceoname)s', '%(keyname)s', '%(keyposition)s', '%(keyemail)s', '%(keytel)s',
+'%(representativename)s', '%(representativeemail)s', '%(representativetel)s', '%(subject)s',
+'%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
+'%(creation_date)s', '%(modification_date)s')
+"""
+
+update_fop = """
+UPDATE campaign_fops SET
+("title", "description", "manager", "street",
+"addressextra", "city", "zipcode", "country", "email", "phone", "fax", "url",
+"campaignurl", "organisationtype", "businesssector", "missionstatement",
+"ceoname", "keyname", "keyposition", "keyemail", "keytel",
+"representativename", "representativeemail", "representativetel", "subject",
+"location", "language", "effectivedate", "expirationdate", 
+"creation_date", "modification_date") =
+('%(title)s', '%(description)s', '%(manager)s', '%(street)s',
+'%(addressextra)s', '%(city)s', '%(zipcode)s', '%(country)s', '%(email)s', '%(phone)s', '%(fax)s', '%(url)s',
+'%(campaignurl)s', '%(organisationtype)s', '%(businesssector)s', '%(missionstatement)s',
+'%(ceoname)s', '%(keyname)s', '%(keyposition)s', '%(keyemail)s', '%(keytel)s',
+'%(representativename)s', '%(representativeemail)s', '%(representativetel)s', '%(subject)s',
+'%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
+'%(creation_date)s', '%(modification_date)s')
+WHERE ID = '%(id)s'
+"""
