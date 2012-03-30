@@ -14,18 +14,19 @@ class BaseDBView(BrowserView):
         self.db = getUtility(IDatabase, name="osha.database")
         self.conn = self.db.connection
 
+
 class DBSetup(BaseDBView):
 
     def __call__(self):
         for query in create_statements:
             self.conn.execute(query)
 
+
 class AddOCP(BaseDBView):
-    
+
     def __call__(self, partners):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         pwt = portal.portal_workflow
-        #targetfolder = getattr(context, 'eu-partners-folder')
         targetfolder = self.context
 
         fieldnames, p_data = partners
@@ -36,4 +37,19 @@ class AddOCP(BaseDBView):
             self.conn.execute(insert_ocp % values)
 
         print values
+        return 0
+
+
+class AddImage(BaseDBView):
+
+    def __call__(self, id, image, path):
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+
+        targetfolder = portal.restrictedTraverse(path)
+        if not getattr(targetfolder, id, None):
+            targetfolder.invokeFactory(id=id, type_name=u"Image")
+
+        ob = getattr(targetfolder, id)
+        ob.setImage(image.data)
+
         return 0

@@ -13,6 +13,14 @@
 
     <browser:page
         for="*"
+        name="ws_add_image"
+        class=".sync_receiver.AddImage"
+        permission="zope.Public"
+        allowed_interface="osha.hw.interfaces.IAddImage"
+        />
+
+    <browser:page
+        for="*"
         name="hw_db_init"
         class=".sync_receiver.DBSetup"
         permission="cmf.ManagePortal"
