@@ -1,0 +1,193 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<body>
+
+<metal:block fill-slot="main"
+    tal:define="global id request/id|nothing;
+                global partner python:view.get_partner(id=id);
+                global folder python:here.aq_parent;
+                global events_folder python:folder.restrictedTraverse('events');
+                global events_folder_url events_folder/absolute_url;
+                global img_folder python:getattr(folder.getCanonical(), 'img')">
+
+    <tal:block condition="partner">
+
+        <tal:block define="ceo_img python:getattr(img_folder, '%s_ceo.jpg' % id, None) or getattr(img_folder, '%s_ceo.gif' % id, None) or
+            getattr(img_folder, '%s_ceo.png' % id, None);
+            ceo_img_url python:ceo_img and ceo_img.absolute_url()+'/image_mini' or ''">
+
+
+            <h1 class="documentFirstHeading">
+                <span id="parent-fieldname-title" tal:content="partner/title">title</span>
+            </h1>
+
+
+            <div id="parent-fieldname-text">
+
+                <link rel="stylesheet" type="text/css"
+                href="hw2010_partners.css" tal:attributes="href string:${portal_url}/++resource++hw_partners.css"  />
+
+
+                <div id="CEO">
+                    <img src="" tal:attributes="src ceo_img_url" /><br>
+                    CEO<br>
+                    <span tal:replace="partner/ceoname">Name</span>
+                </div>
+                <div class="documentDescription" id="parent-fieldname-description" tal:content="partner/description">quote</div>
+
+
+                <div id="content-core"
+                    tal:define="url partner/campaignurl|partner/url">
+                    <dl class="detailsListing" id="partner-profile">
+
+                        <dt>Type of organisation:</dt>
+                        <dd tal:content="partner/organisationtype">org_type</dd>
+
+                        <dt>Business sector:</dt>
+                        <dd tal:content="partner/businesssector">business</dd>
+
+                        <dt>Mission statement:</dt>
+                        <dd tal:content="partner/missionstatement">mission</dd>
+
+                        <dt>Campaign URL:</dt>
+                        <dd>
+                            <a href="" tal:attributes="href url" tal:content="url">url</a>
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="expandable opened"
+                tal:define="event_res python:view.get_partner_events(partner_id=id);
+                    events python:[here.restrictedTraverse(x['url'], None) for x in event_res];
+                    events python:[x for x in events if x is not None]"
+                    tal:condition="events">
+
+                    <h2 class="expandableHeader" i18n:translate="">Events</h2>
+                    <dl class="expandableContent" style="display: block" >
+                        <tal:loop tal:repeat="item events">
+                        <dt tal:content="python:toLocalizedTime(item.start())"></dt>
+                        <dd>
+                            <h3 class="detailsHeadline">
+                                <a href="" class="summary url" tal:define="relpath python:'/'.join(item.getPhysicalPath())"
+                                tal:attributes="href string:${events_folder_url}/@@slc.telescope?path=$relpath"
+                                tal:content="item/Title">
+                                Item Title
+                                </a>
+                            </h3>
+                        </dd>
+                        <dd class="visualClear"></dd>
+                    </tal:loop>
+                    <span class="more icon-16px sprite-icon-big-arrow-blue-right">
+                        <a href="/en/campaigns/hw2010/events" tal:attributes="href events_folder_url"
+                            i18n:translate="">More events</a>
+                        </span>
+                    </dl>
+                </div>
+
+
+
+            <!-- activities -->
+            <!-- <tal:block define="activities python:scripts_folder.hw2010_get_partner_activities(partner_id=id)">
+                <div class="expandable closed"
+                    tal:condition="python:len(activities)">
+
+                    <h2 class="expandableHeader" i18n:translate="">Other Campaign Activities</h2>
+
+                    <dl class="expandableContent">
+                        <tal:block tal:repeat="item activities">
+                            <dt tal:content="python:toLocalizedTime(item['created'])"></dt>
+                            <dd>
+                                <h3 class="detailsHeadline"
+                                    tal:content="item/title">
+                                    Item Title
+                                </h3>
+
+                                <p tal:content="item/description"></p>
+                                <a tal:attributes="href item/url" tal:content="item/url"></a>
+                            </dd>
+
+                            <dd class="visualClear"></dd>
+                        </tal:block>
+                    </dl>
+                </div>
+            </tal:block> -->
+        </div>
+    </tal:block>
+</tal:block>
+
+<tal:block condition="not:partner">
+      <h1 class="documentFirstHeading"><span id="parent-fieldname-title">Not found</span></h1>
+       <div id="parent-fieldname-text">
+         The partner you have been looking for was not found.
+       </div>
+
+</tal:block>
+
+</metal:block>
+
+
+<metal:block  fill-slot="column_two_slot">
+      <div tal:condition="partner" id="portal-column-two">
+        <div class="visualPadding">
+
+
+        <div id="portlet portletPartnerPortlet" class="portlet"
+         tal:define="logo python:getattr(img_folder, '%s_logo.jpg' % id, None) or getattr(img_folder, '%s_logo.gif' % id, None) or
+                            getattr(img_folder, '%s_logo.png' % id, None);
+                     logo_url python:logo and logo.absolute_url()+'/image_thumb' or ''">
+
+
+                <img src="" tal:attributes="src logo_url">
+
+            <dd class="portletItem odd">
+                <span tal:replace="partner/title">org_name</span><br>
+                <span tal:replace="partner/street">org_address</span><br>
+                <span tal:replace="partner/zipcode">post code</span>
+                <span tal:replace="partner/city">city</span><br>
+                <span tal:replace="partner/country">country</span>
+            </dd>
+
+            <dd class="portletItem even">
+                <span tal:replace="partner/email">email</span><br>
+                <a href="" tal:attributes="href partner/url" tal:content="partner/url">url</a>
+            </dd>
+
+            <dd class="portletItem odd">
+                Tel: <span tal:replace="partner/phone">phone</span><br>
+                Fax: <span tal:replace="partner/fax">fax</span>
+            </dd>
+
+
+        </div>
+
+        <div id="portlet portletContactsPortlet" class="portlet">
+
+            <h4>Contact Persons</h4>
+
+
+            <dd class="portletItem odd">
+                <strong tal:content="partner/keyposition">key position</strong><br>
+                <span tal:replace="partner/keyname">key name</span><br>
+
+            </dd>
+
+            <dd class="portletItem even">
+                <tal:c condition="partner/representativename">
+                  <strong>Health and Safety Representative</strong><br>
+                  <span tal:replace="partner/representativename">repr. name</span><br>
+                </tal:c>
+            </dd>
+
+        </div>
+      </div>
+      </div>
+    </metal:block>
+
+</body>
+</html>

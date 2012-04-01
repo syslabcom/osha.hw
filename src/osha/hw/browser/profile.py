@@ -40,3 +40,15 @@ class FOPsOverview(BaseDBView):
                 atoz[initial] = [partner]
 
         return atoz
+
+
+class OCPDetail(BaseDBView):
+
+    def get_partner(self, id=''):
+        partner = self.conn.execute(get_ocp_by_id % dict(id=id))
+        return partner.fetchone()
+
+    def get_partner_events(self, partner_id=''):
+        events = self.conn.execute(get_ocp_events % \
+        dict(partner_id=partner_id))
+        return events

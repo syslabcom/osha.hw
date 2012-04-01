@@ -3,6 +3,11 @@
            xmlns:five="http://namespaces.zope.org/five"
            xmlns:zcml="http://namespaces.zope.org/zcml">
 
+    <browser:resource
+        name="hw_partners.css"
+        file="styles/hw_partners.css"
+        />
+
     <browser:page
         for="*"
         name="ws_add_partner"
@@ -48,6 +53,14 @@
         name="hw_ocps"
         class=".profile.OCPsOverview"
         template="templates/ocps_overview.pt"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="*"
+        name="hw_ocp_detail"
+        class=".profile.OCPDetail"
+        template="templates/ocp_detail.pt"
         permission="zope.Public"
         />
 
