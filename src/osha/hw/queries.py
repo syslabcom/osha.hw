@@ -236,6 +236,14 @@ UPDATE campaign_fops SET
 WHERE ID = '%(id)s'
 """
 
+get_ocps = """
+SELECT * FROM campaign_ocps
+ORDER BY title"""
+
+get_fops = """
+SELECT * FROM campaign_fops
+ORDER BY title"""
+
 is_ocp_event_available = """
 SELECT count(*) FROM ocp_events
 WHERE partner_id='%(partner_id)s' AND id='%(id)s'
