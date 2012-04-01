@@ -79,7 +79,7 @@ class AddImage(BaseDBView):
 
 class AddEvent(BaseDBView):
 
-    def __call__(self, partner_id, partner_type,  id, title, description,
+    def __call__(self, partner_id, partner_type, id, title, description,
     text, start, end, location, attendees, eventurl, contactname, contactemail,
     contactphone, dateToBeConfirmed, attachment_data, attachment_name):
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
@@ -149,4 +149,67 @@ class AddEvent(BaseDBView):
                 self.conn.execute(inserter % dict(partner_id=partner_id,
                     id=id, url='/'.join(ob.getPhysicalPath())))
 
+        return 0
+
+
+class AddNews(BaseDBView):
+
+    def __call__(self, partner_id, partner_type, id, title, description, text,
+    effective, image):
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        pwt = portal.portal_workflow
+        targetfolder = self.context
+
+        if not getattr(targetfolder, id, None):
+            targetfolder.invokeFactory(id=id, type_name=u"News Item")
+
+        ob = getattr(targetfolder, id, None)
+        if ob is None:
+            return "Error, object not found"
+
+        # if there's only content in text, but none in description:
+        if text != '' and description == '':
+            description = text
+            text = ''
+
+        ob.setTitle(title)
+        # all news items are language neutral I assume
+        ob.setLanguage('')
+        ob.setDescription(description)
+        ob.setText(text)
+        ob.setEffectiveDate(DateTime(effective))
+
+        ob.setImage(image.data)
+
+        # #set Subject
+        ob.setSubject('maintenance')
+
+        # publish
+        try:
+            pwt.doActionFor(ob, 'publish')
+        except:
+            pass
+
+        log.info('Transferred item with Title "%s" to URL: %s' % \
+        (title, ob.absolute_url()))
+
+        ob.reindexObject()
+
+        if partner_id:
+            if partner_type == 'OCP':
+                checker = is_ocp_news_available
+                updater = update_ocp_news
+                inserter = insert_ocp_news
+            elif partner_type == 'FOP':
+                checker = is_fop_news_available
+                updater = update_fop_news
+                inserter = insert_fop_news
+
+            if self.conn.scalar(checker % \
+            dict(partner_id=partner_id, id=id)) > 0:
+                self.conn.execute(updater % dict(partner_id=partner_id, id=id,
+                    url='/'.join(ob.getPhysicalPath())))
+            else:
+                self.conn.execute(inserter % dict(partner_id=partner_id,
+                    id=id, url='/'.join(ob.getPhysicalPath())))
         return 0

@@ -14,3 +14,7 @@ class IAddImage(Interface):
 
 class IAddEvent(Interface):
     """ Add an event and link it to a profile"""
+
+
+class IAddNews(Interface):
+    """ Add a news item and link it to a profile """

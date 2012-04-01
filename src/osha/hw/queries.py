@@ -273,3 +273,41 @@ url = '%(url)s'
 WHERE
 partner_id='%(partner_id)s' AND id='%(id)s'
 """
+
+is_ocp_news_available = """
+SELECT count(*) FROM ocp_news
+WHERE partner_id='%(partner_id)s' AND id='%(id)s'
+"""
+
+is_fop_news_available = """
+SELECT count(*) FROM fop_news
+WHERE partner_id='%(partner_id)s' AND id='%(id)s'
+"""
+
+insert_ocp_news = """
+INSERT INTO ocp_news
+("partner_id", "id", "url")
+VALUES
+('%(partner_id)s', '%(id)s', '%(url)s')
+"""
+
+update_ocp_news = """
+UPDATE ocp_news SET
+url = '%(url)s'
+WHERE
+partner_id='%(partner_id)s' AND id='%(id)s'
+"""
+
+insert_fop_news = """
+INSERT INTO fop_news
+("partner_id", "id", "url")
+VALUES
+('%(partner_id)s', '%(id)s', '%(url)s')
+"""
+
+update_fop_news = """
+UPDATE fop_news SET
+url = '%(url)s'
+WHERE
+partner_id='%(partner_id)s' AND id='%(id)s'
+"""

@@ -37,6 +37,14 @@
 
     <browser:page
         for="*"
+        name="ws_add_news"
+        class=".sync_receiver.AddNews"
+        permission="zope.Public"
+        allowed_interface="osha.hw.interfaces.IAddNews"
+        />
+
+    <browser:page
+        for="*"
         name="hw_db_init"
         class=".sync_receiver.DBSetup"
         permission="cmf.ManagePortal"
