@@ -1,0 +1,145 @@
+div#portletNews, div#portletEvents{
+display:none;
+}
+
+div.listing  {
+margin-right:-1em;
+width:680px;
+}
+
+.listing .partner {
+width:192px;
+background-color:white;
+float:left;
+height:180px;
+margin:0 3px 3px 0;
+overflow:hidden;
+padding:1em;
+text-align:center;
+
+}
+.partner{
+-moz-box-shadow:0 0 2em #AAAAAA inset;
+}
+.listing .partner .tabled {
+display:inline-table;
+height:100%; 
+}
+div.listing .partner .floater{
+float:left;
+height:50%;
+margin-bottom:-80px;
+}
+div.listing .partner  .verticalCentered {
+display:table-cell;
+vertical-align:middle; 
+}
+
+div#mainContent a:link, 
+div#mainContent a:visited, 
+div#mainContent a:hover, 
+div#mainContent a:active {
+border-bottom:medium none;
+color:#214890;
+text-decoration:none;
+font-weight: normal;
+line-height: 1.25em;
+}
+
+#CEO {
+float: left;
+color:#333333;
+font-weight:normal;
+font-size: 1em;
+margin-right:1em;
+}
+
+.documentDescription{
+color:#7F7F7F;
+font-size:1em;
+font-weight:bold;
+margin:1em 0 1ex;
+}
+
+#partner-profile {
+border-top:1px dotted #CCCCCC;
+clear:left;
+padding:1ex 0;
+}
+
+.detailsListing dt {
+color:#333333;
+float:left;
+font-weight:normal;
+}
+
+.detailsListing dd {
+color:#7F7F7F;
+margin-left:12em;
+}
+
+.tabled img {
+margin-bottom:0;
+}
+
+/* +++++++ expandable content +++++++
+ */
+.expandable {
+    margin: 1em 0;
+}
+
+.expandable .expandableHeader {
+    border-style: none;
+    background: scroll no-repeat 99% center #214890;
+    color: #fff;
+    padding: 2px 0.7ex;
+    margin: 0.5em 0 0;
+}
+h2.expandableHeader {
+    font-weight: bold;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.closed .expandableHeader {
+    background-image: url('/portal_skins/custom/expand_icon.png');
+}
+.opened .expandableHeader {
+    background-image: url('/portal_skins/custom/collapse_icon.png');
+}
+.expandable .expandableContent {
+    display: none;
+    margin-top: 1ex;
+}
+.expandableContent tr {
+    line-height: 1.5em;
+}
+
+.uploads .creator,
+.uploads .fileSize {
+    padding-left: 26px;
+}
+
+#content .expandableContent dt {
+    font-weight: normal;
+    color: #333;
+    clear: left;
+    float: left;
+    padding-right: 10px;
+    margin: 0 0 0.65em 1px;
+
+}
+
+.detailsHeadline {
+    color: #214890;
+    font-weight: bold;
+    line-height: 1em;
+    margin: 0.3ex 0 0.5ex;
+}
+
+h2.detailsHeadline {
+    font-size: 1.1em;
+}
+h3.detailsHeadline {
+    font-size: 1.05em;
+}
