@@ -11,38 +11,39 @@
   <div metal:fill-slot="main">
     <div id="mainContent"
     tal:define="partners view/get_partners_atoz;
-                  letters partners/keys;
-                  dummy python:letters.sort();
-                  folder python:here.getCanonical().restrictedTraverse('eu-partners-folder');
-                  img_folder python:getattr(folder.getCanonical(), 'img')">
+                letters partners/keys;
+                dummy python:letters.sort();
+                folder python:here.getCanonical().restrictedTraverse('focal-points-folder');
+                img_folder python:getattr(folder.getCanonical(), 'img')">
+
     <h1 class="documentFirstHeading">
         <span id="parent-fieldname-title" tal:content="here/Title">Partners</span>
-    </h1>
+     </h1>
 
-        <p class="documentDescription">
+    <p class="documentDescription">
         <span id="parent-fieldname-description" tal:content="here/Description"></span>
-        </p>
+    </p>
 
-        <div id="parent-fieldname-text">
-            <span tal:replace="structure here/getText"></span>
+    <div id="parent-fieldname-text">
+        <span tal:replace="structure here/getText"></span>
 
-            <hr/>
-            <div class="partnerListing">
-                <h2>Partner listing</h2>
-                <ul class="abecedaire" id="abc">
-                    <li tal:repeat="letter letters">
-                        <a href="#a" tal:attributes="href string:#$letter" tal:content="letter">A</a>
-                    </li>
-                </ul>
+        <hr/>
+        <div class="partnerListing">
+            <h2>European Focal Points</h2>
+            <ul class="abecedaire" id="abc">
+                <li tal:repeat="letter letters">
+                    <a href="#a" tal:attributes="href string:#$letter" tal:content="letter">A</a>
+            </li>
+            </ul>
 
-                <span tal:repeat="letter letters" tal:omit-tag="">
-                    <a class="toTop" href="#abc">Back to top</a>
-                    <h3 id="a" tal:attributes="id letter" tal:content="letter">
-                        A
-                    </h3>
-                    <ul class="logoCloud">
-                        <li tal:repeat="partner python:partners[letter]">
-                            <span  tal:define="id partner/id;
+            <span tal:repeat="letter letters" tal:omit-tag="">
+                <a class="toTop" href="#abc">Back to top</a>
+                <h3 id="a" tal:attributes="id letter" tal:content="letter">
+                    A
+                </h3>
+                <ul class="logoCloud">
+                    <li tal:repeat="partner python:partners[letter]">
+                        <span  tal:define="id partner/id;
                             url string:${folder/absolute_url}/detail?id=$id;
                             logo python:getattr(img_folder, '%s_logo.jpg' % id, None) or getattr(img_folder, '%s_logo.gif' % id, None) or
                             getattr(img_folder, '%s_logo.png' % id, None);
@@ -56,8 +57,8 @@
                 </span>
             </div>
         </div>
-        </div>
-   s </div>
+    </div>
+  </div>
 </body>
 
 </html>

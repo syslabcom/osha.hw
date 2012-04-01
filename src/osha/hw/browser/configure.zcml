@@ -53,6 +53,14 @@
 
     <browser:page
         for="*"
+        name="hw_fops"
+        class=".profile.FOPsOverview"
+        template="templates/fops_overview.pt"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="*"
         name="hw_db_init"
         class=".sync_receiver.DBSetup"
         permission="cmf.ManagePortal"

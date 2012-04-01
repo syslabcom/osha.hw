@@ -5,11 +5,11 @@ from osha.hw.queries import *
 
 
 class OCPsOverview(BaseDBView):
-    
+
     def get_partners(self):
         res = self.conn.execute(get_ocps)
         return res
-    
+
     def get_partners_atoz(self):
         partners = self.conn.execute(get_ocps)
         atoz = dict()
@@ -19,5 +19,24 @@ class OCPsOverview(BaseDBView):
                 atoz[initial].append(partner)
             else:
                 atoz[initial] = [partner]
-                
+
+        return atoz
+
+
+class FOPsOverview(BaseDBView):
+
+    def get_partners(self):
+        res = self.conn.execute(get_fops)
+        return res
+
+    def get_partners_atoz(self):
+        partners = self.conn.execute(get_fops)
+        atoz = dict()
+        for partner in partners:
+            initial = partner["title"][0].upper()
+            if initial in atoz:
+                atoz[initial].append(partner)
+            else:
+                atoz[initial] = [partner]
+
         return atoz
