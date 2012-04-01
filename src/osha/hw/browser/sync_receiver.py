@@ -1,3 +1,4 @@
+from OFS.Image import File
 from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
 from collective.lead.interfaces import IDatabase
@@ -5,6 +6,9 @@ from Products.Five import BrowserView
 from zope.component import getUtility
 import sqlalchemy
 from osha.hw.queries import *
+
+from logging import getLogger
+log = getLogger('osha.hw sync-receiver')
 
 
 class BaseDBView(BrowserView):
@@ -69,5 +73,80 @@ class AddImage(BaseDBView):
 
         ob = getattr(targetfolder, id)
         ob.setImage(image.data)
+
+        return 0
+
+
+class AddEvent(BaseDBView):
+
+    def __call__(self, partner_id, partner_type,  id, title, description,
+    text, start, end, location, attendees, eventurl, contactname, contactemail,
+    contactphone, dateToBeConfirmed, attachment_data, attachment_name):
+        portal = getToolByName(self.context, 'portal_url').getPortalObject()
+        pwt = getToolByName(portal, 'portal_workflow')
+
+        targetfolder = self.context
+        if id not in targetfolder.objectIds():
+            targetfolder.invokeFactory(id=id, type_name=u"Event")
+
+        ob = getattr(targetfolder, id, None)
+        if ob is None:
+            return "Error, object not found"
+
+        ob.setTitle(title)
+        # all events language neutral I assume
+        ob.setLanguage('')
+        ob.setDescription(description)
+        ob.setText(text)
+        ob.setStartDate(start)
+        ob.setEndDate(end)
+        ob.setLocation(location)
+        ob.setAttendees(attendees)
+        ob.setEventUrl(eventurl)
+        ob.setContactName(contactname)
+        ob.setContactEmail(contactemail)
+        ob.setContactPhone(contactphone)
+        tbc = ob.getField('dateToBeConfirmed')
+        if tbc:
+            tbc.getMutator(ob)(dateToBeConfirmed)
+
+        # set the subcategory
+        ob.setSubcategory('maintenance')
+        #import pdb; pdb.set_trace()
+
+        # Set attachment
+        if len(attachment_data.data) > 0:
+            mutator = ob.getField('attachment').getMutator(ob)
+            fileob = File(attachment_name, attachment_name,
+                attachment_data.data)
+            setattr(fileob, 'filename', attachment_name)
+            mutator(fileob)
+
+        # publish
+        try:
+            pwt.doActionFor(ob, 'publish')
+        except:
+            pass
+
+        ob.reindexObject()
+        log.info('Created new event at %s' % ob.absolute_url())
+
+        if partner_id:
+            if partner_type == 'OCP':
+                checker = is_ocp_event_available
+                updater = update_ocp_event
+                inserter = insert_ocp_event
+            elif partner_type == 'FOP':
+                checker = is_fop_event_available
+                updater = update_fop_event
+                inserter = insert_fop_event
+
+            if self.conn.scalar(checker % \
+            dict(partner_id=partner_id, id=id)) > 0:
+                self.conn.execute(updater % dict(partner_id=partner_id, id=id,
+                    url='/'.join(ob.getPhysicalPath())))
+            else:
+                self.conn.execute(inserter % dict(partner_id=partner_id,
+                    id=id, url='/'.join(ob.getPhysicalPath())))
 
         return 0

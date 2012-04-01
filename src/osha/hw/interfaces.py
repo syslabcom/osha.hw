@@ -10,3 +10,7 @@ class IAddFOP(Interface):
 
 class IAddImage(Interface):
     """ Add an image to a partner or FOP"""
+
+
+class IAddEvent(Interface):
+    """ Add an event and link it to a profile"""

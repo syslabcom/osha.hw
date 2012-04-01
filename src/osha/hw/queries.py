@@ -195,7 +195,7 @@ WHERE ID = '%(id)s'
 """
 
 is_fop_available = """
-SELECT count(*) from campaign_fops
+SELECT count(*) FROM campaign_fops
 WHERE id = '%(id)s'"""
 
 insert_fop = """
@@ -234,4 +234,42 @@ UPDATE campaign_fops SET
 '%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
 '%(creation_date)s', '%(modification_date)s')
 WHERE ID = '%(id)s'
+"""
+
+is_ocp_event_available = """
+SELECT count(*) FROM ocp_events
+WHERE partner_id='%(partner_id)s' AND id='%(id)s'
+"""
+
+is_fop_event_available = """
+SELECT count(*) FROM fop_events
+WHERE partner_id='%(partner_id)s' AND id='%(id)s'
+"""
+
+insert_ocp_event = """
+INSERT INTO ocp_events
+("partner_id", "id", "url")
+VALUES
+('%(partner_id)s', '%(id)s', '%(url)s')
+"""
+
+update_ocp_event = """
+UPDATE ocp_events SET
+url = '%(url)s'
+WHERE
+partner_id='%(partner_id)s' AND id='%(id)s'
+"""
+
+insert_fop_event = """
+INSERT INTO fop_events
+("partner_id", "id", "url")
+VALUES
+('%(partner_id)s', '%(id)s', '%(url)s')
+"""
+
+update_fop_event = """
+UPDATE fop_events SET
+url = '%(url)s'
+WHERE
+partner_id='%(partner_id)s' AND id='%(id)s'
 """
