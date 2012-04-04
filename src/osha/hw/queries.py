@@ -244,6 +244,14 @@ get_fops = """
 SELECT * FROM campaign_fops
 ORDER BY title"""
 
+get_ocp_by_id = """
+SELECT * FROM campaign_ocps
+WHERE id='%(id)s'"""
+
+get_fop_by_id = """
+SELECT * FROM campaign_fops
+WHERE id='%(id)s'"""
+
 is_ocp_event_available = """
 SELECT count(*) FROM ocp_events
 WHERE partner_id='%(partner_id)s' AND id='%(id)s'
@@ -253,6 +261,14 @@ is_fop_event_available = """
 SELECT count(*) FROM fop_events
 WHERE partner_id='%(partner_id)s' AND id='%(id)s'
 """
+
+get_ocp_events = """
+SELECT * FROM ocp_events
+WHERE partner_id='%(partner_id)s'"""
+
+get_fop_events = """
+SELECT * FROM fop_events
+WHERE partner_id='%(partner_id)s'"""
 
 insert_ocp_event = """
 INSERT INTO ocp_events

@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="osha"
+      lang="en">
+  <body>
+    <metal:main fill-slot="main"
+                tal:define='doc_list python:context.getFolderContents({"portal_type":"Document"});
+                            first_doc python:doc_list and doc_list[0].getObject() or None;
+                            title python:first_doc and first_doc.Title or None;
+                            body python:first_doc and first_doc.getText() or None;
+                            folders python:context.getFolderContents({"portal_type":"Folder"});
+                            images python:context.getFolderContents({"portal_type":"Image"});
+                            '>
+      <div id="column-a">
+
+        <tal:image repeat="image images">
+          <img tal:attributes="src string:${image/getId}/image_hwc2012preview" />
+        </tal:image>
+
+      </div>
+
+      <div id="column-b">
+        <h1 id="title" tal:content="title" />
+        <div id="body" tal:content="structure body" />
+
+        <ul class="navigation" >
+          <li tal:repeat="folder folders">
+            <a data-injection="#mainContent"
+               data-setclass="id='body'!values='template-*:template-content-a"
+               tal:content="folder/Title"
+               tal:attributes="href string:${folder/getId}#mainContent#appendix" />
+          </li>
+        </ul>
+
+      </div>
+
+    </metal:main>
+  </body>
+</html>
