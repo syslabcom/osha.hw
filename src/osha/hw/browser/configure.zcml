@@ -66,6 +66,14 @@
 
     <browser:page
         for="*"
+        name="hw_fop_detail"
+        class=".profile.FOPDetail"
+        template="templates/fop_detail.pt"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="*"
         name="hw_fops"
         class=".profile.FOPsOverview"
         template="templates/fops_overview.pt"
