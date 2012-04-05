@@ -13,7 +13,7 @@
     tal:define="partners view/get_partners_atoz;
                   letters partners/keys;
                   dummy python:letters.sort();
-                  folder python:here.getCanonical().restrictedTraverse('eu-partners-folder');
+                  folder python:here.aq_parent;
                   img_folder python:getattr(folder.getCanonical(), 'img')">
     <h1 class="documentFirstHeading">
         <span id="parent-fieldname-title" tal:content="here/Title">Partners</span>

@@ -270,6 +270,15 @@ get_fop_events = """
 SELECT * FROM fop_events
 WHERE partner_id='%(partner_id)s'"""
 
+get_ocp_news = """
+SELECT * FROM ocp_news
+WHERE partner_id='%(partner_id)s'"""
+
+get_fop_news = """
+SELECT * FROM fop_news
+WHERE partner_id='%(partner_id)s'"""
+
+
 insert_ocp_event = """
 INSERT INTO ocp_events
 ("partner_id", "id", "url")

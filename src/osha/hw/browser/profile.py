@@ -52,3 +52,8 @@ class OCPDetail(BaseDBView):
         events = self.conn.execute(get_ocp_events % \
         dict(partner_id=partner_id))
         return events
+
+    def get_partner_news(self, partner_id=''):
+        events = self.conn.execute(get_ocp_news % \
+        dict(partner_id=partner_id))
+        return events
