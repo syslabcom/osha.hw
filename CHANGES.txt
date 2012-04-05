@@ -1,8 +1,10 @@
 Changelog
 =========
 
-0.1dev (unreleased)
--------------------
+0.1 (2012-04-05)
+----------------
 
-- Package created using zopeskel
-  []
+- Added synchronisation receiver and display of synced data. Taken from ZODB
+  code on OSHA production [thomasw]
+- Added skins-dir hw2010, taken from ZODB code on OSHA production [thomasw]
+
