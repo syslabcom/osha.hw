@@ -7,14 +7,15 @@
       lang="en">
   <body>
     <metal:main fill-slot="main"
-                tal:define='doc_list python:context.getFolderContents({"portal_type":"Document"});
-                            first_doc python:doc_list and doc_list[0].getObject() or None;
-                            title python:first_doc and first_doc.Title or None;
-                            body python:first_doc and first_doc.getText() or None;
-                            folders python:context.getFolderContents({"portal_type":"Folder"});
-                            images python:context.getFolderContents({"portal_type":"Image"});
-                            first_image python:images and images[0].getObject() or None;
-                            '>
+           tal:define='doc_list python:context.getFolderContents({"portal_type":"Document"});
+               first_doc python:doc_list and doc_list[0].getObject() or None;
+               title python:first_doc and first_doc.Title or None;
+               body python:first_doc and first_doc.getText() or None;
+               folders python:context.getFolderContents({"portal_type":"Folder"});
+               images python:context.getFolderContents({"portal_type":"Image"});
+               first_image python:images and images[0].getObject() or None;
+               myarea python:request.RESPONSE.addHeader("X-Deliverance-Page-Class", "general landingpage %s" % context.getId());
+               '>
       <section tal:attributes="class context/getId">
 
         <div id="introduction">

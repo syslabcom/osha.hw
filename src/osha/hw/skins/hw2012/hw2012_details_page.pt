@@ -7,24 +7,14 @@
       lang="en">
   <body>
     <metal:main fill-slot="main"
-                tal:define='doc_list python:context.getFolderContents({"portal_type":"Document"});
-                            first_doc python:doc_list and doc_list[0].getObject() or None;
-                            title python:first_doc and first_doc.Title or None;
-                            body python:first_doc and first_doc.getText() or None;
-                            folders python:context.getFolderContents({"portal_type":"Folder"});
-                            images python:context.getFolderContents({"portal_type":"Image"});
-                            '>
-      <div id="column-a">
-
-        <tal:image repeat="image images">
-          <img tal:attributes="src string:${image/getId}/image_hwc2012preview" />
-        </tal:image>
-
-      </div>
-
-      <div id="column-b">
-        <h1 id="title" tal:content="title" />
-        <div id="body" tal:content="structure body" />
+    tal:define='title here/Title;
+                body here/getText;
+                folders python:context.getFolderContents({"portal_type":"Folder"});
+                images python:context.getFolderContents({"portal_type":"Image"});
+                detail_type python:context.aq_explicit.getProperty("detail_type", "detail-benefits");
+                myarea python:request.RESPONSE.addHeader("X-Deliverance-Page-Class", "general detail %s" % detail_type);
+                '>
+       <div id="body" tal:content="structure body" />
 
         <ul class="navigation" >
           <li tal:repeat="folder folders">
@@ -34,9 +24,6 @@
                tal:attributes="href string:${folder/getId}#mainContent#appendix" />
           </li>
         </ul>
-
-      </div>
-
     </metal:main>
   </body>
 </html>
