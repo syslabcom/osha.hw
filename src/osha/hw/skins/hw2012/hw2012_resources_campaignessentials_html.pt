@@ -1,0 +1,119 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="osha">
+
+  <head>
+  </head>
+  <body>
+    <div metal:fill-slot="main">
+      <div id="content"
+           tal:define="lang context/portal_languages/getPreferredLanguage">
+<tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'fullpage')" />
+        <h1><span tal:content="here/Title">Campaign Essentials</span></h1>
+        <p class='documentDescription'><span id='parent-fieldname-description' tal:replace="here/Description"></span></p>
+
+
+
+       <!-- Really nasty: the files are "translated" into all languages - but in some langs, the file itself is empty! -->
+          <!-- If the size of the translated versions is zero, use the canonical one -->
+
+
+          <tal:guide define="folder python:getattr(context, 'campaign-guide');
+                                            pdfs python:folder.listFolderContents(contentFilter={'portal_type':'File'});
+                                            can_pdfs python:[x.getCanonical() for x in pdfs]"
+                   repeat="cnt python:range(len(pdfs))">
+          <span tal:define="local_pdf python:pdfs[cnt];
+                    can_pdf python:can_pdfs[cnt];
+                    pdf python:local_pdf.size() and local_pdf or can_pdf">
+           <h2 tal:content="folder/Title">Campaign Guide</h2>
+            <h3 tal:content="pdf/Title">Title</h3>
+            <p tal:content="pdf/Description">Description</p>
+            <p class="file-widget"><span metal:use-macro="python:pdf.widget('file', mode='view')">
+              Download
+            </span></p>
+          </span>
+          </tal:guide>
+
+         <hr />
+
+          
+          <h2 tal:content="python:getattr(context, 'slideshow-presentations').Title()">Slideshow presentations</h2>
+          <tal:presentations on-error="string:bah" repeat="pdf python:context['slideshow-presentations'].listFolderContents(contentFilter={'portal_type':'File'})">
+            <a href="#" tal:on-error="string:bah"
+               tal:attributes="href python:pdf.absolute_url()">
+              <img 
+                   tal:attributes="src python:(pdf.absolute_url()[0:-3]+'gif').replace('http://osha.europa.eu/%s/'%lang, 'http://osha.europa.eu/en/')+'/image_hwmini'" /></a>
+            <h3 tal:content="pdf/Title">Title</h3>
+            <p tal:content="pdf/Description">Description</p>
+            <p class="file-widget"><span metal:use-macro="python:pdf.widget('file', mode='view')">
+              Download
+            </span></p>
+
+          </tal:presentations>
+
+        <hr/>
+
+          <tal:presentations define="ob python:context['worker-participation-guide']">
+               <h2 tal:content="ob/Title">Worker Participation Guide</h2>
+               <span  tal:repeat="item python:ob.listFolderContents(contentFilter={'portal_type':'File'})">
+                   <h3 tal:content="item/Title">Title</h3>
+                   <p tal:content="item/Description">Description</p>
+                   <p class="file-widget"><span metal:use-macro="python:item.widget('file', mode='view')">
+                       Download
+                   </span></p>
+              </span>
+          </tal:presentations>
+
+
+        <hr/>
+
+          <tal:presentations define="ob python:context['leadership-guide']">
+               <h2 tal:content="ob/Title">Leadership Guide</h2>
+               <span  tal:repeat="item python:ob.listFolderContents(contentFilter={'portal_type':'File'})">
+                   <h3 tal:content="item/Title">Title</h3>
+                   <p tal:content="item/Description">Description</p>
+                   <p class="file-widget"><span metal:use-macro="python:item.widget('file', mode='view')">
+                       Download
+                   </span></p>
+              </span>
+          </tal:presentations>
+
+<hr/>
+
+          <tal:presentations define="ob python:context['ESENER-report']">
+               <h2 tal:content="ob/Title">ESENER report</h2>
+               <span  tal:repeat="item python:ob.listFolderContents(contentFilter={'portal_type':'File'})">
+                   <h3 tal:content="item/Title">Title</h3>
+                   <p tal:content="item/Description">Description</p>
+                   <p class="file-widget"><span metal:use-macro="python:item.widget('file', mode='view')">
+                       Download
+                   </span></p>
+              </span>
+          </tal:presentations>
+
+<!--
+        <tal:factsheets define="folder python:getattr(context, 'factsheets');
+                                can_folder folder/getCanonical;
+                                pdfs python:folder.listFolderContents(contentFilter={'portal_type':'File'});
+                                image python:getattr(can_folder, 'factsheets.gif', None)"
+                condition="python:len(pdfs)">
+            <img class="outdent floatBefore" tal:condition="image"
+                   tal:attributes="src image/absolute_url" />
+            <h2 tal:content="folder/Title">factsheets</h2>
+               <span  tal:repeat="item pdfs">
+                   <h3 tal:content="item/Title">Title</h3>
+                   <p tal:content="item/Description">Description</p>
+                   <p class="file-widget"><span metal:use-macro="python:item.widget('file', mode='view')">
+                       Download
+                   </span></p>
+              </span>
+        </tal:factsheets>
+-->
+      </div>
+    </div>
+  </body>
+</html>

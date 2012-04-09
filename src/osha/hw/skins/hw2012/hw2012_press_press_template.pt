@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+</head>
+<body>
+<metal:main fill-slot="main">
+<tal:main-macro metal:define-macro="main">
+<div id="mainContent" tal:define="results here/queryCatalog;
+        portalurl here/portal_url;
+        preflang python:here.portal_languages.getPreferredLanguage()">
+<tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'fullpage')" />
+	<h1 tal:content="here/Title">News</h1>
+	
+	
+    <div id="introduction" tal:content="here/Description"> 
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+	
+
+<tal:block repeat="item results">    
+  <tal:def define="obj item/getObject" on-error="nothing">
+    <div tal:define="first repeat/item/start; 
+          dynclass python: first and 'first' or ''; 
+          presslink string:$portalurl/$preflang/campaigns/hw2012/press-and-multimedia/press/@@slc.telescope?path=${item/getPath}"  class="newsItem" tal:attributes="class python:'newsItem '+dynclass" >
+    <p class="metaData">        
+        <a tal:attributes="href presslink" 
+           href="http://osha.europa.eu/en/teaser/health-risks-in-cleaning-industry" class="parent-fieldname-image">
+        <em tal:define="date python:item['effective']"><span tal:replace="python:toLocalizedTime(date)"></span><!--strong tal:content="string:${date/Day} ${date/Month}">30 October</strong> <tal:block replace="date/year">2009</tal:block--></em>
+      <span tal:define="im obj/getImage" tal:condition="im">
+        <img tal:define="im obj/getImage" width="270"
+                 tal:attributes="src im/absolute_url; alt item/Title">
+     </span></a></p>
+      <h4><a tal:attributes="href presslink" href="#" tal:content="item/Title">EU-OSHA targets health risks in cleaning industry for European Week 2009</a></h4>
+    
+        <p><span tal:replace="structure item/Description"> The health and safety of the 3.6 million Europeans who work in the cleaning sector is the focus of this year’s European Week for Health and Safety at Work (19 to 23 October). The Week also showcases two major new reports on cleaners, giving best-practice advice on how to cut the high rate of illness and accidents in the sector. Sectoral videos on risk management in cleaning, HORECA and construction are now available on the web.</span>
+                <a tal:attributes="href presslink" 
+           href="http://osha.europa.eu/en/teaser/health-risks-in-cleaning-industry">Read the full text in the OSHA press room.</a>
+</p>
+    </div>
+  </tal:def>
+</tal:block>
+
+
+      <hr/>
+      <div id="addresses" class="message notice" tal:on-error="nothing">
+
+        <dl id="press-contacts">
+            <span tal:repeat="contact here/hw2012_get_presscontacts">
+                <dt>
+                    <strong tal:content="contact/Description">International press</strong><br/>
+                    <span tal:replace="contact/Title" />,<br/>
+                    <span tal:replace="contact/getJobtitle" /><br/>
+                    <span tal:replace="contact/getOrganization" />,<br/>
+                    <span tal:replace="contact/getCity" />, <span tal:replace="contact/getStateOrProvince" /><br/>
+	                <tal:if condition="contact/getPhone">
+	                   Tel: <span tal:replace="contact/getPhone" /><br/>
+	                </tal:if>
+	                <tal:if condition="contact/getCellphone">
+	                    Mobile: <span tal:replace="contact/getCellphone" /><br/>
+	                </tal:if>
+	                <tal:if condition="contact/getEmail">
+	                    <a tal:attributes="href string:mailto:${contact/getEmail}" tal:content="contact/getEmail"/>
+                        </tal:if>
+                    <span tal:condition="not:repeat/contact/end"><br/><br/></span>
+                  </dt>
+  
+            </span>
+
+          </dl>
+      </div>
+
+</div>
+</tal:main-macro>
+</metal:main>
+</body>
+</html>
