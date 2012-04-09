@@ -10,6 +10,13 @@
 
     <browser:page
         for="*"
+        name="hw_get_thumb"
+        class=".helper.GetThumb"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="*"
         name="ws_add_partner"
         class=".sync_receiver.AddOCP"
         permission="zope.Public"
