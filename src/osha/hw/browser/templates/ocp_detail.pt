@@ -39,7 +39,7 @@
                     CEO<br>
                     <span tal:replace="partner/ceoname">Name</span>
                 </div>
-                <div class="documentDescription" id="parent-fieldname-description" tal:content="partner/description">quote</div>
+                <div class="documentDescription" id="parent-fieldname-description"><span id="ceoquote">[CEO quote]</span> <span tal:content="partner/description">quotes</span></div>
 
 
                 <div id="content-core"
@@ -55,10 +55,13 @@
                         <dt>Mission statement:</dt>
                         <dd tal:content="partner/missionstatement">mission</dd>
 
-                        <dt>Campaign URL:</dt>
+                        <dt>URL:</dt>
                         <dd>
                             <a href="" tal:attributes="href url" tal:content="url">url</a>
                         </dd>
+
+                        <dt>Our Campaign Pledge:</dt>
+                        <dd tal:content="partner/campaign_pledge">pledge</dd>
                     </dl>
                 </div>
 
