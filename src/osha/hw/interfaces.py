@@ -24,3 +24,6 @@ class IHelperView(Interface):
     
     def set_views():
         """ sets the views on all folders """
+
+    def getTranslations():
+        """ return translations of current item """

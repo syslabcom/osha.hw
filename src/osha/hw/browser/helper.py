@@ -4,12 +4,16 @@ from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
 from Products.Five import BrowserView
 from zope.component import getUtility
+from zope.interface import implements
+from osha.hw.interfaces import IHelperView
+from slc.subsite.root import getSubsiteRoot
 
 from logging import getLogger
 log = getLogger('osha.hw helper')
 
 IEXT = ('gif', 'jpg', 'png')
 TOPLEVELFOLDERS = ('about', 'get-involved', 'leadership', 'media', 'resources', 'worker-participation')
+
 
 class GetThumb(BrowserView):
 
@@ -19,12 +23,12 @@ class GetThumb(BrowserView):
         obj = aq_inner(self.context)
         now = DateTime()
         yesterday = now-1
-        
+
         portal = getToolByName(self.context, 'portal_url').getPortalObject()
         response = self.request.RESPONSE
         response.setHeader('Last-Modified', yesterday.ISO())
         response.setHeader('Cache-Control', 'max-age=86400, proxy-revalidate, public')
-        
+
         myid = obj.getId()
         if '.' in myid:
             elems = myid.split('.')
@@ -50,28 +54,63 @@ class GetThumb(BrowserView):
 
 class HelperView(BrowserView):
     """ Helper View to manage the campaign site setup """
-    
+    implements(IHelperView)
+
+    def __init__(self, context, request=None):
+        self.context = context
+        self.ltool = getToolByName(context, 'portal_languages')
+        self.pref_lang = self.ltool.getPreferredLanguage()
+        self.supported_langs = self.ltool.getSupportedLanguages()
+        self.available_langs = self.ltool.getAvailableLanguages()
+        self.subsite_path = getSubsiteRoot(aq_inner(context))
+
+    def getTranslations(self):
+        langinfo = self.ltool.getAvailableLanguageInformation()
+        translations = self.context.getTranslations()
+        langs = translations.keys()
+        langs.sort()
+        for lang in langs:
+            if lang not in self.available_langs:
+                continue
+            obj = translations[lang][0]
+            info = langinfo.get(lang, None)
+            native = info is not None and info.get('native', lang) or lang
+            yield dict(obj=obj, lang=lang, native=native)
+
+    def getNavigation(self):
+        root = self.context.restrictedTraverse(self.subsite_path)
+        langroot = getattr(root, self.pref_lang, getattr(root, 'en'))
+        landing_pages = [x.getObject() for x in langroot.getFolderContents( \
+        {'portal_type':'Folder'})]
+        landing_pages = [x for x in landing_pages if not x.getExcludeFromNav()]
+        for landing_page in landing_pages:
+            detail_pages = landing_page.getFolderContents({'portal_type':  'Folder'})
+            yield (landing_page, detail_pages)
+
+    def getHomeURL(self):
+        # hardcoded for the moment
+        return "http://hw2012.syslab.com"
+
     def set_views(self):
         """ sets the views on all folders """
         # make sure we are called on the campaign root folder
         assert (self.context.getId()=='hw2012')
-        langs = self.context.portal_languages.getSupportedLanguages()
         msg = "HW Helper - set_views\n====================\n\n"
-        for lang in langs:
+        for lang in self.supported_langs:
             msg += "LANGUAGE: %s\n============\n\n" % lang.upper()
 
             if not hasattr(self.context.aq_explicit, lang):
                 continue
 
             langfolder = getattr(self.context, lang, None)
+            if not langfolder:
+                continue
             for toplevel in TOPLEVELFOLDERS:
                 if hasattr(langfolder.aq_explicit, toplevel):
                     toplevelfolder = getattr(langfolder, toplevel, None)
                     msg += self._sp(toplevelfolder, 'layout', 'hw2012_landing_page')
-                    dt = toplevelfolder.getDefaultPage()
-                    if dt in toplevelfolder.objectIds():
-                        msg += self._sp(getattr(toplevelfolder, dt), 'layout', 'hw2012_landing_page')
-                    
+
+
                     for sub in toplevelfolder.objectValues('ATFolder'):
                         dv = sub.getDefaultPage()
                         if dv in sub.objectIds():
@@ -79,10 +118,10 @@ class HelperView(BrowserView):
                         else:
                             msg += self._sp(sub, 'layout', 'hw2012_details_page')
 
-        self.request.RESPONSE.setHeader('Content-type', 'text/plain')    
+        self.request.RESPONSE.setHeader('Content-type', 'text/plain')
         return msg
-        
-        
+
+
     def _sp(self, ob, id, value, type="string"):
         """ simple set property. Checks if present """
         msg = ""
@@ -98,8 +137,5 @@ class HelperView(BrowserView):
             ob._updateProperty(id, value)
             msg+=".. update layout property: %s\n" % ob.absolute_url(1)
         return msg
-        
-        
-        
-        
-        
+
+
