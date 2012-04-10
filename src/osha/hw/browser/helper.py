@@ -66,21 +66,32 @@ class HelperView(BrowserView):
             for toplevel in TOPLEVELFOLDERS:
                 if hasattr(langfolder.aq_explicit, toplevel):
                     toplevelfolder = getattr(langfolder, toplevel, None)
-                    if not toplevelfolder.hasProperty('layout'):
-                        toplevelfolder._setProperty('layout', 'hw2012_landing_page', 'string')
-                        msg+="set new layout property: %s (%s)\n" % (toplevel, lang)
-                    else:
-                        toplevelfolder._updateProperty('layout', 'hw2012_landing_page')
-                        msg+="update layout property: %s (%s)\n" % (toplevel, lang)
+                    msg += self._sp(toplevelfolder, 'layout', 'hw2012_landing_page')
                     
                     
                     for sub in toplevelfolder.objectValues('ATFolder'):
-                        if not sub.hasProperty('layout'):
-                            sub._setProperty('layout', 'hw2012_details_page', 'string')
-                            msg+=".. set new layout property: %s (%s)\n" % (sub.Title(), lang)
+                        dv = sub.getDefaultPage()
+                        if dv in sub.objectIds():
+                            msg += self._sp(getattr(sub, dv), 'layout', 'hw2012_details_page')
                         else:
-                            sub._updateProperty('layout', 'hw2012_details_page')
-                            msg+=".. update layout property: %s (%s)\n" % (sub.Title(), lang)
+                            msg += self._sp(sub, 'layout', 'hw2012_details_page')
 
         self.request.RESPONSE.setHeader('Content-type', 'text/plain')    
         return msg
+        
+        
+    def _sp(self, ob, id, value, type="string"):
+        """ simple set property. Checks if present """
+        msg = ""
+        if not ob.hasProperty(id):
+            ob._setProperty(id, value, type)
+            msg+=".. set new layout property: %s\n" % ob.Title()
+        else:
+            ob._updateProperty(id, value)
+            msg+=".. update layout property: %s\n" % ob.Title()
+        return msg
+        
+        
+        
+        
+        
