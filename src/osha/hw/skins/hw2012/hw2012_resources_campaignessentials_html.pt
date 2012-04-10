@@ -49,7 +49,6 @@
             <a href="#" tal:on-error="nothing" tal:attributes="href python:pdf.absolute_url()">
 	            <h3 tal:content="pdf/Title">Title</h3>
                 <img tal:attributes="src string:${pdf/absolute_url}/@@hw_get_thumb" />
-              	<!--img tal:attributes="src python:(pdf.absolute_url()[0:-3]+'gif').replace('http://osha.europa.eu/%s/'%lang, 'http://osha.europa.eu/en/')+'/image_hwmini'" /-->
 	            <p class="byline"><span tal:replace="pdf/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (pdf.get_size()/1024)"/></p>
             	<p class="description" tal:content="pdf/Description">Description</p>
 			</a>
