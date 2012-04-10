@@ -1,3 +1,12 @@
+## Script (Python) "hw2012_get_languages"
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind subpath=traverse_subpath
+##title=hw2012_get_languages
+##parameters=
+
 # Copied from plone.app.i18n.locales.browser.selector.LanguageSelector [thomasw]
 
 plt = context.portal_languages

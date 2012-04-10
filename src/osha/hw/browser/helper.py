@@ -13,7 +13,56 @@ log = getLogger('osha.hw helper')
 
 IEXT = ('gif', 'jpg', 'png')
 TOPLEVELFOLDERS = ('about', 'get-involved', 'leadership', 'media', 'resources', 'worker-participation')
+SV = {
+    'leadership': 'hw2012_landing_page',
+    'leadership/leadership': 'hw2012_landing_page',
+    'leadership/benefits/index_html': 'hw2012_details_page',
+    'leadership/enterprises-survey/enterprises-survey': 'hw2012_details_page',
+    'leadership/leadership-guide/leadership-guide': 'hw2012_details_page',
+    'leadership/leadership-self-assessment/leadership-checklist': 'hw2012_details_page',
+    'leadership/legislation/legislation': 'hw2012_details_page',
 
+    'worker-participation': 'hw2012_landing_page',
+    'worker-participation/worker-participation': 'hw2012_landing_page',
+    'worker-participation/benefits/benefits': 'hw2012_details_page',
+    'worker-participation/enterprises-survey/enterprises-survey': 'hw2012_details_page',
+    'worker-participation/worker-participation-guide/worker-participation-guide': 'hw2012_details_page',
+    'worker-participation/worker-participation-checklist/worker-participation-checklist': 'hw2012_details_page',
+    'worker-participation/legislation/legislation': 'hw2012_details_page',
+    
+    'media': 'hw2012_landing_page',
+    'media/media': 'hw2012_landing_page',
+    'media/press/press': 'hw2012_press_press_template',
+    'media/photo-gallery': 'hw2012_image_folders',
+    'media/napo-film': 'hw2012_details_page',
+    
+    'resources': 'hw2012_landing_page',
+    'resources/resources': 'hw2012_landing_page',
+    'resources/case-studies/case-studies': 'hw2012_details_page',
+    'resources/publications': 'hw2012_resources_publications_html',
+    'resources/preventive-solutions/preventive-solutions': 'hw2012_details_page',
+    'resources/practical-tools/practical-tools': 'hw2012_details_page',
+    'resources/oira/oira': 'hw2012_details_page',
+    'resources/campaign-essentials': 'hw2012_resources_campaignessentials_html',
+    'resources/promotion-materials': 'hw2012_resources_promotionalmaterials_html',
+    'resources/napo-film/napo-film': 'hw2012_details_page',
+    
+    'about': 'hw2012_landing_page',
+    'about/about': 'hw2012_landing_page',
+    'about/about_the_campaign/about-the-campaign': 'hw2012_details_page',
+    'about/campaign-partners/index_html': 'hw_ocps',
+    'about/focal-points/focal-points': 'hw_fops',
+    'about/enterprise-europe-network/enterprise-europe-network': 'hw2012_details_page',
+
+    'get-involved': 'hw2012_landing_page',
+    'get-involved/get-involved': 'hw2012_landing_page',
+    'get-involved/how_to_get_involved/how-to-get-involved': 'hw2012_details_page',
+    'get-involved/good-practice-award/good-practice-award': 'hw2012_details_page',
+    'get-involved/become-a-eu-partner/become-a-eu-partner': 'hw2012_details_page',
+    'get-involved/become-a-national-partner/become-a-national-partner': 'hw2012_details_page',
+    'get-involved/european-week/european-week': 'hw2012_details_page',
+
+}
 
 class GetThumb(BrowserView):
 
@@ -91,6 +140,30 @@ class HelperView(BrowserView):
         # hardcoded for the moment
         return "http://hw2012.syslab.com"
 
+    
+    def fixcontent(self):
+        """ due to the url change, we have broken links in the translations """
+        
+    def recreate_language_links(self):
+        """ ZopeFinds through the en tree and links languages """
+        assert (self.context.getId()=='hw2012')
+        langs = self.context.portal_languages.getSupportedLanguages()
+        canonical = self.context['en']
+        for lang in langs:
+            if lang == 'en': 
+                continue
+            if lang in self.context.objectIds():
+                langfolder = self.context[lang]
+                langfolder.setLanguage('')
+                langfolder.setLanguage(lang)
+                langfolder.addTranslationReference(canonical)
+
+        LT = canonical.restrictedTraverse('@@linguatools-old')
+        LT.fixTranslationReference(recursive=True)
+        return "done"
+
+
+
     def set_views(self):
         """ sets the views on all folders """
         # make sure we are called on the campaign root folder
@@ -103,20 +176,13 @@ class HelperView(BrowserView):
                 continue
 
             langfolder = getattr(self.context, lang, None)
-            if not langfolder:
-                continue
-            for toplevel in TOPLEVELFOLDERS:
-                if hasattr(langfolder.aq_explicit, toplevel):
-                    toplevelfolder = getattr(langfolder, toplevel, None)
-                    msg += self._sp(toplevelfolder, 'layout', 'hw2012_landing_page')
-
-
-                    for sub in toplevelfolder.objectValues('ATFolder'):
-                        dv = sub.getDefaultPage()
-                        if dv in sub.objectIds():
-                            msg += self._sp(getattr(sub, dv), 'layout', 'hw2012_details_page')
-                        else:
-                            msg += self._sp(sub, 'layout', 'hw2012_details_page')
+            
+            for path in SV:
+                ob = langfolder.restrictedTraverse(path, None)
+                if ob is None:
+                    msg += "ERROR, %s/%s not found\n" % (lang, path)
+                    continue
+                msg += self._sp(ob, 'layout', SV[path])
 
         self.request.RESPONSE.setHeader('Content-type', 'text/plain')
         return msg
@@ -125,10 +191,10 @@ class HelperView(BrowserView):
     def _sp(self, ob, id, value, type="string"):
         """ simple set property. Checks if present """
         msg = ""
-        XX = ob.getProperty(id)
-        if XX.startswith('hw2012_'):
-            msg += "Skipping %s, preserving already set\n" % ob.absolute_url(1)
-            return msg
+        # XX = ob.getProperty(id, '')
+        # if XX.startswith('hw2012_'):
+        #     msg += "Skipping %s, preserving already set\n" % ob.absolute_url(1)
+        #     return msg
             
         if not ob.hasProperty(id):
             ob._setProperty(id, value, type)

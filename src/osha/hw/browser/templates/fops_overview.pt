@@ -15,6 +15,7 @@
                 dummy python:letters.sort();
                 folder python:here.aq_parent;
                 img_folder python:getattr(folder.getCanonical(), 'img')">
+	<tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general partner')" />
 
     <h1 class="documentFirstHeading">
         <span id="parent-fieldname-title" tal:content="here/Title">Partners</span>

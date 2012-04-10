@@ -1,3 +1,11 @@
+## Script (Python) "hw2012_get_presscontacts"
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind subpath=traverse_subpath
+##title=hw2012_get_presscontacts
+##parameters=
 portal = context.portal_url.getPortalObject()
 canonical = portal.en.press
 contactInfo = list()

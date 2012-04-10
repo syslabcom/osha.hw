@@ -1,3 +1,11 @@
+## Script (Python) "hw2012_resources_fetchpublications"
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind subpath=traverse_subpath
+##title=hw2012_resources_fetchpublications
+##parameters=
 # in ticket 1311 manuela/heike request to remove the special treatment for the first three publications. Changed on 11/06/2010
 
 lang = context.portal_languages.getPreferredLanguage()
