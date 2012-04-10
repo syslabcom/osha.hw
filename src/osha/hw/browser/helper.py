@@ -1,3 +1,4 @@
+from Acquisition import aq_inner
 from OFS.Image import File
 from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
@@ -13,8 +14,8 @@ class GetThumb(BrowserView):
 
     def __call__(self):
         """ return a sensible thumb"""
-        placeholder_url = '/_themes/Media/placeHolder.png'
-        obj = self.context
+        placeholder_url = '/_themes/hw2012/Media/placeholder.png'
+        obj = aq_inner(self.context)
         now = DateTime()
         yesterday = now-1
         
@@ -29,17 +30,17 @@ class GetThumb(BrowserView):
             stem = '.'.join(elems[0:-1])
         else:
             stem = myid
-        
+#        import pdb; pdb.set_trace()
         siblings = obj.aq_parent.objectIds()
         imgid = ''
         for sibling in siblings:
             if sibling.startswith(stem):
                 for ext in IEXT:
-                    imgid = "%s.%s" %(stem, ext)
-                    if imgid == sibling:
+                    if "%s.%s" %(stem, ext) == sibling:
+                        imgid = "%s.%s" %(stem, ext)
                         break
         if imgid:
-            thumb_url = "%s/%s/hwsmall" %(obj.aq_parent.absolute_url(), imgid)
+            thumb_url = "%s/%s" %(obj.aq_parent.absolute_url(), imgid)
             return response.redirect(thumb_url, status=301)
 
         return response.redirect(placeholder_url, status=302)
