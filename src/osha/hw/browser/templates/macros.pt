@@ -1,0 +1,60 @@
+<html>
+<body>
+    <div metal:define-macro="translations">
+		<ul id="hw2012languages" class="languages"
+		    tal:define="available_langs context/portal_languages/getAvailableLanguages;
+		                translations context/getTranslations;
+		                oshaview context/@@oshaview;
+		                lang_codes python:oshaview.get_sorted(translations.keys())">
+		  <tal:lang_code repeat="lang_code lang_codes">
+
+		    <li tal:define="translation python:translations[lang_code][0]"
+		        tal:on-error="string: err in ${lang_code}"
+		        tal:attributes="class python:translation == context and 'current' or ''">
+
+		      <a tal:attributes="href translation/absolute_url; lang lang_code"
+		         tal:content="python:oshaview.get_native_language_by_code(lang_code)">Dansk</a>
+      
+		    <blockquote tal:condition="python:context.getPhysicalPath()[-1]=='hw2012'" tal:content="structure python:translation.getText()"/>
+
+		    </li>
+		  </tal:lang_code>
+		</ul>
+    </div>
+	<div metal:define-macro="navigation">
+		<tal:vars define="root_path python:context.restrictedTraverse('@@oshaview').subsiteRootPath();
+		                  root python:context.restrictedTraverse(root_path).en;
+		                  landing_pages python:[i.getObject() for i in root.getFolderContents({'portal_type':'Folder'})];
+		                  landing_pages python:[x for x in landing_pages if not x.getExcludeFromNav()];
+		                  lang python:context.portal_languages.getPreferredLanguage();
+		                  ">
+		  <ul class="navigation" id="hw2012Navigation">
+		    <li id="portal-tab-home">
+		      <a data-setclass="id='body'!values='template-*:template-home'"
+		         data-injection="#mainContent#appendix"
+		         href="http://hw2012.syslab.com#mainContent#appendix"
+		         >Healthy<br>Workplaces</a>
+		    </li>
+		    <li tal:repeat="landing_page landing_pages"
+		        tal:attributes="id python:repeat['landing_page'].end and 'portal-tab-getInvolved' or None;
+		                        class python:landing_page in context.REQUEST.PARENTS and 'current' or None;">
+		      <a xdata-setclass="id='body'!values='template-*:template-landing'"
+		         xdata-injection="#mainContent#appendix"
+		         href="leadership.html#mainContent#appendix"
+		         tal:attributes="href string:${landing_page/absolute_url}#mainContent#appendix"
+		         tal:content="landing_page/Title">Leadership</a>
+		      <ul>
+		        <li tal:repeat="detail_page python:landing_page.getFolderContents({'portal_type':'Folder'})">
+		          <a data-setclass="id='body'!values='template-*:template-content-a'"
+		             data-injection="#mainContent#appendix"
+		             href="benefits.html#mainContent#appendix"
+		             tal:attributes="href string:${detail_page/getURL}#mainContent#appendix"
+		             tal:content="detail_page/Title"
+		             >Benefits</a></li>
+		      </ul>
+		    </li>
+		  </ul>
+		</tal:vars>
+	</div>
+</body>
+</html>

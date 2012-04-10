@@ -10,10 +10,17 @@
 
     <browser:page
         for="*"
+        name="osha.hw.macros"
+        template="templates/macros.pt"
+        permission="zope.Public"
+    />
+
+    <browser:page
+        for="*"
         name="hw_view"
         class=".helper.HelperView"
         permission="cmf.ManagePortal"
-		allowed_attributes="set_views"
+       allowed_attributes="set_views"
         />
 
     <browser:page
