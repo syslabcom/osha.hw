@@ -60,14 +60,17 @@ class HelperView(BrowserView):
         for lang in langs:
             msg += "LANGUAGE: %s\n============\n\n" % lang.upper()
 
-            langfolder = getattr(self.context, lang, None)
-            if not langfolder: 
+            if not hasattr(self.context.aq_explicit, lang):
                 continue
+
+            langfolder = getattr(self.context, lang, None)
             for toplevel in TOPLEVELFOLDERS:
                 if hasattr(langfolder.aq_explicit, toplevel):
                     toplevelfolder = getattr(langfolder, toplevel, None)
                     msg += self._sp(toplevelfolder, 'layout', 'hw2012_landing_page')
-                    
+                    dt = toplevelfolder.getDefaultPage()
+                    if dt in toplevelfolder.objectIds():
+                        msg += self._sp(getattr(toplevelfolder, dt), 'layout', 'hw2012_landing_page')
                     
                     for sub in toplevelfolder.objectValues('ATFolder'):
                         dv = sub.getDefaultPage()
@@ -85,10 +88,10 @@ class HelperView(BrowserView):
         msg = ""
         if not ob.hasProperty(id):
             ob._setProperty(id, value, type)
-            msg+=".. set new layout property: %s\n" % ob.Title()
+            msg+=".. set new layout property: %s\n" % ob.absolute_url(1)
         else:
             ob._updateProperty(id, value)
-            msg+=".. update layout property: %s\n" % ob.Title()
+            msg+=".. update layout property: %s\n" % ob.absolute_url(1)
         return msg
         
         

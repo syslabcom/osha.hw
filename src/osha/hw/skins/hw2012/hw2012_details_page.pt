@@ -18,8 +18,8 @@
 
         <ul class="navigation" >
           <li tal:repeat="folder folders">
-            <a data-injection="#mainContent"
-               data-setclass="id='body'!values='template-*:template-content-a"
+            <a xdata-injection="#mainContent"
+               xdata-setclass="id='body'!values='template-*:template-content-a"
                tal:content="folder/Title"
                tal:attributes="href string:${folder/getId}#mainContent#appendix" />
           </li>

@@ -7,39 +7,32 @@
       lang="en">
   <body>
     <metal:main fill-slot="main"
-           tal:define='doc_list python:context.getFolderContents({"portal_type":"Document"});
-               first_doc python:doc_list and doc_list[0].getObject() or None;
-               title python:first_doc and first_doc.Title or None;
-               body python:first_doc and first_doc.getText() or None;
-               folders python:context.getFolderContents({"portal_type":"Folder"});
-               images python:context.getFolderContents({"portal_type":"Image"});
-               first_image python:images and images[0].getObject() or None;
+           tal:define='myview context/getDefaultPage; viewob python: myview and getattr(context, myview) or context;
+               folders python:context.aq_parent.getFolderContents({"portal_type":"Folder"});
                myarea python:request.RESPONSE.addHeader("X-Deliverance-Page-Class", "general landingpage %s" % context.getId());
                '>
       <section tal:attributes="class context/getId">
-
         <div id="introduction">
-
-          <h1 id="title" tal:content="title" />
-          <div id="body" tal:content="structure body" />
+          <h1 id="title" tal:content="viewob/Title" />
+          <div id="body" tal:content="structure viewob/getText | viewob/Description" />
 
           <ul class="navigation" >
             <li tal:repeat="folder folders">
-              <a data-injection="#mainContent"
-                 data-setclass="id='body'!values='template-*:template-content-a"
+              <a xdata-injection="#mainContent"
+                 xdata-setclass="id='body'!values='template-*:template-content-a"
                  tal:content="folder/Title"
-                 tal:attributes="href string:${folder/getId}/hw2012_details_page#mainContent"
+                 tal:attributes="href string:${context/absolute_url}/${folder/getId}"
                  />
             </li>
           </ul>
 
-          <tal:background condition="first_image">
+<!--          <tal:background condition="first_image">
 <figure>
             <img width="950" id="background" tal:attributes="src string:${first_image/getId}/image_large; alt first_image/Title" />
 <figcaption tal:content="structure first_image/Description" />
 </figure>
           </tal:background>
-
+-->
         </div>
       </section>
 
