@@ -13,7 +13,7 @@
 		 tal:define="myarea python:request.RESPONSE.addHeader('X-Deliverance-Page-Class', 'general resource-listing');">
       <div id="content"
            tal:define="lang context/portal_languages/getPreferredLanguage">
-        <h1 class="title" tal:content="here/Title">Promotional Materials</h1>
+        <h1 id="title" tal:content="here/Title">Promotional Materials</h1>
 
         <p tal:content="here/Description">Description</p>
 

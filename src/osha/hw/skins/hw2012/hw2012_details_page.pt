@@ -8,7 +8,7 @@
   <body>
     <metal:main fill-slot="main"
     tal:define='title here/Title;
-                body here/getText;
+                body here/getText | here/Description;
                 folders python:context.getFolderContents({"portal_type":"Folder"});
                 images python:context.getFolderContents({"portal_type":"Image"});
                 detail_type python:context.aq_explicit.getProperty("detail_type", "detail-benefits");
