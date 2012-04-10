@@ -18,3 +18,9 @@ class IAddEvent(Interface):
 
 class IAddNews(Interface):
     """ Add a news item and link it to a profile """
+
+class IHelperView(Interface):
+    """ """
+    
+    def set_views():
+        """ sets the views on all folders """
