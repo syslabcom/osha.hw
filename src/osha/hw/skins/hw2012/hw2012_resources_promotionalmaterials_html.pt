@@ -9,77 +9,62 @@
   <head>
   </head>
   <body>
-    <div metal:fill-slot="main">
-<tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'fullpage')" />
+    <div metal:fill-slot="main"
+		 tal:define="myarea python:request.RESPONSE.addHeader('X-Deliverance-Page-Class', 'general resource-listing');">
       <div id="content"
            tal:define="lang context/portal_languages/getPreferredLanguage">
-        <h1><span tal:content="here/Title">Promotional Materials</span></h1>
+        <h1 class="title" tal:content="here/Title">Promotional Materials</h1>
 
-        <p class='documentDescription'><span id='parent-fieldname-description' tal:content="here/Description"></span></p>
+        <p tal:content="here/Description">Description</p>
 
-        <div id="parent-fieldname-text">
+        <div class="downloads">
 
           <h2 tal:content="context/leaflet/Title">Leaflets, flyers</h2>
           <tal:leaflets repeat="pdf python:context.leaflet.listFolderContents(contentFilter={'portal_type':'File'})">
             <a href="#"
                tal:attributes="href python:pdf.absolute_url()">
-              <img class="outdent floatBefore"
-                   tal:attributes="src python:pdf.absolute_url().replace('pdf','gif')+'/image_hwmini'" /></a>
 
-            <h3 tal:content="pdf/Title">Title</h3>
-
-            <p class="file-widget">
-            <span metal:use-macro="python:pdf.widget('file', mode='view')">
-              Download
-            </span>
-            </p>
-
-            <p tal:content="pdf/Description">Description</p>
-            <hr>
+            	<h3 tal:content="pdf/Title">Title</h3>
+				<img tal:attributes="src string:${pdf/absolute_url}/@@hw_get_thumb" />
+            	<p class="byline"><span tal:replace="pdf/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (pdf.get_size()/1024)"/></p>
+            	<p tal:content="pdf/Description">Description</p>
+            </a>
           </tal:leaflets>
 
-          <h2 class="clear" tal:content="context/poster/Title">Posters</h2>
-          <tal:posters repeat="pdf python:context.poster.listFolderContents(contentFilter={'portal_type':'File'})">
-            <a href="#"
-               tal:attributes="href python:pdf.absolute_url()">
-              <img class="outdent floatBefore"
-                   tal:attributes="src python:pdf.absolute_url().replace('pdf','gif')+'/image_hwmini'" /></a>
-            <h3 tal:content="pdf/Title">Title</h3>
 
-            <p class="file-widget">
-            <span metal:use-macro="python:pdf.widget('file', mode='view')">
-              Download
-            </span>
-            </p>
+          <h2 class="clear" tal:content="context/poster/Title">Poster</h2>
+
+          <tal:posters repeat="pdf python:context.poster.listFolderContents(contentFilter={'portal_type':'File'})">
+            <a href="#" tal:attributes="href python:pdf.absolute_url()">
+            <h3 tal:content="pdf/Title">Title</h3>
+			<img tal:attributes="src string:${pdf/absolute_url}/@@hw_get_thumb" />
+        	<p class="byline"><span tal:replace="pdf/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (pdf.get_size()/1024)"/></p>
             <p tal:content="pdf/Description">Description</p>
-            <hr>
+			</a>
           </tal:posters>
 
           <h2 class="clear" tal:content="context/banner/Title">Banner</h2>
           <tal:banner
              tal:define="bnr python:getattr(context.banner, 'online-banner.jpg'); bnrfile python:getattr(context.banner, 'banner.pdf');">
-
-              <img class="outdent floatBefore" 
-                   tal:attributes="src python:bnr.absolute_url()+'/image_hwmini'" />
-
-            <p class="clear file-widget">
-            <span metal:use-macro="python:bnrfile.widget('file', mode='view')">
-              Download
-            </span>
-            </p>
+            	<a href="#" tal:attributes="href python:bnr.absolute_url()">
+				<h3 tal:content="bnr/Title" />
+              	<img class="outdent floatBefore" 
+                   	 tal:attributes="src python:bnr.absolute_url()+'/image_hwmini'" />
+	        	<p class="byline"><span tal:replace="bnr/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (bnr.get_size()/1024)"/></p>
+	            <p tal:content="bnr/Description">Description</p>
+				</a>
           </tal:banner>
-          <hr>
 
           <h2 tal:content="context/e-signature/Title">E-Signature</h2>
           <tal:sigs define="signame string:signature.gif; sig python:getattr(context['e-signature'], signame) ">
             <a href="#"
                tal:attributes="href sig/absolute_url">
-              <img class=""
-                   tal:attributes="src python:sig.absolute_url()+'/image_hwlarge'" /></a>
-            <p><a href="#"
-               tal:attributes="href string:${sig/absolute_url}/download"
-               i18n:translate="label_download">Download</a>
-            </p>
+				<h3 tal:content="sig/Title" />
+              	<img class=""
+                   	 tal:attributes="src python:sig.absolute_url()+'/image_hwlarge'" />
+            	<p class="byline"><span tal:replace="sig/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (sig.get_size()/1024)"/></p>
+	            <p tal:content="sig/Description">Description</p>
+			</a>
           </tal:sigs>
 
             <!--<p tal:condition="python:lang=='en'">Banner and E-Signature in other languages: 
@@ -88,8 +73,6 @@
 <tal:cond condition="not: repeat/otherlang/end">|</tal:cond>
 </tal:block>
             </p>-->
-
-          <hr> 
 
 <!--          <a name="hw2012launchaudio"></a>
           <h2>HW2010 Launch Audiocast</h2>
@@ -102,33 +85,37 @@
 
           <hr> 
 -->
-          <img src="#" class="outdent floatBefore"
-               tal:attributes="src string:${context/absolute_url}/logo/${lang}-logo-hw.jpg/image_hwmini">
+		
           <h2 tal:content="context/logo/Title">Logo & Slogan</h2>
+			<a href="#" 
+				tal:define="can context/getCanonical; logo python:getattr(can.logo, '%s-logo-hw.jpg'%lang, getattr(can.logo, 'en-logo-hw.jpg'))"
+				tal:attributes="href logo/absolute_url">
+				<h3 tal:content="logo/Title" />
+				<img src="#" 
+	               tal:attributes="src string:${can/absolute_url}/logo/${lang}-logo-hw.jpg/image_hwmini">   
+				<p class="byline"><span tal:replace="logo/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (logo.get_size()/1024)"/></p>       
+				<p>
+				  <span i18n:translate="slogan_hw2010_campaign">Healthy Workplaces</span><br/>
+				  <span i18n:translate="subslogan_hw2010_campaign">Good for you. Good for business.</span><br/>
+				  <span i18n:translate="slogan_statment_hw2012_campaign">A European Campaign on safe maintenance</span>
+				</p>
+          	</a>
 
-          <p>
-            <span i18n:translate="slogan_hw2010_campaign">Healthy Workplaces</span><br/>
-            <span i18n:translate="subslogan_hw2010_campaign">Good for you. Good for business.</span><br/>
-            <span i18n:translate="slogan_statment_hw2012_campaign">A European Campaign on safe maintenance</span>
-          </p>
+		<h2>Disclaimer</h2>
           
-          <p><span i18n:translate="Format">Format</span>:
-            <a tal:attributes="href string:/${lang}/campaigns/hw2012/resources/promotion-materials/logo/${lang}-logo-hw.jpg" href="/en/campaigns/hw2012/resources/promotion-materials/logo/Logo_colour.jpg">JPG</a>
-          </p>
-          
-<p><b><i>Use of the Healthy Workplaces campaign logo</i></b></p>
-<p>As many people as possible should be involved in the Healthy Workplaces campaign. So we would like to see the logo used as widely as possible.</p>
-<p><i>But a few simple rules apply:</i></p>
-<p>Because it represents the identity of the campaign, the logo can only be used as designed and produced and as available to download from this page.</p>
-<p>Its design CANNOT be changed or edited in any way.</p>
-<p>As long as the activities, products and materials are consistent with the goals, objectives and messages of the campaign, the logo can be used without permission for the following activities or products:</p>
-<ul><li>Information and promotional campaigns</li> 
-<li>Awareness activities, newsletters and journal articles</li> 
-<li>Web sites, radio and television programmes, or advertisements </li>
-<li>Conferences and seminars </li>
-<li>Promotional items</li></ul>
-<p>The Healthy Workplaces campaign does not endorse commercial products or services. Thus, the name, slogan and logo cannot be used in any manner that suggests a direct product and services endorsement.</p>
-<p>If you have any questions concerning the use of the slogan and logo please contact the Agency for EU activities or your national contact.</p>
+		<p><b><i>Use of the Healthy Workplaces campaign logo</i></b></p>
+		<p>As many people as possible should be involved in the Healthy Workplaces campaign. So we would like to see the logo used as widely as possible.</p>
+		<p><i>But a few simple rules apply:</i></p>
+		<p>Because it represents the identity of the campaign, the logo can only be used as designed and produced and as available to download from this page.</p>
+		<p>Its design CANNOT be changed or edited in any way.</p>
+		<p>As long as the activities, products and materials are consistent with the goals, objectives and messages of the campaign, the logo can be used without permission for the following activities or products:</p>
+		<ul><li>Information and promotional campaigns</li> 
+		<li>Awareness activities, newsletters and journal articles</li> 
+		<li>Web sites, radio and television programmes, or advertisements </li>
+		<li>Conferences and seminars </li>
+		<li>Promotional items</li></ul>
+		<p>The Healthy Workplaces campaign does not endorse commercial products or services. Thus, the name, slogan and logo cannot be used in any manner that suggests a direct product and services endorsement.</p>
+		<p>If you have any questions concerning the use of the slogan and logo please contact the Agency for EU activities or your national contact.</p>
 
 
         </div>
