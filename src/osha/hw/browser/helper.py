@@ -86,6 +86,10 @@ class HelperView(BrowserView):
     def _sp(self, ob, id, value, type="string"):
         """ simple set property. Checks if present """
         msg = ""
+        XX = ob.getProperty(id):
+        if XX.startswith('hw2012_'):
+            msg += "Skipping %s, preserving already set\n" % ob.absolute_url(1)
+            return msg
         if not ob.hasProperty(id):
             ob._setProperty(id, value, type)
             msg+=".. set new layout property: %s\n" % ob.absolute_url(1)
