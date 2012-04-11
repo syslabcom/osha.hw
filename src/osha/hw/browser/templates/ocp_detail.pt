@@ -31,7 +31,7 @@
             <div id="campaign-partner-details">
 
                 <link rel="stylesheet" type="text/css"
-                href="hw2010_partners.css" tal:attributes="href string:${portal_url}/++resource++hw_partners.css"></link>
+                href="hw2010_partners.css" tal:attributes="href string:${portal_url}/++resource++hw_partners.css"/>
 
 
                 <div id="CEO">
