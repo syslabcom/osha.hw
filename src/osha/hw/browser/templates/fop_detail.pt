@@ -12,11 +12,8 @@
     tal:define="global id request/id|nothing;
                 global partner python:view.get_partner(id=id);
                 global folder python:here.aq_parent;
-                global events_folder python:folder.restrictedTraverse('events');
-                global events_folder_url events_folder/absolute_url;
-                global news_folder python:folder.restrictedTraverse('news');
-                global news_folder_url news_folder/absolute_url;
-                global img_folder python:getattr(folder.getCanonical(), 'img')">
+                global img_folder python:getattr(folder.getCanonical(), 'img');
+                global helper here/@@hw_view">
     <tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general partner-detail')" />
     <tal:block condition="partner">
 
@@ -80,7 +77,7 @@
                         <dd class="visualClear"></dd>
                     </tal:loop>
                     <span class="more icon-16px sprite-icon-big-arrow-blue-right">
-                        <a href="/en/campaigns/hw2010/events" tal:attributes="href events_folder_url"
+                        <a href="/en/campaigns/hw2010/events" tal:attributes="href helper/getEventsfolderUrl"
                             i18n:translate="">More events</a>
                         </span>
                     </dl>
@@ -109,7 +106,7 @@
                         <dd class="visualClear"></dd>
                     </tal:loop>
                     <span class="more icon-16px sprite-icon-big-arrow-blue-right">
-                        <a href="/en/campaigns/hw2010/events" tal:attributes="href news_folder_url"
+                        <a href="/en/campaigns/hw2010/news" tal:attributes="href helper/getNewsfolderUrl"
                             i18n:translate="">More news</a>
                         </span>
                     </dl>
