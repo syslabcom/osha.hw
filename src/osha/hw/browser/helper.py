@@ -257,7 +257,8 @@ class HelperView(BrowserView):
         res = pc(portal_type='News Item', sort_on='effective',
             sort_order='reverse',
             expires={'query': DateTime(), 'range': 'min'},
-            path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang)],
+            path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang),
+            self.subsite_path],
             Subject=subject)[:limit]
         for r in res:
             obj = r.getObject()
@@ -275,7 +276,8 @@ class HelperView(BrowserView):
         res = pc(portal_type='Event', sort_on='effective',
             sort_order='reverse',
             end={'query': DateTime(), 'range': 'min'}, expires={'query': DateTime(), 'range': 'min'},
-            path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang)],
+            path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang),
+            self.subsite_path],
             Subject=subject)[:limit]
         for r in res:
             obj = r.getObject()
