@@ -333,7 +333,7 @@ class HelperView(BrowserView):
                     continue
                 msg += self._sp(ob, 'layout', SV[path])
 
-        self.request.RESPONSE.setHeader('Content-type', 'text/plain')
+        self.context.REQUEST.RESPONSE.setHeader('Content-type', 'text/plain')
         return msg
 
 
@@ -344,9 +344,14 @@ class HelperView(BrowserView):
         # if XX.startswith('hw2012_'):
         #     msg += "Skipping %s, preserving already set\n" % ob.absolute_url(1)
         #     return msg
-            
+        if ob.meta_type=='Script (Python)' or not hasattr(ob.aq_explicit, 'portal_type') or ob.portal_type not in ('Folder', 'Document', 'Topic'):
+            msg+= "xx not a content object, skipping.."
+            return msg    
         if not ob.hasProperty(id):
-            ob._setProperty(id, value, type)
+            try:
+                ob._setProperty(id, value, type)
+            except:
+                import pdb; pdb.set_trace()
             msg+=".. set new layout property: %s\n" % ob.absolute_url(1)
         else:
             ob._updateProperty(id, value)
