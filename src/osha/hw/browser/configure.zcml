@@ -32,6 +32,23 @@
 
     <browser:page
         for="*"
+        name="charter2012"
+        class=".helper.CharterView"
+        permission="zope.Public"
+		allowed_attributes="create_table"
+        />
+
+    <browser:page
+        for="*"
+        name="national-campaign-partner-application-form-2012"
+        class=".forms.NationalPartnerForm"
+        permission="zope.Public"
+        allowed_attributes="get_validation_messages" 
+        template="templates/partner-application.pt"
+        />
+
+    <browser:page
+        for="*"
         name="ws_add_partner"
         class=".sync_receiver.AddOCP"
         permission="zope.Public"

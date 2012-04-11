@@ -344,3 +344,40 @@ url = '%(url)s'
 WHERE
 partner_id='%(partner_id)s' AND id='%(id)s'
 """
+
+
+# queries for the campaign charter
+
+create_hw2012_charter = """
+CREATE TABLE registration2012 (
+    "ID" serial,
+    "Firstname" character varying(255),
+    "Lastname" character varying(255),
+    "Address" character varying(255),
+    "Postalcode" character varying(255),
+    "City" character varying(255),
+    "Country" character varying(255),
+    "Email" character varying(255),
+    "Telephone" character varying(255),
+    "Organisation" character varying(255),
+    "Function" character varying(255),
+    "Language" character varying(255),
+    "Commitment_other" character varying(255),
+    "Date" date,
+    "Commitment" bit varying,
+    "Sector" character varying(255)
+);
+ALTER TABLE ONLY registration2012
+    ADD CONSTRAINT registration_pkey_2012 PRIMARY KEY ("ID");
+"""
+insert_hw2012_charter = """
+INSERT INTO registration2012
+("Firstname", "Lastname", "Address", "Postalcode", "City", "Country", "Email", 
+"Telephone", "Organisation", "Function", "Language", "Commitment_other", 
+"Date", "Commitment", "Sector")
+Values
+('%(Firstname)s', '%(Lastname)s', '%(Address)s', '%(Postalcode)s', 
+'%(City)s', '%(Country)s', '%(Email)s', '%(Telephone)s', 
+'%(Organisation)s', '%(Function)s', '%(Language)s', '%(Commitment_other)s', 
+'%(Date)s', '%(Commitment)s', '%(Sector)s')
+"""

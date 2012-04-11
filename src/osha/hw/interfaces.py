@@ -27,3 +27,11 @@ class IHelperView(Interface):
 
     def getTranslations():
         """ return translations of current item """
+        
+
+class INationalPartnerForm(Interface):
+    """ """
+
+    def get_validation_messages(self):
+        """ """ 
+
