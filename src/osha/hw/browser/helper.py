@@ -246,10 +246,12 @@ class HelperView(BrowserView):
     def getNewsfolderUrl(self):
         return self.langroot.restrictedTraverse('news').absolute_url()
 
+    def getEventsfolderUrl(self):
+        return self.langroot.restrictedTraverse('events').absolute_url()
+
     def getNews(self, limit=None):
         """Fetch campaign-related News and return the relevant parts"""
         subject = aq_inner(self.root).Subject()
-        newsfolderurl = self.langroot.restrictedTraverse('news').absolute_url()
         portal_path = self.ptool.getPortalPath()
         pc = getToolByName(self.context, 'portal_catalog')
         res = pc(portal_type='News Item', sort_on='effective',
@@ -259,15 +261,32 @@ class HelperView(BrowserView):
             Subject=subject)[:limit]
         for r in res:
             obj = r.getObject()
-            link = "%s/@@slc.telescope?path=%s" % (newsfolderurl, r.getPath())
+            link = "%s/@@slc.telescope?path=%s" % (self.getNewsfolderUrl(), r.getPath())
             img_url = getattr(obj, 'image', None) and obj.image.absolute_url() or ''
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
             yield dict(link=link, img_url=img_url, description=description,
                 title=obj.Title())
 
+    def getEvents(self, limit=None):
+        """Fetch campaign-related Events and return the relevant parts"""
+        subject = aq_inner(self.root).Subject()
+        portal_path = self.ptool.getPortalPath()
+        pc = getToolByName(self.context, 'portal_catalog')
+        res = pc(portal_type='Event', sort_on='effective',
+            sort_order='reverse',
+            end={'query': DateTime(), 'range': 'min'}, expires={'query': DateTime(), 'range': 'min'},
+            path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang)],
+            Subject=subject)[:limit]
+        for r in res:
+            obj = r.getObject()
+            link = "%s/@@slc.telescope?path=%s" % (self.getEventsfolderUrl(), r.getPath())
+            description = obj.Description().strip() != '' and obj.Description() or obj.getText()
+            yield dict(link=link, location=r.location, start=obj.start(), description=description,
+                title=obj.Title())
+
     def fixcontent(self):
         """ due to the url change, we have broken links in the translations """
-        
+
     def recreate_language_links(self):
         """ ZopeFinds through the en tree and links languages """
         assert (self.context.getId()=='hw2012')

@@ -35,7 +35,13 @@ class IHelperView(Interface):
         """ Fetches campaign-related news """
 
     def getNewsfolderUrl():
-        """ URL to the news folder"""
+        """ URL to the news-folder"""
+
+    def getEvents(limit=None):
+        """ Fetches campaign-related events """
+
+    def getEventsfolderUrl():
+        """ URL to the events-folder"""
 
     def getHomeURL():
         """ Campaing site root URL """

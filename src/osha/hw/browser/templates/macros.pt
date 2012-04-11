@@ -50,5 +50,59 @@
           </ul>
         </tal:vars>
     </div>
+    <div metal:define-macro="news">
+        <div class="portlet" id="portletNews"
+             tal:define="helper here/@@hw_view;
+                limit limit|python:3">
+
+          <ul>
+            <li tal:repeat="news python:helper.getNews(limit)">
+              <tal:news_item>
+                <a tal:attributes="href news/link">
+                  <img tal:attributes="src news/img_url" width="85" tal:on-error="string:no image"/>
+                  <h3 tal:replace="news/title">EU-OSHA targets health risks in cleaning industry for European Week 2009</h3> 
+                </a>
+                <p tal:replace="structure news/description"></p>
+              </tal:news_item>
+            </li>
+          </ul>
+
+          <p class="footer"><a tal:attributes="href helper/getNewsfolderUrl">More news&#8230;</a>
+          </p>
+        </div>
+    </div>
+    <div metal:define-macro="events">
+        <div class="portlet" id="portletEvents"
+             tal:define="helper here/@@hw_view;
+                 limit limit|python:3">
+
+          <ul class="events">
+            <tal:block repeat="event python:helper.getEvents(limit)">
+              <li>
+
+                <a tal:attributes="href event/link">
+                  <h3 tal:content="event/title" />
+                </a>
+                <p class="byline" tal:content="event/location">
+                  Algarve region, Portugal
+                </p>
+
+                <p class="calendar-medium" tal:define="start event/start">
+                  <strong class="day" tal:content="start/day">2</strong>
+                  <strong class="month char-count-3" tal:define="ll python:here.len_month(start.month()); ln python:ll[1]"
+                          tal:attributes="class string:month char-count-${ln}"
+                          tal:content="python:ll[0]">December</strong>
+                <strong class="year" tal:content="start/year">2010</strong></p>
+                <p class="description" tal:content="event/description" />
+
+              </li>
+            </tal:block>
+          </ul>
+
+          <p class="footer">
+            <a tal:attributes="href helper/getEventsfolderUrl"
+               href="http://osha.europa.eu/en/campaigns/hw2010/events/">More events&#8230;</a></p>
+        </div>
+    </div>
 </body>
 </html>
