@@ -27,7 +27,18 @@ class IHelperView(Interface):
 
     def getTranslations():
         """ return translations of current item """
-        
+
+    def getNavigation():
+        """ Fetch landing and sub-pages """
+
+    def getNews(limit=None):
+        """ Fetches campaign-related news """
+
+    def getNewsfolderUrl():
+        """ URL to the news folder"""
+
+    def getHomeURL():
+        """ Campaing site root URL """
 
 class INationalPartnerForm(Interface):
     """ """

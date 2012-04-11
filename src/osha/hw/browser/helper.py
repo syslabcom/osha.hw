@@ -209,11 +209,14 @@ class HelperView(BrowserView):
 
     def __init__(self, context, request=None):
         self.context = context
+        self.ptool = getToolByName(context, 'portal_url')
         self.ltool = getToolByName(context, 'portal_languages')
         self.pref_lang = self.ltool.getPreferredLanguage()
         self.supported_langs = self.ltool.getSupportedLanguages()
         self.available_langs = self.ltool.getAvailableLanguages()
         self.subsite_path = getSubsiteRoot(aq_inner(context))
+        self.root = self.context.restrictedTraverse(self.subsite_path)
+        self.langroot = getattr(self.root, self.pref_lang, getattr(self.root, 'en'))
 
     def getTranslations(self):
         langinfo = self.ltool.getAvailableLanguageInformation()
@@ -229,9 +232,7 @@ class HelperView(BrowserView):
             yield dict(obj=obj, lang=lang, native=native)
 
     def getNavigation(self):
-        root = self.context.restrictedTraverse(self.subsite_path)
-        langroot = getattr(root, self.pref_lang, getattr(root, 'en'))
-        landing_pages = [x.getObject() for x in langroot.getFolderContents( \
+        landing_pages = [x.getObject() for x in self.langroot.getFolderContents( \
         {'portal_type':'Folder'})]
         landing_pages = [x for x in landing_pages if not x.getExcludeFromNav()]
         for landing_page in landing_pages:
@@ -242,7 +243,28 @@ class HelperView(BrowserView):
         # hardcoded for the moment
         return "http://hw2012.syslab.com"
 
-    
+    def getNewsfolderUrl(self):
+        return self.langroot.restrictedTraverse('news').absolute_url()
+
+    def getNews(self, limit=None):
+        """Fetch campaign-related News and return the relevant parts"""
+        subject = aq_inner(self.root).Subject()
+        newsfolderurl = self.langroot.restrictedTraverse('news').absolute_url()
+        portal_path = self.ptool.getPortalPath()
+        pc = getToolByName(self.context, 'portal_catalog')
+        res = pc(portal_type='News Item', sort_on='effective',
+            sort_order='reverse',
+            expires={'query': DateTime(), 'range': 'min'},
+            path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang)],
+            Subject=subject)[:limit]
+        for r in res:
+            obj = r.getObject()
+            link = "%s/@@slc.telescope?path=%s" % (newsfolderurl, r.getPath())
+            img_url = getattr(obj, 'image', None) and obj.image.absolute_url() or ''
+            description = obj.Description().strip() != '' and obj.Description() or obj.getText()
+            yield dict(link=link, img_url=img_url, description=description,
+                title=obj.Title())
+
     def fixcontent(self):
         """ due to the url change, we have broken links in the translations """
         
