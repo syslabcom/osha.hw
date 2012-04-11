@@ -23,7 +23,7 @@ SV = {
     
     'leadership': 'hw2012_landing_page',
     'leadership/leadership': 'hw2012_landing_page',
-    'leadership/benefits/index_html': 'hw2012_details_page',
+    'leadership/benefits/benefits': 'hw2012_details_page',
     'leadership/enterprises-survey/enterprises-survey': 'hw2012_details_page',
     'leadership/leadership-guide/leadership-guide': 'hw2012_details_page',
     'leadership/leadership-self-assessment/leadership-checklist': 'hw2012_details_page',
@@ -57,7 +57,7 @@ SV = {
     'about': 'hw2012_landing_page',
     'about/about': 'hw2012_landing_page',
     'about/about_the_campaign/about-the-campaign': 'hw2012_details_page',
-    'about/campaign-partners/index_html': 'hw_ocps',
+    'about/campaign-partners/campaign-partners': 'hw_ocps',
     'about/focal-points/focal-points': 'hw_fops',
     'about/enterprise-europe-network/enterprise-europe-network': 'hw2012_details_page',
 
@@ -321,10 +321,10 @@ class HelperView(BrowserView):
         for lang in self.supported_langs:
             msg += "LANGUAGE: %s\n============\n\n" % lang.upper()
 
-            if not hasattr(self.context.aq_explicit, lang):
+            if lang not in self.context.objectIds():
                 continue
 
-            langfolder = getattr(self.context, lang, None)
+            langfolder = self.context[lang]
             
             for path in SV:
                 ob = langfolder.restrictedTraverse(path, None)
