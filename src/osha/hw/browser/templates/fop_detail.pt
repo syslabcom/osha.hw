@@ -30,15 +30,15 @@
 
             <div id="campaign-partner-details">
 
-            <div id="CEO">
+            <p id="CEO">
                 <img src="" tal:attributes="src ceo_img_url" /><br />
-            </div>
-            <div class="documentDescription" id="parent-fieldname-description" tal:content="partner/description">quote</div>
+            </p>
+            <p class="documentDescription" id="parent-fieldname-description" tal:content="partner/description">quote</p>
 
 
                 <div id="content-core"
                     tal:define="url partner/campaignurl|partner/url">
-                    <dl class="detailsListing" id="partner-profile">
+                    <dl class="detailsListing grid" id="partner-profile">
 
                         <dt>Type of organisation:</dt>
                         <dd tal:content="partner/organisationtype">org_type</dd>

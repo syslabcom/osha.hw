@@ -30,17 +30,17 @@
 
             <div id="campaign-partner-details">
 
-                <div id="CEO">
+                <p id="CEO">
                     <img src="" tal:attributes="src ceo_img_url" /><br />
                     CEO<br />
                     <span tal:replace="partner/ceoname">Name</span>
-                </div>
-                <div class="documentDescription" id="parent-fieldname-description"><span id="ceoquote">[CEO quote]</span> <span tal:content="partner/description">quotes</span></div>
+                </p>
+                <p class="documentDescription" id="parent-fieldname-description"><span id="ceoquote">[CEO quote]</span> <span tal:content="partner/description">quotes</span></p>
 
 
                 <div id="content-core"
                     tal:define="url partner/campaignurl|partner/url">
-                    <dl class="detailsListing" id="partner-profile">
+                    <dl class="detailsListing grid" id="partner-profile">
 
                         <dt>Type of organisation:</dt>
                         <dd tal:content="partner/organisationtype">org_type</dd>
