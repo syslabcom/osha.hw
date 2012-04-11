@@ -1,3 +1,4 @@
+import Acquisition
 from OFS.Image import File
 from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
@@ -6,6 +7,7 @@ from Products.Five import BrowserView
 from zope.component import getUtility
 import sqlalchemy
 from osha.hw.queries import *
+from slc.subsite.root import getSubsiteRoot
 
 from logging import getLogger
 log = getLogger('osha.hw sync-receiver')
@@ -17,7 +19,8 @@ class BaseDBView(BrowserView):
         self.context = context
         self.db = getUtility(IDatabase, name="osha.database")
         self.conn = self.db.connection
-
+        self.subsite_path = getSubsiteRoot(Acquisition.aq_inner(context))
+        self.root = self.context.restrictedTraverse(self.subsite_path)
 
 class DBSetup(BaseDBView):
 
@@ -111,7 +114,7 @@ class AddEvent(BaseDBView):
             tbc.getMutator(ob)(dateToBeConfirmed)
 
         # set the subcategory
-        ob.setSubcategory('maintenance')
+        ob.setSubcategory(self.root.Subject())
         #import pdb; pdb.set_trace()
 
         # Set attachment
@@ -182,7 +185,7 @@ class AddNews(BaseDBView):
         ob.setImage(image.data)
 
         # #set Subject
-        ob.setSubject('maintenance')
+        ob.setSubject(self.root.Subject())
 
         # publish
         try:
