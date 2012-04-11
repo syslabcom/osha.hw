@@ -31,7 +31,7 @@
             <div id="campaign-partner-details">
 
                 <link rel="stylesheet" type="text/css"
-                href="hw2010_partners.css" tal:attributes="href string:${portal_url}/++resource++hw_partners.css"/>
+                href="hw2010_partners.css" tal:attributes="href string:${portal_url}/++resource++hw_partners.css" />
 
 
                 <div id="CEO">
@@ -95,7 +95,7 @@
                 </div>
 
             <!-- News -->
-            <tal:block define="news_res python:view.get_partner_news(partner_id=id);
+            <tal:news define="news_res python:view.get_partner_news(partner_id=id);
                     news python:[here.restrictedTraverse(x['url'], None) for x in news_res];
                     news python:[x for x in news if x is not None]">
                 <div class="expandable closed"
@@ -122,7 +122,7 @@
                         </span>
                     </dl>
                 </div>
-            </tal:block>
+            </tal:news>
         </div>
     </tal:block>
 </tal:block>

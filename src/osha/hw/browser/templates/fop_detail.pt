@@ -31,7 +31,7 @@
             <div id="campaign-partner-details">
 
                 <link rel="stylesheet" type="text/css"
-                href="hw2010_partners.css" tal:attributes="href string:${portal_url}/++resource++hw_partners.css"  />
+                href="hw2010_partners.css" tal:attributes="href string:${portal_url}/++resource++hw_partners.css" />
 
             <div id="CEO">
                 <img src="" tal:attributes="src ceo_img_url" /><br />
@@ -39,25 +39,26 @@
             <div class="documentDescription" id="parent-fieldname-description" tal:content="partner/description">quote</div>
 
 
-            <div id="content-core"
-                tal:define="url partner/campaignurl|partner/url">
-                <dl class="detailsListing" id="partner-profile">
+                <div id="content-core"
+                    tal:define="url partner/campaignurl|partner/url">
+                    <dl class="detailsListing" id="partner-profile">
 
-                    <dt>Type of organisation:</dt>
-                    <dd tal:content="partner/organisationtype">org_type</dd>
+                        <dt>Type of organisation:</dt>
+                        <dd tal:content="partner/organisationtype">org_type</dd>
 
-                    <dt>URL:</dt>
-                    <dd>
-                        <a href="" tal:attributes="href url" tal:content="url">url</a>
-                    </dd>
+                        <dt>URL:</dt>
+                        <dd>
+                            <a href="" tal:attributes="href url" tal:content="url">url</a>
+                        </dd>
 
-                    <!--dt>Business sector:</dt>
-                    <dd tal:content="partner/businesssector">business</dd-->
+                        <!--dt>Business sector:</dt>
+                        <dd tal:content="partner/businesssector">business</dd-->
 
-                    <dt>Mandate:</dt>
-                    <dd tal:content="structure partner/missionstatement">mission</dd>
+                        <dt>Mandate:</dt>
+                        <dd tal:content="structure partner/missionstatement">mission</dd>
 
-                </dl>
+                    </dl>
+                </div>
 
                 <!-- Events -->
                 <div class="expandable opened"
@@ -118,8 +119,6 @@
                 </div>
             </tal:block>
         </div>
-    </div>
-
   </tal:block>
 </tal:block>
 
