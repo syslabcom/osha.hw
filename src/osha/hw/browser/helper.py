@@ -18,6 +18,9 @@ log = getLogger('osha.hw helper')
 IEXT = ('gif', 'jpg', 'png')
 TOPLEVELFOLDERS = ('about', 'get-involved', 'leadership', 'media', 'resources', 'worker-participation')
 SV = {
+    'news': 'hw2012_news',
+    'events': 'hw2012_events',
+    
     'leadership': 'hw2012_landing_page',
     'leadership/leadership': 'hw2012_landing_page',
     'leadership/benefits/index_html': 'hw2012_details_page',
@@ -265,8 +268,9 @@ class HelperView(BrowserView):
             link = "%s/@@slc.telescope?path=%s" % (self.getNewsfolderUrl(), r.getPath())
             img_url = getattr(obj, 'image', None) and obj.image.absolute_url() or ''
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
+            date = obj.effective()
             yield dict(link=link, img_url=img_url, description=description,
-                title=obj.Title())
+                title=obj.Title(), day=date.day(), month=date.pMonth(), year=date.year())
 
     def getEvents(self, limit=None):
         """Fetch campaign-related Events and return the relevant parts"""
