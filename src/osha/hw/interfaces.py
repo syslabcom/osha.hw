@@ -25,6 +25,9 @@ class IHelperView(Interface):
     def set_views():
         """ sets the views on all folders """
 
+    def recreate_language_links():
+        """ ZopeFinds through the en tree and links languages """
+
     def getTranslations():
         """ return translations of current item """
 
