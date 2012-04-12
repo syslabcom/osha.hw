@@ -99,19 +99,18 @@
 
                 <a tal:attributes="href event/link">
                   <h3 tal:content="event/title" />
-                </a>
-                <p class="byline" tal:content="event/location">
-                  Algarve region, Portugal
-                </p>
+                    <p class="byline" tal:content="event/location">
+                      Algarve region, Portugal
+                    </p>
 
-                <p class="calendar-medium" tal:define="start event/start">
-                  <strong class="day" tal:content="start/day">2</strong>
-                  <strong class="month char-count-3" tal:define="ll python:here.len_month(start.month()); ln python:ll[1]"
-                          tal:attributes="class string:month char-count-${ln}"
-                          tal:content="python:ll[0]">December</strong>
-                <strong class="year" tal:content="start/year">2010</strong></p>
-                <p class="description" tal:content="event/description" />
-
+                    <p class="calendar-medium" tal:define="start event/start">
+                      <strong class="day" tal:content="start/day">2</strong>
+                      <strong class="month char-count-3" tal:define="ll python:here.len_month(start.month()); ln python:ll[1]"
+                              tal:attributes="class string:month char-count-${ln}"
+                              tal:content="python:ll[0]">December</strong>
+                    <strong class="year" tal:content="start/year">2010</strong></p>
+                     <p class="description" tal:content="event/description" />
+                  </a>
               </li>
             </tal:block>
           </ul>
