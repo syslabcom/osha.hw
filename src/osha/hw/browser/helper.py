@@ -1,4 +1,4 @@
-from Acquisition import aq_inner
+from Acquisition import aq_inner, aq_parent
 from OFS.Image import File
 from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
@@ -294,6 +294,22 @@ class HelperView(BrowserView):
         """ Get the promotional doc """
         promo = getattr(aq_inner(self.langroot), 'promo', None)
         return promo
+
+    def getOCPLogos(self):
+        """ fetch the partner logos, the folder path is hardcoded """
+        path = 'en/about/campaign-partners/img'
+        folder = self.root.restrictedTraverse(path)
+        partners_folder = aq_parent(folder)
+        images = folder.objectItems('ATImage')
+        for id, image in images:
+            if '.' in id:
+                elems = id.split('.')
+                stem = '.'.join(elems[0:-1])
+            else:
+                stem = id
+            if stem.split('_')[-1] == 'logo':
+                yield dict(src=image.absolute_url(),
+                link="%s/detail?id=%s" % (partners_folder.absolute_url(), id))
 
     def fixcontent(self):
         """ due to the url change, we have broken links in the translations """

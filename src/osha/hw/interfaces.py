@@ -52,6 +52,9 @@ class IHelperView(Interface):
     def getPromo():
         """ Get the promotional doc """
 
+    def getOCPLogos():
+        """ fetch the partner logos, the folder path is hardcoded """
+
 class INationalPartnerForm(Interface):
     """ """
 

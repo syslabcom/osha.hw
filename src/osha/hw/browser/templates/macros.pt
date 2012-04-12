@@ -135,8 +135,20 @@
                         <img src="Media/placeHolder.png" width="250px" height="125px">
                     </p>
                 </a>
-
         </div>
+    </div>
+
+    <div metal:define-macro="ocp-logos">
+        <ul class="logos" id="ocp-logos"
+            tal:define="helper here/@@hw_view;
+               logos helper/getOCPLogos">
+            <li tal:repeat="logo logos">
+                
+                <a href="#" tal:attributes="href logo/link">
+                    <img src="#" tal:attributes="src logo/src" />
+                </a>
+            </li>
+        </ul>
     </div>
 </body>
 </html>
