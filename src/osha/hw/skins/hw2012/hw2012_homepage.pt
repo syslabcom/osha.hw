@@ -12,6 +12,18 @@
     tal:define="helper here/@@hw_view">
     <tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general main')" />
 
+        <div class="carouselContainer" metal:use-macro="here/@@osha.hw.macros/news">
+        </div>
+
+        <div class="carouselContainer" metal:use-macro="here/@@osha.hw.macros/events">
+        </div>
+
+        <div id="promo" metal:use-macro="here/@@osha.hw.macros/promo">
+        </div>
+
+        <ul id="ocp-logos" class="logos" metal:use-macro="here/@@osha.hw.macros/ocp-logos">
+        </ul>
+
 </metal:block>
 </body>
 </html>
