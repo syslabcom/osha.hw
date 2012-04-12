@@ -9,11 +9,11 @@
 <body>
 
 <metal:block fill-slot="main"
-    tal:define="global id request/id|nothing;
-                global partner python:view.get_partner(id=id);
-                global folder python:here.aq_parent;
-                global img_folder python:getattr(folder.getCanonical(), 'img');
-                global helper here/@@hw_view;
+    tal:define="id request/id|nothing;
+                partner python:view.get_partner(id=id);
+                folder python:here.aq_parent;
+                img_folder python:getattr(folder.getCanonical(), 'img');
+                helper here/@@hw_view;
                 events_folder_url helper/getEventsfolderUrl;
                 news_folder_url helper/getNewsfolderUrl">
     <tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general partner-detail')" />
@@ -59,6 +59,56 @@
                         <dd tal:content="partner/campaign_pledge">pledge</dd>
                     </dl>
                 </div>
+
+
+        <div id="portlet portletPartnerPortlet" class="portlet"
+         tal:define="logo python:getattr(img_folder, '%s_logo.jpg' % id, None) or getattr(img_folder, '%s_logo.gif' % id, None) or
+                            getattr(img_folder, '%s_logo.png' % id, None);
+                     logo_url python:logo and logo.absolute_url()+'/image_thumb' or ''">
+
+
+                <img src="" tal:attributes="src logo_url" />
+
+            <dd class="portletItem odd">
+                <span tal:replace="partner/title">org_name</span><br />
+                <span tal:replace="partner/street">org_address</span><br />
+                <span tal:replace="partner/zipcode">post code</span>
+                <span tal:replace="partner/city">city</span><br />
+                <span tal:replace="partner/country">country</span>
+            </dd>
+
+            <dd class="portletItem even">
+                <span tal:replace="partner/email">email</span><br />
+                <a href="" tal:attributes="href partner/url" tal:content="partner/url">url</a>
+            </dd>
+
+            <dd class="portletItem odd">
+                Tel: <span tal:replace="partner/phone">phone</span><br />
+                Fax: <span tal:replace="partner/fax">fax</span>
+            </dd>
+
+
+        </div>
+
+        <div id="portlet portletContactsPortlet" class="portlet">
+
+            <h4>Contact Persons</h4>
+
+
+            <dd class="portletItem odd">
+                <strong tal:content="partner/keyposition">key position</strong><br />
+                <span tal:replace="partner/keyname">key name</span><br />
+
+            </dd>
+
+            <dd class="portletItem even">
+                <tal:c condition="partner/representativename">
+                  <strong>Health and Safety Representative</strong><br />
+                  <span tal:replace="partner/representativename">repr. name</span><br />
+                </tal:c>
+            </dd>
+
+        </div>
 
                 <!-- Events -->
                 <div class="expandable opened"
@@ -133,62 +183,6 @@
 </metal:block>
 
 
-<metal:block  fill-slot="column_two_slot">
-      <div tal:condition="partner" id="portal-column-two">
-        <div class="visualPadding">
-
-
-        <div id="portlet portletPartnerPortlet" class="portlet"
-         tal:define="logo python:getattr(img_folder, '%s_logo.jpg' % id, None) or getattr(img_folder, '%s_logo.gif' % id, None) or
-                            getattr(img_folder, '%s_logo.png' % id, None);
-                     logo_url python:logo and logo.absolute_url()+'/image_thumb' or ''">
-
-
-                <img src="" tal:attributes="src logo_url" />
-
-            <dd class="portletItem odd">
-                <span tal:replace="partner/title">org_name</span><br />
-                <span tal:replace="partner/street">org_address</span><br />
-                <span tal:replace="partner/zipcode">post code</span>
-                <span tal:replace="partner/city">city</span><br />
-                <span tal:replace="partner/country">country</span>
-            </dd>
-
-            <dd class="portletItem even">
-                <span tal:replace="partner/email">email</span><br />
-                <a href="" tal:attributes="href partner/url" tal:content="partner/url">url</a>
-            </dd>
-
-            <dd class="portletItem odd">
-                Tel: <span tal:replace="partner/phone">phone</span><br />
-                Fax: <span tal:replace="partner/fax">fax</span>
-            </dd>
-
-
-        </div>
-
-        <div id="portlet portletContactsPortlet" class="portlet">
-
-            <h4>Contact Persons</h4>
-
-
-            <dd class="portletItem odd">
-                <strong tal:content="partner/keyposition">key position</strong><br />
-                <span tal:replace="partner/keyname">key name</span><br />
-
-            </dd>
-
-            <dd class="portletItem even">
-                <tal:c condition="partner/representativename">
-                  <strong>Health and Safety Representative</strong><br />
-                  <span tal:replace="partner/representativename">repr. name</span><br />
-                </tal:c>
-            </dd>
-
-        </div>
-      </div>
-      </div>
-    </metal:block>
 
 </body>
 </html>
