@@ -290,11 +290,6 @@ class HelperView(BrowserView):
             yield dict(link=link, location=r.location, start=obj.start(), description=description,
                 title=obj.Title())
 
-    def getDownloads(self):
-        """ return a list of uploaded files together with the respective preview image """
-        files = self.context.objectIds('ATFile')
-        import pdb; pdb.set_trace()
-
     def fixcontent(self):
         """ due to the url change, we have broken links in the translations """
 
