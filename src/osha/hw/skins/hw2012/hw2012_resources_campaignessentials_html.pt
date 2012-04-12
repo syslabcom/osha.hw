@@ -40,13 +40,12 @@
               </tal:block>
 			</tal:repeat>
           </tal:guide>
-		</div>
+
           
-        <h2 tal:content="python:getattr(context, 'slideshow-presentations').Title()">Slideshow presentations</h2>
-		<span tal:replace="structure python:getattr(context['slideshow-presentations'], 'slideshow-presentations').getText()"
-		    tal:on-error="nothing"></span>
-		
-		<div class="downloads">
+          <h2 tal:content="python:getattr(context, 'slideshow-presentations').Title()">Slideshow presentations</h2>
+		  <span tal:replace="structure python:getattr(context['slideshow-presentations'], 'slideshow-presentations').getText()"
+			tal:on-error="nothing"></span>
+
           <tal:presentations on-error="nothing" repeat="pdf python:context['slideshow-presentations'].listFolderContents(contentFilter={'portal_type':'File'})">
             <a href="#" tal:on-error="nothing" tal:attributes="href python:pdf.absolute_url()">
 	            <h3 tal:content="pdf/Title">Title</h3>
