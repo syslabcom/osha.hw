@@ -266,7 +266,7 @@ class HelperView(BrowserView):
         for r in res:
             obj = r.getObject()
             link = "%s/@@slc.telescope?path=%s" % (self.getNewsfolderUrl(), r.getPath())
-            img_url = getattr(obj, 'image', None) and obj.image.absolute_url() or ''
+            img_url = obj.getImage() and  obj.getImage().absolute_url() or ''
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
             date = obj.effective()
             yield dict(link=link, img_url=img_url, description=description,
