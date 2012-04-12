@@ -124,7 +124,7 @@
     <div metal:define-macro="promo">
         <div class="alert" id="promo"
             tal:define="helper here/@@hw_view;
-               promo nocall:helper/getPromo"
+               promo helper/getPromo"
             tal:condition="promo">
 
                 <a href="#" tal:attributes="href promo/absolute_url">
