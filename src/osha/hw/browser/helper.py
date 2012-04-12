@@ -290,6 +290,11 @@ class HelperView(BrowserView):
             yield dict(link=link, location=r.location, start=obj.start(), description=description,
                 title=obj.Title())
 
+    def getPromo(self):
+        """ Get the promotional doc """
+        promo = getattr(aq_inner(self.langroot), 'promo', None)
+        return promo
+
     def fixcontent(self):
         """ due to the url change, we have broken links in the translations """
 

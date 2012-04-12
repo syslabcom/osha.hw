@@ -49,6 +49,9 @@ class IHelperView(Interface):
     def getHomeURL():
         """ Campaing site root URL """
 
+    def getPromo():
+        """ Get the promotional doc """
+
 class INationalPartnerForm(Interface):
     """ """
 
