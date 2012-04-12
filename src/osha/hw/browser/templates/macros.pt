@@ -120,5 +120,19 @@
                href="http://osha.europa.eu/en/campaigns/hw2010/events/">More events&#8230;</a></p>
         </div>
     </div>
+
+	<div metal:define-macro="promo">
+		<div class="alert" id="promo">
+
+				<a href="#">
+					<h3>CUSTOM TEST PROMO</h3>
+
+					<p>bla bla
+						<img src="Media/placeHolder.png" width="250px" height="125px">
+					</p>
+				</a>
+
+		</div>
+	</div>
 </body>
 </html>
