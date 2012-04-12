@@ -309,7 +309,7 @@ class HelperView(BrowserView):
                 stem = id
             if stem.split('_')[-1] == 'logo':
                 yield dict(src=image.absolute_url(),
-                link="%s/detail?id=%s" % (partners_folder.absolute_url(), id))
+                link="%s/detail?id=%s" % (partners_folder.absolute_url(), stem.replace('_logo', '')))
 
     def fixcontent(self):
         """ due to the url change, we have broken links in the translations """
