@@ -157,7 +157,7 @@ class HelperView(BrowserView):
         return self.langroot.restrictedTraverse('events').absolute_url()
 
     def getSlogan(self):
-        """ Fetches the text from the slogan document in the root """
+        """ Fetches the translated slogan text """
         # id = self.langroot.getDefaultPage()
         # doc = getattr(self.langroot, id)
         # return doc.getText()
