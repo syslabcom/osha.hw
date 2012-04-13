@@ -43,6 +43,9 @@ class IHelperView(Interface):
     def getEvents(limit=None):
         """ Fetches campaign-related events """
 
+    def getPublications(limit=None):
+        """ Fetch campaign-relevant publications """
+
     def getEventsfolderUrl():
         """ URL to the events-folder"""
 
