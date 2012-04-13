@@ -32,9 +32,10 @@
                     type='video/ogg;codecs="theora,vorbis"'></source>
                 <source src="poster" id="src_poster"
                     tal:attributes="src string:${base_url}${filmid}.jpg"></source>
-
-            <div width="470" height="265" tabindex="0" controls="controls" preload="preload" id="videocontainer"></div>
-            <p>&copy; NAPO Consortium, JW Player by LongTail Video</p>
+            <figure class="illustration-1">
+                <div width="470" height="265" tabindex="0" controls="controls" preload="preload" id="videocontainer"></div>
+                <figcaption>&copy; NAPO Consortium</figcaption>
+            </figure>
 
             <script type="text/javascript">
                 $playerurl = jQuery('#portal_url').attr('portal_url') + "/jwplayer.swf";
