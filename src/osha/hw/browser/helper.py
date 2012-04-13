@@ -11,6 +11,7 @@ from osha.policy.utils import logit
 from osha.hw.browser.sync_receiver import BaseDBView
 from osha.hw.queries import insert_hw2012_charter, create_hw2012_charter
 from osha.hw.util import generatePDF, send_charter_email
+from zope.i18n import translate
 
 from logging import getLogger
 log = getLogger('osha.hw helper')
@@ -157,9 +158,12 @@ class HelperView(BrowserView):
 
     def getSlogan(self):
         """ Fetches the text from the slogan document in the root """
-        id = self.langroot.getDefaultPage()
-        doc = getattr(self.langroot, id)
-        return doc.getText()
+        # id = self.langroot.getDefaultPage()
+        # doc = getattr(self.langroot, id)
+        # return doc.getText()
+        slogan = translate('campaign_slogan_2012', domain="osha_ew",
+            target_language=self.pref_lang)
+        return slogan
 
     def getNews(self, limit=None):
         """Fetch campaign-related News and return the relevant parts"""
