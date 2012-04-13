@@ -184,7 +184,8 @@ class HelperView(BrowserView):
             # now get the correct translation, or use the EN one as fallback
             obj = obj.getTranslation(self.pref_lang) or obj
             link = "%s/@@slc.telescope?path=%s" % (self.getNewsfolderUrl(), r.getPath())
-            img_url = obj.getImage() and  obj.getImage().absolute_url() or ''
+            img_url = obj.getImage() and '/'.join(obj.getImage().getPhysicalPath()) or ''
+            img_url = img_url.replace('/osha/portal', 'https://osha.europa.eu')
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
             date = obj.effective()
             yield dict(link=link, img_url=img_url, description=description,
