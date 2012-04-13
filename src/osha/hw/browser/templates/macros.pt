@@ -126,15 +126,10 @@
             tal:define="helper here/@@hw_view;
                promo helper/getPromo"
             tal:condition="promo">
-
-                <a href="#" tal:attributes="href promo/absolute_url">
-                    <h3 tal:content="promo/Title">PROMO</h3>
-
-                    <p tal:content="structure promo/getText">
-                        Text
-                        <img src="Media/placeHolder.png" width="250px" height="125px">
-                    </p>
-                </a>
+                <p tal:content="structure promo/getText">
+                    Text
+                    <img src="Media/placeHolder.png" width="250px" height="125px">
+                </p>
         </div>
     </div>
 
