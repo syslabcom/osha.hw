@@ -8,7 +8,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame
-from reportlab.lib.colors import red, black
+from reportlab.lib.colors import red, black, blue, green
 from reportlab.lib.enums import TA_CENTER
 import reportlab.rl_config
 from zope.i18n import translate
@@ -69,7 +69,7 @@ def generatePDF(self,
         language = "en"
 
     ptt_domain = 'osha_ew'
-    year = "2012"
+    year = "2010"
 
     # create a canvas and set metadata
     acknowledge = StringIO()
@@ -109,8 +109,8 @@ def generatePDF(self,
                                 target_language=language, 
                                 context=self
                                 )
-    x = 10.4 * cm
-    y = 28 * cm
+    x = 14.85 * cm
+    y = 19 * cm
     my_canvas.setFont('ArialBold', 20)
     my_canvas.drawCentredString(x, y, u_campaign_name.upper())
     print " +- set Heading"
@@ -123,10 +123,10 @@ def generatePDF(self,
                                 target_language=language, 
                                 context=self
                                 )
-    x = 10.5 * cm
-    y = 26.3 * cm
+    x = 14.85 * cm
+    y = 18 * cm
     my_canvas.setFont('ArialBold', 17)
-    my_canvas.setFillColor(red)
+    my_canvas.setFillColor(green)
     my_canvas.drawCentredString(x, y, u_campaign_slogan.upper())
     print " +- set slogan"
     mapping = {'campaign_slogan':u_campaign_slogan, 'year':year}
@@ -145,8 +145,8 @@ def generatePDF(self,
                                 target_language=language, 
                                 context=self
                                 )
-    x = 10.4 * cm
-    y = 22.5 * cm
+    x = 14.85 * cm
+    y = 11 * cm
     my_canvas.setFont('Arial', 32)
     my_canvas.setFillColor(black)
     my_canvas.drawCentredString(x, y, certificate_title.upper())
@@ -160,15 +160,15 @@ def generatePDF(self,
                                     target_language=language,
                                     context=self)
     certificate_for = certificate_for.encode('utf-8')
-    x = 10.4 * cm
-    y = 21.5 * cm
+    x = 14.85 * cm
+    y = 10 * cm
     my_canvas.setFont('Arial', 18)
     my_canvas.drawCentredString(x, y, certificate_for)
     print " +- set first subline"#, certificate_for
 
     # print company name
-    x = 10.4 * cm
-    y = 16 * cm
+    x = 14.85 * cm
+    y = 8 * cm
     width, height = landscape(A4)
     width -= 5 * cm
     height = 10 * cm
@@ -195,49 +195,67 @@ def generatePDF(self,
             alignment=1
         )
 
-    lines = []
+    #lines = []
+    
+    
+    # print contribution headline
+    x = 14.85 * cm
+    y = 5 * cm
+    width, height = landscape(A4)
+    width -= 5 * cm
+    height = 10 * cm
+    
     contribution_headline = translate(domain=ptt_domain, 
-                                          msgid='contribution_headline_'+year, 
+                                          msgid='contribution_headline_2012', 
                                           mapping=mapping, 
                                           target_language=language,
                                           context=self)
 
     contribution_headline = contribution_headline.encode('utf-8')
-    lines.append( Paragraph(contribution_headline, style) )
-    cFrame = Frame(3*cm, 10*cm, 15*cm, 3*cm)
-    cFrame.addFromList(lines, my_canvas)
+    P = Paragraph(contribution_headline, style)
+    wi, he = P.wrap(width, height)
+    P.drawOn(my_canvas, x - wi/2, y - he/2)
+    print " +- set contribution headline"#, company
+
+    
+    
+    
+    
+#    lines.append( Paragraph(contribution_headline, style) )
+#    cFrame = Frame(3*cm, 5*cm, 26.7*cm, 3*cm)
+#    cFrame.addFromList(lines, my_canvas)
     
     # Director's signature
-    director_name = "Christa Sedlatschek,"
-    director_name = director_name.encode('utf-8')
-    director_indentifier = translate(domain=ptt_domain, 
-                                           msgid='director_'+year, 
-                                           mapping=mapping, 
-                                           target_language=language,
-                                           context=self)
-    director_indentifier = director_indentifier.encode('utf-8')
-    
-    style = ParagraphStyle(
-            name='ContributionHeadline',
-            fontName='Arial',
-            fontSize=16,
-            spaceAfter=6,
-            alignment=0
-        )
-    lines = []
-    lines.append(Paragraph(director_name, style))
-    style = ParagraphStyle(
-            name='ContributionHeadline',
-            fontName='Arial',
-            fontSize=14,
-            spaceAfter=6,
-            alignment=0,
-            leading=16
-        )
-    lines.append(Paragraph(director_indentifier, style))
-    dFrame = Frame(0.8*cm, 5*cm, 20*cm, 3*cm)
-    dFrame.addFromList(lines, my_canvas)
-    
+    # director_name = "Christa Sedlatschek,"
+    # director_name = director_name.encode('utf-8')
+    # director_indentifier = translate(domain=ptt_domain, 
+    #                                        msgid='director_'+year, 
+    #                                        mapping=mapping, 
+    #                                        target_language=language,
+    #                                        context=self)
+    # director_indentifier = director_indentifier.encode('utf-8')
+    # 
+    # style = ParagraphStyle(
+    #         name='ContributionHeadline',
+    #         fontName='Arial',
+    #         fontSize=16,
+    #         spaceAfter=6,
+    #         alignment=0
+    #     )
+    # lines = []
+    # lines.append(Paragraph(director_name, style))
+    # style = ParagraphStyle(
+    #         name='ContributionHeadline',
+    #         fontName='Arial',
+    #         fontSize=14,
+    #         spaceAfter=6,
+    #         alignment=0,
+    #         leading=16
+    #     )
+    # lines.append(Paragraph(director_indentifier, style))
+    # dFrame = Frame(0.8*cm, 5*cm, 10*cm, 3*cm)
+    # dFrame.addFromList(lines, my_canvas)
+    # 
     
     # ***** FALLBACK-SOLUTION UNTIL PDFTK IS AVAILABLE *******
     if usePDFTK == 0:
