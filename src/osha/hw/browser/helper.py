@@ -165,19 +165,24 @@ class HelperView(BrowserView):
             target_language=self.pref_lang)
         return slogan
 
-    def getNews(self, limit=None):
+    def getNews(self, limit=0):
         """Fetch campaign-related News and return the relevant parts"""
         subject = aq_inner(self.root).Subject()
         portal_path = self.ptool.getPortalPath()
         pc = getToolByName(self.context, 'portal_catalog')
-        res = pc(portal_type='News Item', sort_on='effective',
-            sort_order='reverse',
+        res = pc(portal_type='News Item',
+            Language=['en', ''],
+            sort_order='reverse', sort_on='effective',
             expires={'query': DateTime(), 'range': 'min'},
             path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang),
             self.subsite_path],
-            Subject=subject)[:limit]
+            Subject=subject)
+        if len(res) and limit > 0:
+            res = res[:limit]
         for r in res:
             obj = r.getObject()
+            # now get the correct translation, or use the EN one as fallback
+            obj = obj.getTranslation(self.pref_lang) or obj
             link = "%s/@@slc.telescope?path=%s" % (self.getNewsfolderUrl(), r.getPath())
             img_url = obj.getImage() and  obj.getImage().absolute_url() or ''
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
@@ -185,23 +190,46 @@ class HelperView(BrowserView):
             yield dict(link=link, img_url=img_url, description=description,
                 title=obj.Title(), day=date.day(), month=date.pMonth(), year=date.year())
 
-    def getEvents(self, limit=None):
+    def getEvents(self, limit=0):
         """Fetch campaign-related Events and return the relevant parts"""
         subject = aq_inner(self.root).Subject()
         portal_path = self.ptool.getPortalPath()
         pc = getToolByName(self.context, 'portal_catalog')
-        res = pc(portal_type='Event', sort_on='effective',
-            sort_order='reverse',
+        res = pc(portal_type='Event',
+            Language=['en', ''],
+            sort_order='reverse', sort_on='effective',
             end={'query': DateTime(), 'range': 'min'}, expires={'query': DateTime(), 'range': 'min'},
             path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang),
             self.subsite_path],
-            Subject=subject)[:limit]
+            Subject=subject)
+        if len(res) and limit > 0:
+            res = res[:limit]
         for r in res:
             obj = r.getObject()
             link = "%s/@@slc.telescope?path=%s" % (self.getEventsfolderUrl(), r.getPath())
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
             yield dict(link=link, location=r.location, start=obj.start(), description=description,
                 title=obj.Title())
+
+    def getPublications(self, limit=0):
+        """ Fetch campaign-relevant publications """
+        subject = aq_inner(self.root).Subject()
+        pc = getToolByName(self.context, 'portal_catalog')
+        res = pc(object_provides='slc.publications.interfaces.IPublicationEnhanced', 
+            portal_type='File',
+            Subject=subject,
+            Language=['en',''],
+            sort_on="effective", sort_order="reverse")
+        if len(res) and limit > 0:
+            res = res[:limit]
+        for r in res:
+            obj = r.getObject()
+            # now get the correct translation, or use the EN one as fallback
+            obj = obj.getTranslation(self.pref_lang) or obj
+            link = '/'.join(obj.getPhysicalPath()).replace('/osha/portal', 'https://osha.europa.eu')
+            url = obj.absolute_url()
+            yield dict(url=url, link=link, title=obj.Title(), description=obj.Description(),
+                obj=obj)
 
     def getPromo(self):
         """ Get the promotional doc """

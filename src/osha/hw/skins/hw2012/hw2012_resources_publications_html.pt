@@ -10,64 +10,36 @@
   </head>
   <body>
     <div metal:fill-slot="main">
-<tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general publications')" />
+      <tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general publications')" />
       <div id="content"
-           tal:define="lang context/portal_languages/getPreferredLanguage;
-                                pubs context/hw2012_resources_fetchpublications">
+           tal:define="helper here/@@hw_view;
+                       publications helper/getPublications">
         <h1><span tal:replace="here/Title">Publications</span></h1>
 
         <p class='documentDescription'><span id='parent-fieldname-description' tal:content="here/Description"></span></p>
 
-
-<!--div class="message notice">
-          <tal:highlighted_publications 
-                     define="highlighted_publications python:pubs[0]"
-                     repeat="publication highlighted_publications">
-          <span class="publicationURL">
-            <a href="" tal:attributes="href string:${publication/absolute_url}">
-            <img src="" class="outdent floatBefore"
-                 tal:attributes="src string:${publication/absolute_url}/cover_image;
-                                 alt publication/Title">
-            </a>
-          </span>
-          <h2><a tal:attributes="href publication/absolute_url" tal:content="publication/Title"></a></h2>
-           <p tal:content="publication/Description"></p>
-           <p class="file-widget"><span metal:use-macro="python:publication.widget('file', mode='view')">
-              Download
-            </span></p>
-            <hr tal:condition="not:repeat/publication/end">
-          </tal:highlighted_publications>
-</div-->
-
-
-
           <tal:publications_collection
-             repeat="maintenance_publication python:pubs[1]">
+             repeat="publication publications">
            <span class="publicationURL">
-            <a href="" tal:define="link python:'/'.join(maintenance_publication.getPhysicalPath()).replace('/osha/portal', '')"
-               tal:attributes="href maintenance_publication/absolute_url">
+            <a href="" tal:attributes="href publication/link">
               <img src="" class="outdent flowBefore"
-                   tal:attributes="src string:${maintenance_publication/absolute_url}/cover_image;
-                                   alt maintenance_publication/Title">
+                   tal:attributes="src string:${publication/url}/cover_image;
+                                   alt publication/title" />
             </a>
            </span>
             <h3>
               <span class="publicationURL">
-               <a tal:define="link python:'/'.join(maintenance_publication.getPhysicalPath()).replace('/osha/portal', '')"
-               tal:attributes="href maintenance_publication/absolute_url" tal:content="maintenance_publication/Title"></a>
+               <a tal:attributes="href publication/link" tal:content="publication/title"></a>
               </span>
             </h3>
-            <p tal:content="maintenance_publication/Description"></p>
-            <p class="file-widget publicationURL"><span metal:use-macro="python:maintenance_publication.widget('file', mode='view')">
+            <p tal:content="publication/description"></p>
+            <p class="file-widget publicationURL"><span metal:use-macro="python:publication['obj'].widget('file', mode='view')">
               Download
             </span></p>
 
-            <hr tal:condition="not:repeat/maintenance_publication/end" >
+            <hr tal:condition="not:repeat/publication/end" >
           </tal:publications_collection>
-
       </div>
-
-
     </div>
   </body>
 </html>
