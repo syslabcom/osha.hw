@@ -253,6 +253,11 @@ class HelperView(BrowserView):
                 yield dict(src=image.absolute_url(),
                 link="%s/detail?id=%s" % (partners_folder.absolute_url(), stem.replace('_logo', '')))
 
+    def getNapofilmId(self):
+        """ Looks for a property called napofilm on the subsite root"""
+        id = self.root.getProperty('napofilm', '')
+        return id
+
     def fixcontent(self):
         """ due to the url change, we have broken links in the translations """
 

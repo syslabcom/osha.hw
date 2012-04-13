@@ -61,6 +61,9 @@ class IHelperView(Interface):
     def getSlogan():
         """ Fetches the translated slogan text """
 
+    def getNapofilmId():
+        """ Looks for a property called napofilm on the subsite root"""
+
 class INationalPartnerForm(Interface):
     """ """
 
