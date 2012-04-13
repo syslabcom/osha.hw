@@ -23,7 +23,7 @@
            <span class="publicationURL">
             <a href="" tal:attributes="href publication/link">
               <img src="" class="outdent flowBefore"
-                   tal:attributes="src string:${publication/url}/cover_image;
+                   tal:attributes="src string:${publication/link}/cover_image;
                                    alt publication/title" />
             </a>
            </span>
