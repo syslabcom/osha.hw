@@ -86,8 +86,9 @@ class CharterView(BaseDBView):
                         )
             try:
                 self.conn.execute(query)
-            except:
-                pass
+            except Exception, e:
+                raise e
+
         from_address = 'information@osha.europa.eu'
 
         try:
@@ -102,7 +103,7 @@ class CharterView(BaseDBView):
                                 usePDFTK=0 
                                 )
             self.context.REQUEST.RESPONSE.setHeader('Content-type', 'application/pdf')
-            return pdf
+            #return pdf
             logit (" ... generatePDF called!")
             send_charter_email(self.context, pdf=pdf, to=email, sender=from_address, body=email_template, language=language)
 
