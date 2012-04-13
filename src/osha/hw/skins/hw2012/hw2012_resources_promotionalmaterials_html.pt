@@ -45,7 +45,7 @@
 
           <h2 class="clear" tal:content="context/banner/Title">Banner</h2>
           <tal:banner
-             tal:define="bnr python:getattr(context.banner, 'online-banner.jpg'); bnrfile python:getattr(context.banner, 'banner.pdf');">
+             define="bnr python:getattr(context.banner, 'online-banner.jpg'); bnrfile python:getattr(context.banner, 'banner.pdf');">
             	<a href="#" tal:attributes="href python:bnr.absolute_url()">
 				<h3 tal:content="bnr/Title" />
               	<img class="outdent floatBefore" 
@@ -56,7 +56,7 @@
           </tal:banner>
 
           <tal:banner
-             tal:define="bnr python:getattr(context.banner, 'leaderboard_%s.jpg'%lang.upper());">
+             on-error="nothing" define="bnr python:getattr(context.banner, 'leaderboard_%s.jpg'%lang.upper());">
             	<a href="#" tal:attributes="href python:bnr.absolute_url()">
 				<h3 tal:content="bnr/Title |string:Leaderboard" />
               	<img class="outdent floatBefore" 
@@ -68,7 +68,7 @@
 				</p>
           </tal:banner>
           <tal:banner
-             tal:define="bnr python:getattr(context.banner, 'rectangulo_%s.jpg'%lang.upper());">
+             on-error="nothing" define="bnr python:getattr(context.banner, 'rectangulo_%s.jpg'%lang.upper());">
             	<a href="#" tal:attributes="href python:bnr.absolute_url()">
 				<h3 tal:content="bnr/Title |string:Square" />
               	<img class="outdent floatBefore" 
@@ -80,7 +80,7 @@
 				</p>
           </tal:banner>
           <tal:banner
-             tal:define="bnr python:getattr(context.banner, 'skycraper_%s.jpg'%lang.upper());">
+             on-error="nothing" define="bnr python:getattr(context.banner, 'skycraper_%s.jpg'%lang.upper());">
             	<a href="#" tal:attributes="href python:bnr.absolute_url()">
 				<h3 tal:content="bnr/Title |string:Leaderboard" />
               	<img class="outdent floatBefore" 
