@@ -8,7 +8,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 from reportlab.platypus import Paragraph, Frame
-from reportlab.lib.colors import red, black, blue, green
+from reportlab.lib.colors import red, black, blue, green, HexColor
 from reportlab.lib.enums import TA_CENTER
 import reportlab.rl_config
 from zope.i18n import translate
@@ -21,6 +21,7 @@ from email.MIMEBase import MIMEBase
 from email.MIMEMultipart import MIMEMultipart
 from email.Utils import formatdate
 
+HW2012BLUE = HexColor('#0a428f')
 
 reportlab.rl_config.warnOnMissingFontGlyphs = 0
 
@@ -111,6 +112,7 @@ def generatePDF(self,
                                 )
     x = 14.85 * cm
     y = 19 * cm
+    my_canvas.setFillColor(HW2012BLUE)
     my_canvas.setFont('ArialBold', 20)
     my_canvas.drawCentredString(x, y, u_campaign_name.upper())
     print " +- set Heading"
@@ -126,7 +128,6 @@ def generatePDF(self,
     x = 14.85 * cm
     y = 18 * cm
     my_canvas.setFont('ArialBold', 17)
-    my_canvas.setFillColor(green)
     my_canvas.drawCentredString(x, y, u_campaign_slogan.upper())
     print " +- set slogan"
     mapping = {'campaign_slogan':u_campaign_slogan, 'year':year}
@@ -148,7 +149,7 @@ def generatePDF(self,
     x = 14.85 * cm
     y = 11 * cm
     my_canvas.setFont('Arial', 32)
-    my_canvas.setFillColor(black)
+    my_canvas.setFillColor(HW2012BLUE)
     my_canvas.drawCentredString(x, y, certificate_title.upper())
     print " +- set Headline"#, certificate_title
     mapping = {'campaign_slogan':u_campaign_slogan, 'year':year}
@@ -168,7 +169,7 @@ def generatePDF(self,
 
     # print company name
     x = 14.85 * cm
-    y = 8 * cm
+    y = 7.5 * cm
     width, height = landscape(A4)
     width -= 5 * cm
     height = 10 * cm
@@ -181,9 +182,11 @@ def generatePDF(self,
             alignment=TA_CENTER)
 
     company = saxutils.escape(company)
-    P = Paragraph(company, style)
-    wi, he = P.wrap(width, height)
-    P.drawOn(my_canvas, x - wi/2, y - he/2)
+    my_canvas.setFont('Arial', 32)
+    my_canvas.drawCentredString(x, y, company)
+    # P = Paragraph(company, style)
+    # wi, he = P.wrap(width, height)
+    # P.drawOn(my_canvas, x - wi/2, y - he/2)
     print " +- set company name"#, company
 
     style = ParagraphStyle(
@@ -212,9 +215,11 @@ def generatePDF(self,
                                           context=self)
 
     contribution_headline = contribution_headline.encode('utf-8')
-    P = Paragraph(contribution_headline, style)
-    wi, he = P.wrap(width, height)
-    P.drawOn(my_canvas, x - wi/2, y - he/2)
+    my_canvas.setFont('Arial', 18)
+    my_canvas.drawCentredString(x, y, contribution_headline)
+    # P = Paragraph(contribution_headline, style)
+    # wi, he = P.wrap(width, height)
+    # P.drawOn(my_canvas, x - wi/2, y - he/2)
     print " +- set contribution headline"#, company
 
     
