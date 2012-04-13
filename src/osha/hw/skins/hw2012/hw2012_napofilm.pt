@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="osha"
+      lang="en">
+    <body>
+        <metal:main fill-slot="main"
+        tal:define='title here/Title;
+                  helper here/@@hw_view;
+                  filmid helper/getNapofilmId;
+                  base_url string:http://media.osha.europa.eu/napofilm/;
+                  myarea python:request.RESPONSE.addHeader("X-Deliverance-Page-Class", "general napofilm");
+                  '>
+        <h1 id='title' tal:content="here/Title"></h1>
+
+        <span tal:replace="structure here/getText" />
+
+        <div id="napofilm" tal:condition="filmid">
+            <script type="text/javascript" src="/jwplayer.js" tal:attributes="src string:${portal_url}/jwplayer.js"></script>
+            <span id="portal_url" tal:attributes="portal_url here/portal_url"></span>
+
+                <source src=".mp4" id="src_mp4"
+                    tal:attributes="src string:${base_url}${filmid}.mp4"
+                    type='video/mp4;codecs="avc1.42E01E,mp4a.40.2"' ></source>
+                <source src=".webm" id="src_webm"
+                    tal:attributes="src string:${base_url}${filmid}.webm"
+                    type='video/webm;codecs="vp8,vorbis"'></source>
+                <source src=".ogv" id="src_ogv"
+                    tal:attributes="src string:${base_url}${filmid}}.ogv"
+                    type='video/ogg;codecs="theora,vorbis"'></source>
+                <source src="poster" id="src_poster"
+                    tal:attributes="src string:${base_url}${filmid}.jpg"></source>
+
+            <div width="470" height="265" tabindex="0" controls="controls" preload="preload" id="videocontainer"></div>
+            <p>&copy; NAPO Consortium, JW Player by LongTail Video</p>
+
+            <script type="text/javascript">
+                $playerurl = jQuery('#portal_url').attr('portal_url') + "/jwplayer.swf";
+                $src_poster = jQuery('#src_poster').attr('src');
+                $src_mp4 = jQuery('#src_mp4').attr('src');
+                $src_webm = jQuery('#src_webm').attr('src');
+                $src_ogv = jQuery('#src_ogv').attr('src');
+                jwplayer("videocontainer").setup({
+                players: [{ type: "flash", src: $playerurl }, { type: "html5" }],
+                height: 265, width: 470,
+                image: $src_poster,
+                levels: [
+                    {file: $src_mp4},
+                    {file: $src_webm},
+                    {file: $src_ogv}
+                ] });
+            </script>
+        </div>
+
+
+    </metal:main>
+  </body>
+</html>
