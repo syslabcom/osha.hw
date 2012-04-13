@@ -21,7 +21,7 @@
         <div id="promo" metal:use-macro="here/@@osha.hw.macros/promo">
         </div>
 
-        <ul id="ocp-logos" class="logos" metal:use-macro="here/@@osha.hw.macros/ocp-logos">
+        <ul id="ocp-logos" class="logos" metal:use-macro="here/@@osha.hw.macros/camp-slogan">
         </ul>
 
 </metal:block>

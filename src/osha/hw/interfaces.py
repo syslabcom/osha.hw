@@ -55,6 +55,9 @@ class IHelperView(Interface):
     def getOCPLogos():
         """ fetch the partner logos, the folder path is hardcoded """
 
+    def getSlogan():
+        """ Fetches the text from the slogan document in the root """
+
 class INationalPartnerForm(Interface):
     """ """
 

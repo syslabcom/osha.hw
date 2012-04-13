@@ -155,6 +155,12 @@ class HelperView(BrowserView):
     def getEventsfolderUrl(self):
         return self.langroot.restrictedTraverse('events').absolute_url()
 
+    def getSlogan(self):
+        """ Fetches the text from the slogan document in the root """
+        id = self.langroot.getDefaultPage()
+        doc = getattr(self.langroot, id)
+        return doc.getText()
+
     def getNews(self, limit=None):
         """Fetch campaign-related News and return the relevant parts"""
         subject = aq_inner(self.root).Subject()

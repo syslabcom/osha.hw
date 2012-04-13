@@ -150,5 +150,14 @@
             </li>
         </ul>
     </div>
+
+    <div metal:define-macro="camp-slogan">
+        <!-- This is a placeholder for the OCP logos box, until the OCPs have been validated -->
+        <ul class="logos" id="ocp-logos"
+            tal:define="helper here/@@hw_view;
+               logos helper/getSlogan">
+            <li tal:content="structure helper/getSlogan">slogan</li>
+        </ul>
+    </div>
 </body>
 </html>
