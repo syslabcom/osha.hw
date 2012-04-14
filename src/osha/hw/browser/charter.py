@@ -36,7 +36,7 @@ class CharterView(BaseDBView):
         language = self.context.portal_languages.getPreferredLanguage()
 
         portal = self.context.portal_url.getPortalObject()
-        url = "/%s/get-involved/" % language
+        url = "/%s/get-involved/become-a-national-partner/feedback" % language
 
         organisation    = request.get('organisation', '')
         address         = request.get('address', '')
@@ -102,7 +102,7 @@ class CharterView(BaseDBView):
                                 checkboxes=checkboxes, 
                                 usePDFTK=0 
                                 )
-            self.context.REQUEST.RESPONSE.setHeader('Content-type', 'application/pdf')
+            #self.context.REQUEST.RESPONSE.setHeader('Content-type', 'application/pdf')
             #return pdf
             logit (" ... generatePDF called!")
             send_charter_email(self.context, pdf=pdf, to=email, sender=from_address, body=email_template, language=language)

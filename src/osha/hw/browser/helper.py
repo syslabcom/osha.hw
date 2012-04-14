@@ -169,6 +169,7 @@ class HelperView(BrowserView):
         """Fetch campaign-related News and return the relevant parts"""
         subject = aq_inner(self.root).Subject()
         portal_path = self.ptool.getPortalPath()
+        lang = self.context.portal_languages.getPreferredLanguage()
         pc = getToolByName(self.context, 'portal_catalog')
         res = pc(portal_type='News Item',
             Language=['en', ''],
@@ -183,7 +184,10 @@ class HelperView(BrowserView):
             obj = r.getObject()
             # now get the correct translation, or use the EN one as fallback
             obj = obj.getTranslation(self.pref_lang) or obj
-            link = "%s/@@slc.telescope?path=%s" % (self.getNewsfolderUrl(), r.getPath())
+            link = r.getPath()
+            if link.startswith('/osha/portal/%s/news' % lang):
+                link = 'http://osha.europa.eu/%s' % link.replace('/osha/portal/','')
+#            link = "%s/@@slc.telescope?path=%s" % (self.getNewsfolderUrl(), r.getPath())
             img_url = obj.getImage() and '/'.join(obj.getImage().getPhysicalPath()) or ''
             img_url = img_url.replace('/osha/portal', 'https://osha.europa.eu')
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
