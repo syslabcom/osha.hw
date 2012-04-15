@@ -22,7 +22,6 @@
       <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
     </div>
 	
-	<div id="mainContent">
 		<tal:block repeat="item results">    
 		  <tal:def define="obj item/getObject" on-error="nothing">
 		    <div tal:define="first repeat/item/start; 
@@ -73,7 +72,6 @@
 
           </dl>
       </div>
-	</div>
 
 </div>
 </tal:main-macro>
