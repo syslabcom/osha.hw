@@ -67,7 +67,7 @@
             </li>
           </ul>
 
-          <p class="footer"><a tal:attributes="href helper/getNewsfolderUrl">More news&#8230;</a>
+          <p class="footer"><a id="more-news-link" class="more" tal:attributes="href helper/getNewsfolderUrl">More news&#8230;</a>
           </p>
         </div>
     </div>
@@ -116,7 +116,7 @@
           </ul>
 
           <p class="footer">
-            <a tal:attributes="href helper/getEventsfolderUrl"
+            <a tal:attributes="href helper/getEventsfolderUrl" id="more-events-link" class="more" 
                href="http://osha.europa.eu/en/campaigns/hw2010/events/">More events&#8230;</a></p>
         </div>
     </div>
