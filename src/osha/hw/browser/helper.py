@@ -285,8 +285,6 @@ class HelperView(BrowserView):
         id = self.root.getProperty('napofilm', '')
         return id
 
-    def fixcontent(self):
-        """ due to the url change, we have broken links in the translations """
 
     def recreate_language_links(self):
         """ ZopeFinds through the en tree and links languages """
@@ -306,8 +304,27 @@ class HelperView(BrowserView):
         LT.fixTranslationReference(recursive=True)
         return "done"
 
-
-
+    def copy_seo_description(self):
+        """ copys any text found in the description into seo description, if not present """
+        assert (self.context.getId()=='hw2012')
+        msg = ''
+        can = self.context.en
+        for id, item in can.ZopeFind(can, search_sub=1):
+            if item.meta_type=="Script (Python)": continue
+            if not hasattr(item.aq_explicit, "Schema"):
+                continue
+            if not 'seoDescription' in item.Schema().keys():
+                continue
+                
+            desc = item.Description()
+            seodesc = item.getField('seoDescription').getAccessor(self.context)().strip()
+            if not seodesc and desc:
+                item.getField('seoDescription').getMutator(self.context)(desc)
+                msg += "Set seo desc for %s\n" % id
+                
+        return msg
+        
+        
     def set_views(self):
         """ sets the views on all folders """
         # make sure we are called on the campaign root folder

@@ -70,6 +70,10 @@ class IHelperView(Interface):
     def getEventsDict(limit=0):
         """ preps the events ordered by month """
 
+    def copy_seo_description():
+        """ copys any text found in the description into seo description, if not present """
+
+
 class INationalPartnerForm(Interface):
     """ """
 
