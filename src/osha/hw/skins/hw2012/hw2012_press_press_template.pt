@@ -18,7 +18,7 @@
 	<h1 id="title" tal:content="here/Title">News</h1>
 	
 	
-    <div id="introduction" tal:content="here/Description"> 
+    <div id="introduction" tal:condition="here/Description" tal:content="here/Description"> 
       <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
     </div>
 	
@@ -26,7 +26,7 @@
 		  <tal:def define="obj item/getObject" on-error="nothing">
 		    <div tal:define="first repeat/item/start; 
 		          dynclass python: first and 'first' or ''; 
-		          presslink string:$portalurl/$preflang/campaigns/hw2012/press-and-multimedia/press/@@slc.telescope?path=${item/getPath}"  class="newsItem" tal:attributes="class python:'newsItem '+dynclass" >
+		          presslink string:$portalurl/$preflang/media/press/@@slc.telescope?path=${item/getPath}"  class="newsItem" tal:attributes="class python:'newsItem '+dynclass" >
 		    <p class="metaData">        
 		        <a tal:attributes="href presslink" 
 		           href="http://osha.europa.eu/en/teaser/health-risks-in-cleaning-industry" class="parent-fieldname-image">
