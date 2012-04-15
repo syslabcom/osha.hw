@@ -9,14 +9,32 @@
 <body>
 
 <metal:block fill-slot="main"
-    tal:define="helper here/@@hw_view">
+    tal:define="helper here/@@hw_view; news python:helper.getNews(limit=3); events python:helper.getEvents(limit=3)">
     <tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general main')" />
 
-        <div class="carouselContainer" metal:use-macro="here/@@osha.hw.macros/news">
+        <div class="carouselContainer" id="news-container"  tal:define="limit python:1">
+ 			<metal:macro metal:use-macro="here/@@osha.hw.macros/news" />
+			<div class="balls">
+				<tal:rep repeat="n news">
+					<a data-inject="#item-1" 
+						tal:define="no repeat/n/number"
+						tal:attributes="href string:nbp#item-$no;
+							class python:'current'" tal:content="no">1</a>
+				</tal:rep>
+				<a href="#" class="more" tal:attributes="href helper/getNewsfolderUrl">More news&hellip;</a>
+			 </div>
+        </div>
+			
+        <div class="carouselContainer" id="events-container">
+ 			<metal:macro metal:use-macro="here/@@osha.hw.macros/events" />
+			<div class="balls">
+				<span class="current">1</span>
+				<span>1</span>
+				<span>1</span>
+				<a href="#" class="more" tal:attributes="href helper/getEventsfolderUrl">More events&hellip;</a>
+			 </div>
         </div>
 
-        <div class="carouselContainer" metal:use-macro="here/@@osha.hw.macros/events">
-        </div>
 
         <div id="promo" metal:use-macro="here/@@osha.hw.macros/promo">
         </div>

@@ -209,12 +209,38 @@ class HelperView(BrowserView):
             Subject=subject)
         if len(res) and limit > 0:
             res = res[:limit]
+            
+        if len(res)==0:
+            now = DateTime()
+            yield dict(link='', location='', start=now, description='There are currently no events planned',
+                        title='No events upcoming')
+        
         for r in res:
             obj = r.getObject()
             link = "%s/@@slc.telescope?path=%s" % (self.getEventsfolderUrl(), r.getPath())
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
             yield dict(link=link, location=r.location, start=obj.start(), description=description,
                 title=obj.Title())
+
+    def getEventsDict(self, limit=0):
+        """ preps the events ordered by month """
+        events = self.getEvents(limit)
+        now = DateTime()
+
+        edict = {}
+        ordereddates = []
+
+        if events:
+            for event in events:
+                ## if event['end']<now: continue
+                date = DateTime(event['start'].Date())
+                date = DateTime("%s-%s-01" % (date.year(), date.mm()))
+                if date not in ordereddates:
+                    ordereddates.append(date)
+                edict[date] = edict.get(date, []) + [event]
+
+        return edict, ordereddates
+
 
     def getPublications(self, limit=0):
         """ Fetch campaign-relevant publications """
@@ -330,4 +356,11 @@ class HelperView(BrowserView):
             msg+=".. update layout property: %s\n" % ob.absolute_url(1)
         return msg
 
+    def len_month(self, month=1):
+        """ calculate class and month name based on number """
+        ts = self.context.translation_service
 
+        tmon = ts.utranslate(domain='plonelocales', msgid=ts.month_msgid(month), context=self.context)
+        ltmon = len(tmon)
+
+        return (tmon, ltmon)

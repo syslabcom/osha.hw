@@ -40,6 +40,14 @@
 
     <browser:page
         for="*"
+        name="nbp"
+        class=".contentretriever.NewsByPathView"
+        permission="zope.Public"
+		template="templates/news_by_path.pt"
+        />
+
+    <browser:page
+        for="*"
         name="national-campaign-partner-application-form-2012"
         class=".forms.NationalPartnerForm"
         permission="zope.Public"

@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone"
+      lang="en">
+
+<head></head>
+<body>
+<metal:main fill-slot="main">
+<tal:main-macro metal:define-macro="main">
+<div id="mainContent" 
+        tal:define="helper here/@@hw_view;
+					results python:helper.getEventsDict();
+                    events_dict python:results[0];
+                    dates python:results[1];
+                    lang here/portal_languages/getPreferredLanguage;
+	                myarea python:request.RESPONSE.addHeader('X-Deliverance-Page-Class', 'general events');
+                    ">
+
+	<h1 tal:content="here/Title">Events</h1>
+    <div id="introduction" tal:content="here/Description"> 
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    </div>
+    <!-- InstanceBeginEditable name="Main content" -->
+
+    <p tal:condition="python:here.getId()=='index_html'"><a tal:attributes="href string:/${lang}/events/past-events">Past events</a></p>
+    <p tal:condition="python:here.getId()=='past-events'"><a tal:attributes="href string:/${lang}/events">Upcoming events</a></p>
+    <div class="eventlist">
+        <tal:loop repeat="date dates">
+        <tal:get define="month_heading python:'%s %s' % (date.Month(), date.year())">
+        <div class="eventlist_month">
+            <h2 tal:content="month_heading">
+                October 2009
+            </h2>
+            <tal:events repeat="event python:events_dict[date]">
+                <div class="vevent event"
+                     tal:define="startdate event/start">
+                    <div class="event_details">
+                        <h4 tal:attributes="title startdate/ISO" 
+                            class="dtstart"
+                            tal:content="python:'%s %s' % (startdate.Month(), startdate.day())">
+                            October 24
+                        </h4>
+                    </div>
+                    <div class="event_body">
+                      <a tal:attributes="href python:here.events.absolute_url()+'/@@slc.telescope?path='+event['link']"
+                         class="summary event_title"
+                         tal:content="event/title">
+                        Seminars for SMEs: Practical issues on Risk Assessment
+		      </a>
+                      <div class="location" tal:content="event/location">
+                        Vilnius, Lithuania
+                      </div>
+
+                      <!--p class="discrete"><a href="" tal:attributes="href event/getURL" tal:content="event/getURL">link</a></p-->
+
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+            </tal:events>
+        </div>
+        </tal:get>
+        </tal:loop>
+    </div>
+</div>
+</tal:main-macro>
+</metal:main>
+</body>
+</html>

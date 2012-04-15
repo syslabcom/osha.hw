@@ -64,6 +64,12 @@ class IHelperView(Interface):
     def getNapofilmId():
         """ Looks for a property called napofilm on the subsite root"""
 
+    def len_month(month=1):
+        """ calculate class and month name based on number """
+
+    def getEventsDict(limit=0):
+        """ preps the events ordered by month """
+
 class INationalPartnerForm(Interface):
     """ """
 

@@ -50,27 +50,24 @@
           </ul>
         </tal:vars>
     </div>
-    <div metal:define-macro="news">
-        <div class="portlet" id="portletNews"
-             tal:define="helper here/@@hw_view;
-                limit limit|python:3">
-
-          <ul>
-            <li tal:repeat="news python:helper.getNews(limit)">
-              <tal:news_item>
-                <a tal:attributes="href news/link">
-                  <img tal:attributes="src news/img_url" width="85" tal:on-error="string:no image"/>
-                  <h3 tal:replace="news/title">EU-OSHA targets health risks in cleaning industry for European Week 2009</h3> 
-                  <p tal:content="structure news/description"></p>
-                </a>
-              </tal:news_item>
-            </li>
+    <div metal:define-macro="news" tal:omit-tag="">
+          <ul tal:define="helper here/@@hw_view;
+                limit limit|python:3" class="carousel news" id="news">
+				<tal:rep repeat="news python:helper.getNews(limit)">
+		            <li tal:define="no repeat/news/number" 
+						tal:attributes="id string:item-$no">
+		              <tal:news_item>
+		                <a tal:attributes="href news/link">
+		                  <img tal:attributes="src news/img_url" width="85" tal:on-error="string:no image"/>
+		                  <h3 tal:replace="news/title">EU-OSHA targets health risks in cleaning industry for European Week 2009</h3> 
+		                  <p tal:content="structure news/description"></p>
+		                </a>
+		              </tal:news_item>
+		            </li>
+				</tal:rep>
           </ul>
-
-          <p class="footer"><a id="more-news-link" class="more" tal:attributes="href helper/getNewsfolderUrl">More news&#8230;</a>
-          </p>
-        </div>
     </div>
+
     <div metal:define-macro="news-listing">
         <tal:block define="helper here/@@hw_view; limit limit|python:9999">
 		<tal:block repeat="news python:helper.getNews(limit)">
@@ -88,12 +85,9 @@
     </div>
 
 
-    <div metal:define-macro="events">
-        <div class="portlet" id="portletEvents"
-             tal:define="helper here/@@hw_view;
-                 limit limit|python:3">
-
-          <ul class="events">
+    <div metal:define-macro="events" tal:omit-tag="">
+          <ul class="carousel" tal:define="helper here/@@hw_view;
+                 limit limit|python:3" id="upcomingEvent">
             <tal:block repeat="event python:helper.getEvents(limit)">
               <li>
 
@@ -105,7 +99,7 @@
 
                     <p class="calendar-medium" tal:define="start event/start">
                       <strong class="day" tal:content="start/day">2</strong>
-                      <strong class="month char-count-3" tal:define="ll python:here.len_month(start.month()); ln python:ll[1]"
+                      <strong class="month char-count-3" tal:define="ll python:helper.len_month(start.month()); ln python:ll[1]"
                               tal:attributes="class string:month char-count-${ln}"
                               tal:content="python:ll[0]">December</strong>
                     <strong class="year" tal:content="start/year">2010</strong></p>
@@ -114,12 +108,10 @@
               </li>
             </tal:block>
           </ul>
-
-          <p class="footer">
-            <a tal:attributes="href helper/getEventsfolderUrl" id="more-events-link" class="more" 
-               href="http://osha.europa.eu/en/campaigns/hw2010/events/">More events&#8230;</a></p>
-        </div>
     </div>
+
+
+
 
     <div metal:define-macro="promo">
         <div class="alert" id="promo"

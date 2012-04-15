@@ -1,0 +1,1 @@
+<metal:macro metal:use-macro="here/@@osha.hw.macros/news" />
