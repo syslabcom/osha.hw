@@ -315,12 +315,14 @@ class HelperView(BrowserView):
                 continue
             if not 'seoDescription' in item.Schema().keys():
                 continue
-                
-            desc = item.Description()
-            seodesc = item.getField('seoDescription').getAccessor(self.context)().strip()
-            if not seodesc and desc:
-                item.getField('seoDescription').getMutator(self.context)(desc)
-                msg += "Set seo desc for %s\n" % id
+
+            for lang in item.getTranslations():
+                trans = item.getTranslation(lang)
+                desc = trans.Description()
+                seodesc = trans.getField('seoDescription').getAccessor(trans)().strip()
+                if not seodesc and desc:
+                    trans.getField('seoDescription').getMutator(trans)(desc)
+                    msg += "Set seo desc for %s:%s\n" % (lang, id)
                 
         return msg
         
