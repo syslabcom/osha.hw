@@ -66,6 +66,14 @@
                    <p tal:content="item/Description">Description</p>
 				</a>
               </tal:repeat>
+				<a tal:on-error="nothing" 
+				tal:define="pub python:context.restrictedTraverse('/osha/portal/%s/publications/reports/workers-participation-in-OSH_guide' % lang)"
+					tal:attributes="href string:${pub/absolute_url}/view">
+					<h3 tal:content="pub/Title">Worker Participation Guide</h3>
+					<img tal:attributes="src string:${pub/absolute_url}/cover_image">
+					<p class="byline"><span tal:replace="pub/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (pub.get_size()/1024)"/></p>
+	                   <p tal:content="pub/Description">Employees often have a detailed knowledge of their work and how it can be made safer.</p>
+				</a>
           </tal:presentations>
 
           <tal:presentations define="ob python:context['leadership-guide']">
@@ -78,6 +86,15 @@
                    <p tal:content="item/Description">Description</p>
 				</a>
               </tal:repeat>
+				<a tal:on-error="nothing" 
+				tal:define="pub python:context.restrictedTraverse('/osha/portal/%s/publications/reports/management-leadership-in-OSH_guide' % lang)"
+					tal:attributes="href string:${pub/absolute_url}/view">
+					<h3 tal:content="pub/Title">Worker Participation Guide</h3>
+					<img tal:attributes="src string:${pub/absolute_url}/cover_image">
+					<p class="byline"><span tal:replace="pub/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (pub.get_size()/1024)"/></p>
+	                   <p tal:content="pub/Description">Employees often have a detailed knowledge of their work and how it can be made safer.</p>
+				</a>
+
           </tal:presentations>
 
           <tal:presentations define="ob python:context['ESENER-report']">
@@ -90,6 +107,15 @@
                    <p tal:content="item/Description">Description</p>
 				</a>
               </tal:repeat>
+				<a tal:on-error="nothing" 
+				tal:define="pub python:context.restrictedTraverse('/osha/portal/%s/publications/reports/esener-summary' % lang)"
+					tal:attributes="href string:${pub/absolute_url}/view">
+					<h3 tal:content="pub/Title">Worker Participation Guide</h3>
+					<img tal:attributes="src string:${pub/absolute_url}/cover_image">
+					<p class="byline"><span tal:replace="pub/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (pub.get_size()/1024)"/></p>
+	                   <p tal:content="pub/Description">Employees often have a detailed knowledge of their work and how it can be made safer.</p>
+				</a>
+
           </tal:presentations>
 
 
