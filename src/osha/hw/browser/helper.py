@@ -148,7 +148,7 @@ class HelperView(BrowserView):
 
     def getHomeURL(self):
         # hardcoded for the moment
-        return "http://hw2012.syslab.com"
+        return "http://www.healthy-workplaces.eu/"
 
     def getNewsfolderUrl(self):
         return self.langroot.restrictedTraverse('news').absolute_url()
