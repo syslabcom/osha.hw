@@ -398,9 +398,9 @@ class HelperView(BrowserView):
 
     def cls_by_str(self, text):
         """ calculate text size indicator for styling. Used in the navigation """
-        if len(text)<20:
+        if len(text)<=20:
             return None
-        elif 20<=len(text)<50:
+        elif 20<len(text)<50:
             return 'char-20'
         else:
             return 'char-50'
