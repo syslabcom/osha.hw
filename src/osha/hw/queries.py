@@ -1,7 +1,7 @@
 # SQL queries
 
 pg_create_ocps = """
-CREATE TABLE campaign_ocps
+CREATE TABLE hw_ocps
 (
   id character varying(255) NOT NULL,
   title character varying(255),
@@ -36,16 +36,16 @@ CREATE TABLE campaign_ocps
   expirationdate date,
   creation_date date,
   modification_date date,
-  CONSTRAINT campaign_ocps_pkey PRIMARY KEY (id )
+  CONSTRAINT hw_ocps_pkey PRIMARY KEY (id )
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE campaign_ocps OWNER TO postgres;
+ALTER TABLE hw_ocps OWNER TO postgres;
 """
 
 pg_create_fops = """
-CREATE TABLE campaign_fops
+CREATE TABLE hw_fops
 (
   id character varying(255) NOT NULL,
   title character varying(255),
@@ -79,12 +79,12 @@ CREATE TABLE campaign_fops
   expirationdate date,
   creation_date date,
   modification_date date,
-  CONSTRAINT campaign_fops_pkey PRIMARY KEY (id )
+  CONSTRAINT hw_fops_pkey PRIMARY KEY (id )
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE campaign_fops OWNER TO postgres;
+ALTER TABLE hw_fops OWNER TO postgres;
 """
 
 pg_create_ocp_events = """
@@ -153,11 +153,11 @@ create_statements = (
 )
 
 is_ocp_available = """
-SELECT count(*) from campaign_ocps
+SELECT count(*) from hw_ocps
 WHERE id = '%(id)s'"""
 
 insert_ocp = """
-INSERT INTO campaign_ocps
+INSERT INTO hw_ocps
 ("id", "title", "description", "manager", "street",
 "addressextra", "city", "zipcode", "country", "email", "phone", "fax", "url",
 "campaignurl", "organisationtype", "businesssector", "missionstatement",
@@ -176,7 +176,7 @@ VALUES
 """
 
 update_ocp = """
-UPDATE campaign_ocps SET
+UPDATE hw_ocps SET
 ("title", "description", "manager", "street",
 "addressextra", "city", "zipcode", "country", "email", "phone", "fax", "url",
 "campaignurl", "organisationtype", "businesssector", "missionstatement",
@@ -195,11 +195,11 @@ WHERE ID = '%(id)s'
 """
 
 is_fop_available = """
-SELECT count(*) FROM campaign_fops
+SELECT count(*) FROM hw_fops
 WHERE id = '%(id)s'"""
 
 insert_fop = """
-INSERT INTO campaign_fops
+INSERT INTO hw_fops
 ("id", "title", "description", "manager", "street",
 "addressextra", "city", "zipcode", "country", "email", "phone", "fax", "url",
 "campaignurl", "organisationtype", "businesssector", "missionstatement",
@@ -218,7 +218,7 @@ VALUES
 """
 
 update_fop = """
-UPDATE campaign_fops SET
+UPDATE hw_fops SET
 ("title", "description", "manager", "street",
 "addressextra", "city", "zipcode", "country", "email", "phone", "fax", "url",
 "campaignurl", "organisationtype", "businesssector", "missionstatement",
@@ -237,19 +237,19 @@ WHERE ID = '%(id)s'
 """
 
 get_ocps = """
-SELECT * FROM campaign_ocps
+SELECT * FROM hw_ocps
 ORDER BY title"""
 
 get_fops = """
-SELECT * FROM campaign_fops
+SELECT * FROM hw_fops
 ORDER BY title"""
 
 get_ocp_by_id = """
-SELECT * FROM campaign_ocps
+SELECT * FROM hw_ocps
 WHERE id='%(id)s'"""
 
 get_fop_by_id = """
-SELECT * FROM campaign_fops
+SELECT * FROM hw_fops
 WHERE id='%(id)s'"""
 
 is_ocp_event_available = """
