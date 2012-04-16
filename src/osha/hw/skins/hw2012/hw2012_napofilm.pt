@@ -38,25 +38,25 @@
             </figure>
 
             <script type="text/javascript">
-				require([
-				    "order!Behaviour/Patterns/src/lib/jquery",
-				    "order!Behaviour/Patterns/lib/jwplayer",
-				], function() {
-	                $playerurl = jQuery('#portal_url').attr('portal_url') + "/jwplayer.swf";
-	                $src_poster = jQuery('#src_poster').attr('src');
-	                $src_mp4 = jQuery('#src_mp4').attr('src');
-	                $src_webm = jQuery('#src_webm').attr('src');
-	                $src_ogv = jQuery('#src_ogv').attr('src');
-	                jwplayer("videocontainer").setup({
-	                players: [{ type: "flash", src: $playerurl }, { type: "html5" }],
-	                height: 265, width: 470,
-	                image: $src_poster,
-	                levels: [
-	                    {file: $src_mp4},
-	                    {file: $src_webm},
-	                    {file: $src_ogv}
-	                ] });
-				});
+                require([
+                    "order!Behaviour/Patterns/src/lib/jquery",
+                    "order!Behaviour/Patterns/lib/jwplayer",
+                ], function() {
+                    $playerurl = jQuery('#portal_url').attr('portal_url') + "/jwplayer.swf";
+                    $src_poster = jQuery('#src_poster').attr('src');
+                    $src_mp4 = jQuery('#src_mp4').attr('src');
+                    $src_webm = jQuery('#src_webm').attr('src');
+                    $src_ogv = jQuery('#src_ogv').attr('src');
+                    jwplayer("videocontainer").setup({
+                    players: [{ type: "flash", src: $playerurl }, { type: "html5" }],
+                    height: 265, width: 470,
+                    image: $src_poster,
+                    levels: [
+                        {file: $src_mp4},
+                        {file: $src_webm},
+                        {file: $src_ogv}
+                    ] });
+                });
             </script>
         </div>
 
