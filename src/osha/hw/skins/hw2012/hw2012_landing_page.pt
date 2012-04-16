@@ -7,9 +7,10 @@
       lang="en">
   <body>
     <metal:main fill-slot="main"
-           tal:define='myview context/getDefaultPage; viewob python: myview and getattr(context, myview) or context;
-               folders python:context.getFolderContents({"portal_type":"Folder"});
-               myarea python:request.RESPONSE.addHeader("X-Deliverance-Page-Class", "general landingpage %s" % context.getId());
+           tal:define='myview python:context.getDefaultPage() or ""; 
+					   viewob python: getattr(context, myview, context);
+               		   folders python:context.aq_parent.getFolderContents({"portal_type":"Folder"});
+               		   myarea python:request.RESPONSE.addHeader("X-Deliverance-Page-Class", "general landingpage %s" % context.getId());
                '>
       <section tal:attributes="class context/getId">
         <div id="introduction">
