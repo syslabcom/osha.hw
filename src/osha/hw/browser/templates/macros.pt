@@ -76,7 +76,7 @@
 			        <a href="#" tal:attributes="href news/link" class="parent-fieldname-image">
 			        <em><strong><span tal:replace="news/day">12</span> <span tal:replace="news/month">March</span></strong> <span tal:replace="news/year">2012</span></em>
 			      <img tal:attributes="src news/img_url; alt news/title" width="270" src="#" alt="UK, HSE, asbestos e-learning pack: Introduction to asbestos learning package"></a></p>
-			      <h4><a href="" tal:attribute="href news/link" tal:content="news/title">UK, HSE, asbestos e-learning pack: Introduction to asbestos learning package</a></h4>
+			      <h4><a href="" tal:attributes="href news/link" tal:content="news/title">UK, HSE, asbestos e-learning pack: Introduction to asbestos learning package</a></h4>
 
 			        <p tal:replace="structure news/description"><strong>An interactive lesson for apprentices about asbestos and its dangers</strong></p><p><strong>This 45 minute interactive lesson with supporting activities and materials is aimed primarily at trades apprentices in the 16 - 19 age group, for delivery by college lecturers and other vocational education providers.</strong></p>
 			</div>
