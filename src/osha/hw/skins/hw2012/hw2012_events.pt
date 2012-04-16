@@ -12,14 +12,14 @@
 <tal:main-macro metal:define-macro="main">
 <div id="mainContent" 
         tal:define="helper here/@@hw_view;
-					results python:helper.getEventsDict();
+                    results python:helper.getEventsDict();
                     events_dict python:results[0];
                     dates python:results[1];
                     lang here/portal_languages/getPreferredLanguage;
-	                myarea python:request.RESPONSE.addHeader('X-Deliverance-Page-Class', 'general events');
+                    myarea python:request.RESPONSE.addHeader('X-Deliverance-Page-Class', 'general events');
                     ">
 
-	<h1 tal:content="here/Title">Events</h1>
+    <h1 tal:content="here/Title">Events</h1>
     <div id="introduction" tal:content="here/Description"> 
       <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
     </div>
@@ -45,11 +45,11 @@
                         </h4>
                     </div>
                     <div class="event_body">
-                      <a tal:attributes="href python:here.events.absolute_url()+'/@@slc.telescope?path='+event['link']"
+                      <a tal:attributes="href event/link"
                          class="summary event_title"
                          tal:content="event/title">
                         Seminars for SMEs: Practical issues on Risk Assessment
-		      </a>
+                      </a>
                       <div class="location" tal:content="event/location">
                         Vilnius, Lithuania
                       </div>
