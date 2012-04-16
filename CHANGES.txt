@@ -1,10 +1,10 @@
 Changelog
 =========
 
-0.3 (unreleased)
+0.3 (2012-04-16)
 ----------------
 
-- Nothing changed yet.
+- Lots of additional work done for the launch [pilz, thomasw]
 
 
 0.2 (2012-04-12)
