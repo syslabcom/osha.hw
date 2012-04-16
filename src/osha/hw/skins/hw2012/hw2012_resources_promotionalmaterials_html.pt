@@ -44,7 +44,7 @@
           </tal:posters>
 
           <h2 class="clear" tal:content="context/banner/Title">Banner</h2>
-          <tal:banner
+          <!--tal:banner
              define="bnr python:getattr(context.banner, 'online-banner.jpg'); bnrfile python:getattr(context.banner, 'banner.pdf');">
             	<a href="#" tal:attributes="href python:bnr.absolute_url()">
 				<h3 tal:content="bnr/Title" />
@@ -53,7 +53,7 @@
 	        	<p class="byline"><span tal:replace="bnr/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (bnr.get_size()/1024)"/></p>
 	            <p tal:content="bnr/Description">Description</p>
 				</a>
-          </tal:banner>
+          </tal:banner-->
 
           <tal:banner
              on-error="nothing" define="bnr python:getattr(context.banner, 'leaderboard_%s.jpg'%lang.upper());">
@@ -64,7 +64,7 @@
 	        	<p class="byline"><span tal:replace="bnr/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (bnr.get_size()/1024)"/></p></a>
 				
 				<p tal:omit-tag="" tal:define='embedcode string:<a href="http://www.healthy-workplaces.eu/"><img src="${bnr/absolute_url}"></a>'>
-					<input type="text" value="#" tal:attributes="value embedcode" size="80" />
+					<input type="text" class="embed" value="#" tal:attributes="value embedcode" size="60"/>
 				</p>
           </tal:banner>
           <tal:banner
@@ -76,7 +76,7 @@
 	        	<p class="byline"><span tal:replace="bnr/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (bnr.get_size()/1024)"/></p></a>
 				
 				<p tal:omit-tag="" tal:define='embedcode string:<a href="http://www.healthy-workplaces.eu/"><img src="${bnr/absolute_url}"></a>'>
-					<input type="text" value="#" tal:attributes="value embedcode" size="80" />
+					<input type="text" class="embed" value="#" tal:attributes="value embedcode" size="60" />
 				</p>
           </tal:banner>
           <tal:banner
@@ -88,7 +88,7 @@
 	        	<p class="byline"><span tal:replace="bnr/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (bnr.get_size()/1024)"/></p></a>
 				
 				<p tal:omit-tag="" tal:define='embedcode string:<a href="http://www.healthy-workplaces.eu/"><img src="${bnr/absolute_url}"></a>'>
-					<input type="text" value="#" tal:attributes="value embedcode" size="80" />
+					<input type="text" class="embed" value="#" tal:attributes="value embedcode" size="60"/>
 				</p>
           </tal:banner>
 
