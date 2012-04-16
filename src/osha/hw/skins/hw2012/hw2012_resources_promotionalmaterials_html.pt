@@ -63,7 +63,7 @@
                    	 tal:attributes="src python:bnr.absolute_url()+'/image_hwmini'" />
 	        	<p class="byline"><span tal:replace="bnr/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (bnr.get_size()/1024)"/></p></a>
 				
-				<p tal:omit-tag="" tal:define='embedcode string:<a href="http://www.healthy-workplaces.eu/"><img src="${bnr/absolute_url}"></a>'>
+				<p tal:omit-tag="" tal:define='embedcode string:<a href="http://www.healthy-workplaces.eu/?utm_source=external_banner&utm_medium=banner&utm_campaign=hw2012viralutm_content=leaderboard"><img src="${bnr/absolute_url}"></a>'>
 					<input type="text" class="embed" value="#" tal:attributes="value embedcode" size="60"/>
 				</p>
           </tal:banner>
@@ -75,7 +75,7 @@
                    	 tal:attributes="src python:bnr.absolute_url()+'/image_hwmini'" />
 	        	<p class="byline"><span tal:replace="bnr/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (bnr.get_size()/1024)"/></p></a>
 				
-				<p tal:omit-tag="" tal:define='embedcode string:<a href="http://www.healthy-workplaces.eu/"><img src="${bnr/absolute_url}"></a>'>
+				<p tal:omit-tag="" tal:define='embedcode string:<a href="http://www.healthy-workplaces.eu/?utm_source=external_banner&utm_medium=banner&utm_campaign=hw2012viralutm_content=rectangle"><img src="${bnr/absolute_url}"></a>'>
 					<input type="text" class="embed" value="#" tal:attributes="value embedcode" size="60" />
 				</p>
           </tal:banner>
@@ -87,7 +87,7 @@
                    	 tal:attributes="src python:bnr.absolute_url()+'/image_hwmini'" />
 	        	<p class="byline"><span tal:replace="bnr/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (bnr.get_size()/1024)"/></p></a>
 				
-				<p tal:omit-tag="" tal:define='embedcode string:<a href="http://www.healthy-workplaces.eu/"><img src="${bnr/absolute_url}"></a>'>
+				<p tal:omit-tag="" tal:define='embedcode string:<a href="http://www.healthy-workplaces.eu/?utm_source=external_banner&utm_medium=banner&utm_campaign=hw2012viralutm_content=skyscraper"><img src="${bnr/absolute_url}"></a>'>
 					<input type="text" class="embed" value="#" tal:attributes="value embedcode" size="60"/>
 				</p>
           </tal:banner>
