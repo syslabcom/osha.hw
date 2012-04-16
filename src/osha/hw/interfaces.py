@@ -76,6 +76,10 @@ class IHelperView(Interface):
     def getImageFolders():
         """Get all image folders tagged with the campaign subject"""
 
+    def cls_by_str(text):
+        """ calculate text size indicator for styling. Used in the navigation """
+
+
 class INationalPartnerForm(Interface):
     """ """
 
