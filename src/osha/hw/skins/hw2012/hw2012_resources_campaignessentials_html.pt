@@ -67,7 +67,7 @@
 				</a>
               </tal:repeat>
 				<a tal:on-error="nothing" 
-				tal:define="pub python:context.restrictedTraverse('/osha/portal/%s/publications/reports/workers-participation-in-OSH_guide' % lang)"
+				tal:define="pub python:context.restrictedTraverse('/osha/portal/en/publications/reports/workers-participation-in-OSH_guide').getTranslation(lang)"
 					tal:attributes="href string:${pub/absolute_url}/view">
 					<h3 tal:content="pub/Title">Worker Participation Guide</h3>
 					<img tal:attributes="src string:${pub/absolute_url}/cover_image">
@@ -87,7 +87,7 @@
 				</a>
               </tal:repeat>
 				<a tal:on-error="nothing" 
-				tal:define="pub python:context.restrictedTraverse('/osha/portal/%s/publications/reports/management-leadership-in-OSH_guide' % lang)"
+				tal:define="pub python:context.restrictedTraverse('/osha/portal/en/publications/reports/management-leadership-in-OSH_guide').getTranslation(lang)"
 					tal:attributes="href string:${pub/absolute_url}/view">
 					<h3 tal:content="pub/Title">Worker Participation Guide</h3>
 					<img tal:attributes="src string:${pub/absolute_url}/cover_image">
@@ -108,7 +108,7 @@
 				</a>
               </tal:repeat>
 				<a tal:on-error="nothing" 
-				tal:define="pub python:context.restrictedTraverse('/osha/portal/%s/publications/reports/esener-summary' % lang)"
+				tal:define="pub python:context.restrictedTraverse('/osha/portal/en/publications/reports/esener-summary').getTranslation(lang)"
 					tal:attributes="href string:${pub/absolute_url}/view">
 					<h3 tal:content="pub/Title">Worker Participation Guide</h3>
 					<img tal:attributes="src string:${pub/absolute_url}/cover_image">
