@@ -285,6 +285,30 @@ class HelperView(BrowserView):
         id = self.root.getProperty('napofilm', '')
         return id
 
+    def getImageFolders(self):
+        """Get all image folders tagged with the campaign subject"""
+        multimedia_path = "/osha/portal/en/press/photos"
+        subject = aq_inner(self.root).Subject()
+        pc = getToolByName(self.context, 'portal_catalog')
+        res = pc(portal_type='Folder', Subject=subject, path=multimedia_path)
+        #import pdb; pdb.set_trace()
+        image_folders = dict()
+        max_images_per_folder = 10
+        for r in res:
+            folder = r.getObject()
+            images = dict()
+            image_count = 0
+            for image in folder.listFolderContents():
+                if image_count >= max_images_per_folder:
+                    break
+                if image.portal_type == "Image":
+                    images[image.id] = {"title" : image.title}
+                    image_count += 1
+            if images:
+                yield dict(title=folder.Title(),
+                    images=images,
+                    folder_url='/'.join(folder.getPhysicalPath()).replace('/osha/portal', 'https://osha.europa.eu'),
+                    )
 
     def recreate_language_links(self):
         """ ZopeFinds through the en tree and links languages """

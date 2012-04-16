@@ -6,39 +6,40 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="osha">
 
-  <head>
-  </head>
   <body>
     <div metal:fill-slot="main">
 
+
       <div id="mainContent"
-           tal:define="lang context/portal_languages/getPreferredLanguage">
-<tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general gallery')" />
+           tal:define="helper here/@@hw_view">
+    <script type="text/javascript" src="++resource++osha.theme.browser.resources.multimedia/jquery.text-overflow.js"  language="javascript"></script>
+        <tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general gallery')" />
         <h1><span tal:content="here/Title">Multimedia</span></h1>
-        <p><a href="../">Back..</a></p>
+
         <p class='documentDescription'><span id='parent-fieldname-description' tal:content="here/Description"></span></p>
 
-        <ul class="scrubber" tal:define="folders python:here.getCanonical().contentValues({'portal_type': 'Folder'})">
+        <ul class="scrubber">
 
-          <tal:repeat repeat="folder folders">
-
-  	  <li tal:define="canonical folder/getCanonical;
-                          images python:canonical.contentValues({'portal_type': 'Image'});
-                          count python:len(images);
-                          blocksize python: min(30, len(images))"
-              tal:attributes="class string:count-${blocksize}">
-
-	  <h4 class="ellipsis"><tal:c replace="folder/Title">Timeless Luxury</tal:c> (<tal:c replace="count">6</tal:c>)</h4>
-		<tal:r repeat="image python:images[:blocksize]">
-                  <a tal:define="firstitem repeat/image/start; curr repeat/image/number"
-                     href="#" tal:attributes="href canonical/absolute_url; class python: curr==(blocksize/2+1) and 'default' or None">
-		    <img tal:attributes="alt image/Title; src string:${image/absolute_url}/image_gallerythumb;" 
-                         alt="Calabria" src="../../Media/stubs/navPhotoMain-calabria.jpg" /><br/>
-		    <strong tal:content="image/Title">Calabria</strong>					  
-		  </a>
-                </tal:r>
-  	  </li>
-        </tal:repeat>
+          <tal:folder repeat="folder helper/getImageFolders">
+            <tal:images define="images folder/images;
+                                image_count python:len(images);
+                                folder_url folder/folder_url">
+            <li tal:attributes="class string:count-${image_count}">
+              <h4 class="ellipsis" tal:content="folder/title">
+                Timeless Luxury
+                </h4><tal:image_id repeat="image_id images"
+                     ><tal:image define="image python:images.get(image_id);
+                                         image_url string:${folder_url}/${image_id}"
+                     ><a tal:attributes="href string:${image_url}/multimedia-image-details-view;
+                                         class python:repeat['image_id'].index == 0 and 'default' or ''"
+                        ><img alt="Calabria"
+                              tal:attributes="src string:${folder_url}/${image_id}/image_gallerythumb"/><br />
+                         <strong class="ellipsis"
+                                 tal:content="image/title">
+                         </strong></a></tal:image></tal:image_id>
+            </li>
+            </tal:images>
+          </tal:folder>
         </ul>
  
 

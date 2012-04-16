@@ -73,6 +73,8 @@ class IHelperView(Interface):
     def copy_seo_description():
         """ copys any text found in the description into seo description, if not present """
 
+    def getImageFolders():
+        """Get all image folders tagged with the campaign subject"""
 
 class INationalPartnerForm(Interface):
     """ """
