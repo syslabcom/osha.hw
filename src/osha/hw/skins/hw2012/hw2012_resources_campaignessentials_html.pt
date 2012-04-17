@@ -102,10 +102,10 @@
           </tal:presentations>
 
           <tal:presentations define="ob python:context['ESENER-report']">
-		  <span tal:replace="structure python:getattr(context['ESENER-report'], 'esener-report').getText()"
-			tal:on-error="nothing"></span>
 			
                <h2 tal:content="ob/Title">ESENER report</h2>
+		  <span tal:replace="structure python:getattr(context['ESENER-report'], 'esener-report').getText()"
+			tal:on-error="nothing"></span>
                <tal:repeat repeat="item python:ob.listFolderContents(contentFilter={'portal_type':'File'})">
             	<a href="#" tal:on-error="nothing" tal:attributes="href python:item.absolute_url()">
                    <h3 tal:content="item/Title">Title</h3>
