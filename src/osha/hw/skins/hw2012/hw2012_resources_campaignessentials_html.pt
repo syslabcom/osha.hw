@@ -124,16 +124,6 @@
 					<p class="byline"><span tal:replace="pub/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (pub.get_size()/1024)"/></p>
 	                   <p tal:content="pub/Description">Employees often have a detailed knowledge of their work and how it can be made safer.</p>
 				</a>
-				<a tal:on-error="nothing" 
-				tal:define="pub python:context.restrictedTraverse('/osha/portal/en/publications/reports/esener-summary_data/esener_en.pptx'); 
-                            pub python: pub.getTranslation(lang) and pub.getTranslation(lang) or pub;
-                            pub_url python:'http://osha.europa.eu/'+pub.absolute_url(1)"
-					tal:attributes="href string:$pub_url/view">
-					<h3 tal:content="pub/Title">Worker Participation Guide</h3>
-					<img tal:attributes="src string:${pub_url}/cover_image">
-					<p class="byline"><span tal:replace="pub/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (pub.get_size()/1024)"/></p>
-	                   <p tal:content="pub/Description">Employees often have a detailed knowledge of their work and how it can be made safer.</p>
-				</a>
 
           </tal:presentations>
 
