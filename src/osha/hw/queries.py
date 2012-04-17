@@ -41,7 +41,6 @@ CREATE TABLE hw_ocps
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE hw_ocps OWNER TO postgres;
 """
 
 pg_create_fops = """
@@ -84,7 +83,6 @@ CREATE TABLE hw_fops
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE hw_fops OWNER TO postgres;
 """
 
 pg_create_ocp_events = """
@@ -98,7 +96,6 @@ CREATE TABLE ocp_events
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE ocp_events OWNER TO postgres;
 """
 
 pg_create_ocp_news = """
@@ -112,7 +109,6 @@ CREATE TABLE ocp_news
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE ocp_news OWNER TO postgres;
 """
 
 pg_create_fop_events = """
@@ -126,7 +122,6 @@ CREATE TABLE fop_events
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE fop_events OWNER TO postgres;
 """
 
 pg_create_fop_news = """
@@ -140,7 +135,6 @@ CREATE TABLE fop_news
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE fop_news OWNER TO postgres;
 """
 
 create_statements = (
