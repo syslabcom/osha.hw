@@ -199,7 +199,7 @@ class HelperView(BrowserView):
         pc = getToolByName(self.context, 'portal_catalog')
         res = pc(portal_type='Event',
             Language=['en', ''],
-            sort_order='reverse', sort_on='effective',
+            sort_order='reverse', sort_on='start',
             end={'query': DateTime(), 'range': 'min'}, expires={'query': DateTime(), 'range': 'min'},
             path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang),
             self.subsite_path],
