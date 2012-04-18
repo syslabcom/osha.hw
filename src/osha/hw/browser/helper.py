@@ -256,8 +256,10 @@ class HelperView(BrowserView):
             obj = obj.getTranslation(self.pref_lang) or obj
             link = '/'.join(obj.getPhysicalPath()).replace('/osha/portal', 'https://osha.europa.eu')
             url = obj.absolute_url()
+            size = obj.get_size() or 0
+            size = size / 1024
             yield dict(url=url, link=link, title=obj.Title(), description=obj.Description(),
-                obj=obj)
+                obj=obj, size=size, id=obj.getId())
 
     def getPromo(self):
         """ Get the promotional doc """

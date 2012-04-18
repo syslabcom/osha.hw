@@ -33,9 +33,16 @@
               </span>
             </h3>
             <p tal:content="publication/description"></p>
-            <p class="file-widget publicationURL"><span metal:use-macro="python:publication['obj'].widget('file', mode='view')">
-              Download
-            </span></p>
+            <p class="file-widget publicationURL">
+              <a href="#" tal:attributes="href publication/link">
+                <span tal:replace="publication/id">id</span>
+              </a>
+              <span class="discreet">
+                  &mdash;
+                  PDF document,
+                  <span tal:replace="publication/size">size</span> Kb
+              </span>
+            </p>
 
             <hr tal:condition="not:repeat/publication/end" >
           </tal:publications_collection>
