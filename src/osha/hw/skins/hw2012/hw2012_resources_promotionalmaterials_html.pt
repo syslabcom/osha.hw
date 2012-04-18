@@ -126,11 +126,12 @@
 		
           <h2 tal:content="context/logo/Title">Logo & Slogan</h2>
 			<a href="#" 
-				tal:define="can context/getCanonical; logo python:getattr(can.logo, '%s-logo-hw.jpg'%lang, getattr(can.logo, 'en-logo-hw.jpg'))"
+				tal:define="can context/getCanonical;
+                	logo python:getattr(context.logo, '%s-logo-hw.jpg' % lang, getattr(can.logo, 'en-logo-hw.jpg'))"
 				tal:attributes="href logo/absolute_url">
 				<h3 tal:content="logo/Title" />
 				<img src="#" 
-	               tal:attributes="src string:${can/absolute_url}/logo/${lang}-logo-hw.jpg/image_hwmini">   
+	               tal:attributes="src string:${logo/absolute_url}/image_hwmini">   
 				<p class="byline"><span tal:replace="logo/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (logo.get_size()/1024)"/></p>       
 				<p>
 				  <span i18n:translate="slogan_hw2010_campaign">Healthy Workplaces</span><br/>
