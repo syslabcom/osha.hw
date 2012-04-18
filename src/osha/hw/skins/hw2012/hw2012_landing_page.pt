@@ -9,6 +9,7 @@
     <metal:main fill-slot="main"
            tal:define='myview python:context.getDefaultPage() or ""; 
 					   viewob python: getattr(context, myview, context);
+                       first_image python:getattr(context.aq_parent, "landing_image", None);
                		   folders python:context.aq_parent.getFolderContents({"portal_type":"Folder"});
                		   myarea python:request.RESPONSE.addHeader("X-Deliverance-Page-Class", "general landingpage %s" % context.getId());
                '>
@@ -26,14 +27,10 @@
                  />
             </li>
           </ul>
-
-<!--          <tal:background condition="first_image">
-<figure>
-            <img width="950" id="background" tal:attributes="src string:${first_image/getId}/image_large; alt first_image/Title" />
+<figure tal:condition="first_image">
+            <img width="950" id="background" tal:attributes="src string:${first_image/absolute_url}/image_large; alt first_image/Title" />
 <figcaption tal:content="structure first_image/Description" />
 </figure>
-          </tal:background>
--->
         </div>
       </section>
 
