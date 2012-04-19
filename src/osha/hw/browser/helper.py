@@ -76,7 +76,7 @@ SV = {
 }
 
 # Needed for stripping links from the news items on the homepage
-DocumentCleaner = cleaners.LaundryCleaner(
+NewsCleaner = cleaners.LaundryCleaner(
             page_structure = False,
             remove_unknown_tags = False,
             allow_tags = [ "blockquote", "em", "p", "strong",
@@ -214,7 +214,7 @@ class HelperView(BrowserView):
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
             if strip_links:
                 # Strip links from the news text
-                description = laundryutils.sanitize(input, cleaner)
+                description = laundryutils.sanitize(description, NewsCleaner)
             date = obj.effective()
             yield dict(link=link, img_url=img_url, description=description,
                 title=obj.Title(), day=date.day(), month=date.pMonth(), year=date.year())
