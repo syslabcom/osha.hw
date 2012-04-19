@@ -60,8 +60,8 @@
 		                <a tal:attributes="href news/link">
 		                  <img tal:attributes="src news/img_url" width="85" tal:on-error="string:no image" />
 		                  <h3 tal:content="news/title">EU-OSHA targets health risks in cleaning industry for European Week 2009</h3>
+		                  <span tal:replace="structure news/description"></span>
 		                </a>
-		                <span tal:replace="structure news/description"></span>
 		              </tal:news_item>
 		            </li>
 				</tal:rep>
