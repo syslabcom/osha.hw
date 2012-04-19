@@ -52,8 +52,10 @@
     </div>
     <div metal:define-macro="news" tal:omit-tag="">
           <ul tal:define="helper here/@@hw_view;
-                limit limit|python:3" class="carousel news" id="news">
-				<tal:rep repeat="news python:helper.getNews(limit)">
+              limit limit|python:3;
+              strip_links strip_links|python:0"
+              class="carousel news" id="news">
+				<tal:rep repeat="news python:helper.getNews(limit, strip_links=strip_links)">
 		            <li tal:define="no repeat/news/number" 
 						tal:attributes="id string:item-$no">
 		              <tal:news_item>
@@ -70,9 +72,8 @@
 
     <div metal:define-macro="news-listing">
         <tal:block define="helper here/@@hw_view;
-                           limit limit|python:9999;
-                           strip_links strip_links|python:0">
-		<tal:block repeat="news python:helper.getNews(limit, strip_links=strip_links)">
+                           limit limit|python:9999">
+		<tal:block repeat="news python:helper.getNews(limit)">
 			<div class="newsItem ">
 			    <p class="metaData">        
 			        <a href="#" tal:attributes="href news/link" class="parent-fieldname-image">
