@@ -81,7 +81,7 @@ NewsCleaner = cleaners.LaundryCleaner(
             remove_unknown_tags = False,
             allow_tags = ["p", "br",
                         "ul", "ol", "li", "sub", "sup",
-                        "abbr", "acronym", "dl", "dt", "dd", "cite"]
+                        "abbr", "acronym", "dl", "dt", "dd", "cite"],
             safe_attrs_only = True,
             add_nofollow = False,
             scripts = False,
