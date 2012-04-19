@@ -210,6 +210,8 @@ class HelperView(BrowserView):
             img_url = obj.getImage() and '/'.join(obj.getImage().getPhysicalPath()) or ''
             img_url = img_url.replace('/osha/portal', 'https://osha.europa.eu')
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
+            if not isinstance(description, unicode):
+                description = description.decode('utf-8')
             if strip_links:
                 # Strip links from the news text
                 description = laundryutils.sanitize(description, NewsCleaner)
