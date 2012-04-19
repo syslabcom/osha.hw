@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.4.5 (unreleased)
+0.4.5 (2012-04-19)
 ------------------
 
-- Nothing changed yet.
-
+- Strip links and some formatting from the news on the homepage [thomasw|
 
 0.4.4 (2012-04-19)
 ------------------
