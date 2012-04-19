@@ -1,11 +1,10 @@
 Changelog
 =========
 
-0.4.4 (unreleased)
+0.4.4 (2012-04-19)
 ------------------
 
-- Nothing changed yet.
-
+- Partner application form [pilz]
 
 0.4.3 (2012-04-19)
 ------------------
