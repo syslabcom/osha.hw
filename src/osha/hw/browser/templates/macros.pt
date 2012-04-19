@@ -69,8 +69,10 @@
     </div>
 
     <div metal:define-macro="news-listing">
-        <tal:block define="helper here/@@hw_view; limit limit|python:9999">
-		<tal:block repeat="news python:helper.getNews(limit, strip_links=1)">
+        <tal:block define="helper here/@@hw_view;
+                           limit limit|python:9999;
+                           strip_links strip_links|python:0">
+		<tal:block repeat="news python:helper.getNews(limit, strip_links=strip_links)">
 			<div class="newsItem ">
 			    <p class="metaData">        
 			        <a href="#" tal:attributes="href news/link" class="parent-fieldname-image">
