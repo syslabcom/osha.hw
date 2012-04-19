@@ -18,7 +18,7 @@ class NewsByPathView(BrowserView):
         no = int(self.request.get('no', 1))
         # careful, no is repeat/news/number, so 1..n, not 0..n-1
         helper = self.context.restrictedTraverse('@@hw_view')
-        news = [x for x in helper.getNews(limit=3)]
+        news = [x for x in helper.getNews(limit=3, strip_links=1)]
         if 0<no<4:
             self.news = news[no-1]
         else:

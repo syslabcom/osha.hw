@@ -13,6 +13,9 @@ from osha.hw.queries import insert_hw2012_charter, create_hw2012_charter
 from osha.hw.util import generatePDF, send_charter_email
 from zope.i18n import translate
 
+from htmllaundry import utils as laundryutils
+from htmllaundry import cleaners
+
 from logging import getLogger
 log = getLogger('osha.hw helper')
 
@@ -72,6 +75,27 @@ SV = {
 
 }
 
+# Needed for stripping links from the news items on the homepage
+DocumentCleaner = cleaners.LaundryCleaner(
+            page_structure = False,
+            remove_unknown_tags = False,
+            allow_tags = [ "blockquote", "em", "p", "strong",
+                        "ul", "ol", "li", "sub", "sup",
+                        "abbr", "acronym", "dl", "dt", "dd", "cite",
+                        "dft", "br", "table", "tr", "td", "th", "thead",
+                        "tbody", "tfoot" ],
+            safe_attrs_only = True,
+            add_nofollow = False,
+            scripts = False,
+            javascript = False,
+            comments = False,
+            style = False,
+            links = False, 
+            meta = False,
+            processing_instructions = False,
+            frames = False,
+            annoying_tags = False
+            )
 
 class GetThumb(BrowserView):
 
@@ -165,7 +189,7 @@ class HelperView(BrowserView):
             target_language=self.pref_lang)
         return slogan
 
-    def getNews(self, limit=0):
+    def getNews(self, limit=0, strip_links=0):
         """Fetch campaign-related News and return the relevant parts"""
         subject = aq_inner(self.root).Subject()
         portal_path = self.ptool.getPortalPath()
@@ -188,6 +212,9 @@ class HelperView(BrowserView):
             img_url = obj.getImage() and '/'.join(obj.getImage().getPhysicalPath()) or ''
             img_url = img_url.replace('/osha/portal', 'https://osha.europa.eu')
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
+            if strip_links:
+                # Strip links from the news text
+                description = laundryutils.sanitize(input, cleaner)
             date = obj.effective()
             yield dict(link=link, img_url=img_url, description=description,
                 title=obj.Title(), day=date.day(), month=date.pMonth(), year=date.year())
