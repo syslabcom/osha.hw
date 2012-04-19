@@ -50,6 +50,8 @@
 
         <dl id="press-contacts">
             <span tal:repeat="contact here/hw2012_get_presscontacts">
+                <figure><img class="floatBefore" src="/birgitmuellerhwbackground.jpg/image_hwc2012mini" alt="Birgit Müller" 
+            tal:attributes="src string:../media/press/${contact/getId}.jpg/image_hwc2012mini; alt contact/Title"/></figure>
                 <dt>
                     <strong tal:content="contact/Description">International press</strong><br/>
                     <span tal:replace="contact/Title" />,<br/>
