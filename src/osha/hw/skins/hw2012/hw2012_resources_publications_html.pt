@@ -21,7 +21,7 @@
           <tal:publications_collection
              repeat="publication publications">
            <span class="publicationURL">
-            <a href="" tal:attributes="href string:${publication/link}/view">
+            <a href="" tal:attributes="href string:${publication/link}/view" target="_new">
               <img src="" class="outdent flowBefore"
                    tal:attributes="src string:${publication/link}/cover_image;
                                    alt publication/title" />
@@ -29,12 +29,12 @@
            </span>
             <h3>
               <span class="publicationURL">
-               <a tal:attributes="href publication/link" tal:content="publication/title"></a>
+               <a tal:attributes="href string:${publication/link}/view" target="_new" tal:content="publication/title"></a>
               </span>
             </h3>
             <p tal:content="publication/description"></p>
             <p class="file-widget publicationURL">
-              <a href="#" tal:attributes="href string:${publication/link}/view">
+              <a href="#" tal:attributes="href string:${publication/link}/view" target="_new">
                 <span tal:replace="publication/id">id</span>
               </a>
               <span class="discreet">
