@@ -79,11 +79,9 @@ SV = {
 NewsCleaner = cleaners.LaundryCleaner(
             page_structure = False,
             remove_unknown_tags = False,
-            allow_tags = [ "blockquote", "em", "p", "strong",
+            allow_tags = ["p", "br",
                         "ul", "ol", "li", "sub", "sup",
-                        "abbr", "acronym", "dl", "dt", "dd", "cite",
-                        "dft", "br", "table", "tr", "td", "th", "thead",
-                        "tbody", "tfoot" ],
+                        "abbr", "acronym", "dl", "dt", "dd", "cite"]
             safe_attrs_only = True,
             add_nofollow = False,
             scripts = False,
