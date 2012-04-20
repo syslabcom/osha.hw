@@ -219,15 +219,21 @@ class HelperView(BrowserView):
             yield dict(link=link, img_url=img_url, description=description,
                 title=obj.Title(), day=date.day(), month=date.pMonth(), year=date.year())
 
-    def getEvents(self, limit=0):
+    def getEvents(self, limit=0, past_events=False):
         """Fetch campaign-related Events and return the relevant parts"""
         subject = aq_inner(self.root).Subject()
         portal_path = self.ptool.getPortalPath()
         pc = getToolByName(self.context, 'portal_catalog')
+        if past_events:
+            sort_order = 'descending'
+            end = {'query': DateTime(), 'range': 'max'}
+        else:
+            sort_order = 'ascending'
+            end = {'query': DateTime(), 'range': 'min'}
         res = pc(portal_type='Event',
             Language=['en', ''],
-            sort_order='reverse', sort_on='start',
-            end={'query': DateTime(), 'range': 'min'}, expires={'query': DateTime(), 'range': 'min'},
+            sort_order=sort_order, sort_on='start',
+            end=end,
             path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang),
             self.subsite_path],
             Subject=subject)
@@ -246,9 +252,9 @@ class HelperView(BrowserView):
             yield dict(link=link, location=r.location, start=obj.start(), description=description,
                 title=obj.Title())
 
-    def getEventsDict(self, limit=0):
+    def getEventsDict(self, limit=0, past_events=False):
         """ preps the events ordered by month """
-        events = self.getEvents(limit)
+        events = self.getEvents(limit, past_events)
         now = DateTime()
 
         edict = {}

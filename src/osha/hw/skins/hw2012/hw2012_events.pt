@@ -12,7 +12,8 @@
 <tal:main-macro metal:define-macro="main">
 <div id="mainContent" 
         tal:define="helper here/@@hw_view;
-                    results python:helper.getEventsDict();
+                    upcoming python:here.getId()=='events';
+                    results python:helper.getEventsDict(past_events=not upcoming);
                     events_dict python:results[0];
                     dates python:results[1];
                     lang here/portal_languages/getPreferredLanguage;
@@ -25,8 +26,8 @@
     </div>
     <!-- InstanceBeginEditable name="Main content" -->
 
-    <p tal:condition="python:here.getId()=='index_html'"><a tal:attributes="href string:/${lang}/events/past-events">Past events</a></p>
-    <p tal:condition="python:here.getId()=='past-events'"><a tal:attributes="href string:/${lang}/events">Upcoming events</a></p>
+    <p tal:condition="upcoming"><a tal:attributes="href string:past-events">Past events</a></p>
+    <p tal:condition="not:upcoming"><a tal:attributes="href string:events">Upcoming events</a></p>
     <div class="eventlist">
         <tal:loop repeat="date dates">
         <tal:get define="month_heading python:'%s %s' % (date.Month(), date.year())">
