@@ -21,19 +21,19 @@
                     ">
 
     <h1 tal:content="here/Title">Events</h1>
-    <div id="introduction" tal:content="here/Description"> 
+    <div id="introduction" tal:content="here/Description" tal:condition="here/Description">
       <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
     </div>
     <!-- InstanceBeginEditable name="Main content" -->
 
-    <p tal:condition="upcoming"><a href="past-events" i18n:translate="box_previous_events">Past events</a></p>
-    <p tal:condition="not:upcoming"><a href="events" i18n:translate="box_upcoming_events">Upcoming events</a></p>
+    <p tal:condition="upcoming"><a href="past-events" tal:attributes="href string:/${lang}/events/past-events" i18n:translate="box_previous_events">Past events</a></p>
+    <p tal:condition="not:upcoming"><a href="events" tal:attributes="href string:/${lang}/events/events" i18n:translate="box_upcoming_events">Upcoming events</a></p>
     <div class="eventlist">
         <tal:loop repeat="date dates">
         <tal:get define="month_heading python:'%s %s' % (date.Month(), date.year())">
         <div class="eventlist_month">
-            <h2 tal:content="month_heading">
-                October 2009
+            <h2> 
+                <span tal:content="date/Month" i18n:translate="" i18n:domain="osha">October</span> <span tal:replace="date/year" />
             </h2>
             <tal:events repeat="event python:events_dict[date]">
                 <div class="vevent event"
