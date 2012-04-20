@@ -1,11 +1,23 @@
-<ul tal:define="news view/news;" class="carousel news" id="news">
-    <li tal:attributes="id string:item-${request/no}">
-          <tal:news_item>
-            <a tal:attributes="href news/link">
-              <img tal:attributes="src news/img_url" width="85" tal:on-error="string:no image"/>
-              <h3 tal:content="news/title">EU-OSHA targets health risks in cleaning industry for European Week 2009</h3> 
-              <span tal:replace="structure news/description"></span>
-            </a>
-          </tal:news_item>
-     </li>
-  </ul>
+<div class="carouselContainer" id="news-container" tal:define="helper here/@@hw_view;
+            news view/news; current_news helper/current_news">
+    <ul class="carousel news" id="news">
+        <li tal:attributes="id string:item-${request/no}">
+              <tal:news_item>
+                <a tal:attributes="href current_news/link">
+                  <img tal:attributes="src current_news/img_url" width="85" tal:on-error="string:no image"/>
+                  <h3 tal:content="current_news/title">EU-OSHA targets health risks in cleaning industry for European Week 2009</h3> 
+                  <span tal:replace="structure current_news/description"></span>
+                </a>
+              </tal:news_item>
+         </li>
+    </ul>
+    <div class="balls">
+        <tal:rep repeat="n news">
+            <a data-injection="#news-container:content" 
+                tal:define="no repeat/n/number"
+                tal:attributes="href string:nbp?no=$no#news-container;
+                    class python:request.get('no', 1)==str(no) and 'current' or ''"  tal:content="no">1</a>
+        </tal:rep>
+        <a href="#" class="more" tal:attributes="href helper/getNewsfolderUrl">More news&hellip;</a>
+     </div>
+</div>
