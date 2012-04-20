@@ -206,7 +206,7 @@ class HelperView(BrowserView):
             obj = r.getObject()
             # now get the correct translation, or use the EN one as fallback
             obj = obj.getTranslation(self.pref_lang) or obj
-            link = "%s/@@hw.telescope?path=%s" % (self.getNewsfolderUrl(), r.getPath())
+            link = "%s/@@hw.telescope?path=%s" % (self.getNewsfolderUrl(), '/'.join(obj.getPath()))
             img_url = obj.getImage() and '/'.join(obj.getImage().getPhysicalPath()) or ''
             img_url = img_url.replace('/osha/portal', 'https://osha.europa.eu')
             description = obj.Description().strip() != '' and obj.Description() or obj.getText()
