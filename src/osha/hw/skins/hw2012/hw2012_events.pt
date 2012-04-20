@@ -26,8 +26,8 @@
     </div>
     <!-- InstanceBeginEditable name="Main content" -->
 
-    <p tal:condition="upcoming"><a tal:attributes="href string:past-events">Past events</a></p>
-    <p tal:condition="not:upcoming"><a tal:attributes="href string:events">Upcoming events</a></p>
+    <p tal:condition="upcoming"><a href="past-events" i18n:translate="box_previous_events">Past events</a></p>
+    <p tal:condition="not:upcoming"><a href="events" i18n:translate="box_upcoming_events">Upcoming events</a></p>
     <div class="eventlist">
         <tal:loop repeat="date dates">
         <tal:get define="month_heading python:'%s %s' % (date.Month(), date.year())">
