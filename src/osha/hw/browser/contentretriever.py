@@ -37,10 +37,11 @@ class EventByPathView(BrowserView):
         no = int(self.request.get('no', 1))
         # careful, no is repeat/news/number, so 1..n, not 0..n-1
         helper = self.context.restrictedTraverse('@@hw_view')
-        events = [x for x in helper.getEvents(limit=3)]
+        self.events = [x for x in helper.getEvents(limit=3)]
+        self.eventsfolder_url = helper.getEventsfolderUrl()
         if 0<no<4:
-            self.event = events[no-1]
+            self.current_event = self.events[no-1]
         else:
-            self.event = {}
+            self.current_event = {}
         return self.index(self)
             

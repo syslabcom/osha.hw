@@ -29,10 +29,10 @@
             <metal:macro metal:use-macro="here/@@osha.hw.macros/events" />
             <div class="balls">
                 <tal:rep repeat="e events">
-                    <a data-injection="#upcomingEvent:content" 
+                    <a data-injection="#events-container:content" 
                         tal:define="no repeat/e/number"
-                        tal:attributes="href string:ebp?no=$no#upcomingEvent;
-                            class python:'current'" tal:content="no">1</a>
+                        tal:attributes="href string:ebp?no=$no#events-container;
+                            class python:no==1 and 'current' or ''" tal:content="no">1</a>
                 </tal:rep>
                 <a href="#" class="more" tal:attributes="href helper/getEventsfolderUrl">More events&hellip;</a>
              </div>

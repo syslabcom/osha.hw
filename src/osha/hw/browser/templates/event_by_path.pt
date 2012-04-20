@@ -1,18 +1,30 @@
-<ul class="carousel" tal:define="helper here/@@hw_view;event view/event;" id="upcomingEvent">
-    <li>
-      <a tal:attributes="href event/link">
-        <h3 tal:content="event/title" />
-          <p class="byline" tal:content="event/location">
-            Algarve region, Portugal
-          </p>
+<div class="carouselContainer" id="events-container"
+    tal:define="events view/events; current_event view/current_event">
+    <ul class="carousel" id="upcomingEvent">
+        <li tal:attributes="id string:event-${request/no}">
+          <a tal:attributes="href current_event/link">
+            <h3 tal:content="current_event/title" />
+              <p class="byline" tal:content="current_event/location">
+                Algarve region, Portugal
+              </p>
 
-          <p class="calendar-medium" tal:define="start event/start">
-            <strong class="day" tal:content="start/day">2</strong>
-            <strong class="month char-count-3" tal:define="ll python:helper.len_month(start.month()); ln python:ll[1]"
-                    tal:attributes="class string:month char-count-${ln}"
-                    tal:content="python:ll[0]">December</strong>
-          <strong class="year" tal:content="start/year">2010</strong></p>
-           <p class="description" tal:content="event/description" />
-        </a>
-    </li>
-</ul>
+              <p class="calendar-medium" tal:define="start current_event/start">
+                <strong class="day" tal:content="current_event/day">2</strong>
+                <strong class="month char-count-3" tal:define="ll python:helper.len_month(start.month()); ln python:ll[1]"
+                        tal:attributes="class string:month char-count-${ln}"
+                        tal:content="python:ll[0]">December</strong>
+              <strong class="year" tal:content="start/year">2010</strong></p>
+               <p class="description" tal:content="current_event/description" />
+            </a>
+        </li>
+    </ul>
+    <div class="balls">
+        <tal:rep repeat="e events">
+            <a data-injection="#events-container:content" 
+                tal:define="no repeat/e/number"
+                tal:attributes="href string:ebp?no=$no#events-container;
+                    class python:request.get('no', 1)==str(no) and 'current' or ''" tal:content="no">1</a>
+        </tal:rep>
+        <a href="#" class="more" tal:attributes="href view/eventsfolder_url">More events&hellip;</a>
+     </div>
+</div>
