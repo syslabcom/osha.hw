@@ -1,5 +1,5 @@
 <div class="carouselContainer" id="news-container" tal:define="helper here/@@hw_view;
-            news view/news; current_news helper/current_news">
+            news view/news; current_news view/current_news">
     <ul class="carousel news" id="news">
         <li tal:attributes="id string:item-${request/no}">
               <tal:news_item>
