@@ -1,5 +1,5 @@
-<div class="carouselContainer" id="news-container" tal:define="helper here/@@hw_view;
-            news view/news; current_news view/current_news">
+<div class="carouselContainer" id="news-container"
+    tal:define="news view/news; current_news view/current_news">
     <ul class="carousel news" id="news">
         <li tal:attributes="id string:item-${request/no}">
               <tal:news_item>
@@ -18,6 +18,6 @@
                 tal:attributes="href string:nbp?no=$no#news-container;
                     class python:request.get('no', 1)==str(no) and 'current' or ''"  tal:content="no">1</a>
         </tal:rep>
-        <a href="#" class="more" tal:attributes="href helper/getNewsfolderUrl">More news&hellip;</a>
+        <a href="#" class="more" tal:attributes="href view/newsfolder_url">More news&hellip;</a>
      </div>
 </div>

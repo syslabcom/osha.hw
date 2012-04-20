@@ -21,6 +21,7 @@ class NewsByPathView(BrowserView):
         # careful, no is repeat/news/number, so 1..n, not 0..n-1
         helper = self.context.restrictedTraverse('@@hw_view')
         self.news = [x for x in helper.getNews(limit=3, strip_links=1)]
+        self.newsfolder_url = helper.getNewsfolderUrl()
         if 0 < no < 4:
             self.current_news = self.news[no-1]
         else:
