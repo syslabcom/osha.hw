@@ -1,5 +1,5 @@
 <div class="carouselContainer" id="events-container"
-    tal:define="events view/events; current_event view/current_event">
+    tal:define="helper here/@@hw_view; events view/events; current_event view/current_event">
     <ul class="carousel" id="upcomingEvent">
         <li tal:attributes="id string:event-${request/no}">
           <a tal:attributes="href current_event/link">
@@ -9,7 +9,7 @@
               </p>
 
               <p class="calendar-medium" tal:define="start current_event/start">
-                <strong class="day" tal:content="current_event/day">2</strong>
+                <strong class="day" tal:content="start/day">2</strong>
                 <strong class="month char-count-3" tal:define="ll python:helper.len_month(start.month()); ln python:ll[1]"
                         tal:attributes="class string:month char-count-${ln}"
                         tal:content="python:ll[0]">December</strong>
