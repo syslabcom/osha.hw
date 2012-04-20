@@ -4,8 +4,7 @@ Changelog
 0.4.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- News and Events on homepage: The balls now show which item is selected [thomasw]
 
 0.4.6 (2012-04-19)
 ------------------
