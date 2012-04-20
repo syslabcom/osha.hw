@@ -31,18 +31,19 @@
     <div class="eventlist">
         <tal:loop repeat="date dates">
         <tal:get define="month_heading python:'%s %s' % (date.Month(), date.year())">
-        <div class="eventlist_month">
+        <div class="eventlist_month" i18n:domain="osha">
             <h2> 
-                <span tal:content="date/Month" i18n:translate="" i18n:domain="osha">October</span> <span tal:replace="date/year" />
+                <span tal:content="date/Month" i18n:translate="">October</span>
+                <span tal:replace="date/year">2012</span>
             </h2>
             <tal:events repeat="event python:events_dict[date]">
                 <div class="vevent event"
                      tal:define="startdate event/start">
                     <div class="event_details">
                         <h4 tal:attributes="title startdate/ISO" 
-                            class="dtstart"
-                            tal:content="python:'%s %s' % (startdate.Month(), startdate.day())">
-                            October 24
+                            class="dtstart">
+                            <span tal:content="startdate/Month" i18n:translate="">October</span>
+                            <span tal:replace="startdate/day">24</span>
                         </h4>
                     </div>
                     <div class="event_body">
