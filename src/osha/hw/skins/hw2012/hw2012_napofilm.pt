@@ -34,7 +34,7 @@
                     tal:attributes="src string:${base_url}${filmid}.jpg"></source>
             <figure class="illustration-1">
                 <div width="470" height="265" tabindex="0" controls="controls" preload="preload" id="videocontainer"></div>
-                <figcaption>&copy; NAPO Consortium</figcaption>
+                <figcaption>&copy; Napo Consortium</figcaption>
             </figure>
 
             <script type="text/javascript">
