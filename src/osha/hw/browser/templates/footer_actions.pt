@@ -8,7 +8,7 @@
             <li class="breadcrumbSeparator" 
                 tal:condition="not: repeat/action/start"
                 tal:attributes="id string:footeraction-separator-${action/id};
-                               style python:action.get('id') == 'print' and 'display:None' or ''">&nbsp;|&nbsp;</li>
+                               style python:action.get('id') == 'print' and 'display:None' or ''">|&nbsp;</li>
             <li tal:attributes="id string:footeraction-${action/id};
                                style python:action.get('id') == 'print' and 'display:None' or ''"
                 >
