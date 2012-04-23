@@ -1,10 +1,12 @@
 Changelog
 =========
 
-0.4.7 (unreleased)
+0.4.7 (2012-04-23)
 ------------------
 
 - News and Events on homepage: The balls now show which item is selected [thomasw]
+- Proper display and sorting of events [thomasw]
+- Added custom footer with links to OSHA main [thomasw]
 
 0.4.6 (2012-04-19)
 ------------------
