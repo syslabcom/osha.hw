@@ -8,6 +8,13 @@
         file="styles/hw_partners.css"
         />
 
+    <!-- 'OSHA HW' Zope 3 skin layer -->
+    <interface
+        interface="..interfaces.IHWThemeLayer"
+        type="zope.publisher.interfaces.browser.IBrowserSkinType"
+        name="OSHA HW"
+        />
+
     <browser:page
         for="*"
         name="osha.hw.macros"
@@ -147,5 +154,12 @@
         permission="zope2.View"
         />
 
+    <browser:viewlet
+        name="osha.footer.actions"
+        manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+        class=".viewlets.HWFooterActions"
+        layer="..interfaces.IHWThemeLayer"
+        permission="zope2.View"
+        />
 
 </configure>

@@ -1,4 +1,10 @@
 from zope.interface import Interface
+from plone.theme.interfaces import IDefaultPloneLayer
+
+
+class IHWThemeLayer(IDefaultPloneLayer):
+    """ Marker Interface used by BrowserLayer
+    """
 
 class IAddOCP(Interface):
     """ Add an Official Campaign Partner """

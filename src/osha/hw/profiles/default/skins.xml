@@ -10,7 +10,7 @@
         meta_type="Filesystem Directory View"
         directory="osha.hw:skins/hw2012"/>
 
-    <skin-path name="OSHA Plone Theme" based-on="Plone Default">
+    <skin-path name="OSHA HW" based-on="OSHA Plone Theme">
         <layer name="hw2012" insert-after="custom"/>
     </skin-path>
 

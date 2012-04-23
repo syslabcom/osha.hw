@@ -1,0 +1,32 @@
+<div id="footeractions-wrapper">
+
+    <ul id="portal-footeractions"
+        i18n:domain="osha">
+        <tal:document-actions
+             condition="view/hw_actions"
+             repeat="action view/hw_actions">
+            <li class="breadcrumbSeparator" 
+                tal:condition="not: repeat/action/start"
+                tal:attributes="id string:footeraction-separator-${action/id};
+                               style python:action.get('id') == 'print' and 'display:None' or ''">&nbsp;|&nbsp;</li>
+            <li tal:attributes="id string:footeraction-${action/id};
+                               style python:action.get('id') == 'print' and 'display:None' or ''"
+                >
+                <a href="" rel="nofollow"
+                   tal:define="title action/title;
+                               id action/id;"
+                   i18n:attributes="title"
+                   i18n:translate=""
+                   tal:content="title"
+                   tal:attributes="href action/url;
+                                   title title;">Footer action</a>
+            </li>
+        </tal:document-actions>
+    </ul>
+    <script type="text/javascript"> 
+        var el = document.getElementById("footeraction-print");
+        el.style.display = '';
+        var el = document.getElementById("footeraction-separator-print");
+        el.style.display = '';
+    </script>
+</div>
