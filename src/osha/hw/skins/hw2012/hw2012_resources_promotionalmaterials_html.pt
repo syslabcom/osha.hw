@@ -15,7 +15,7 @@
            tal:define="lang context/portal_languages/getPreferredLanguage">
         <h1 id="title" tal:content="here/Title">Promotional Materials</h1>
 
-        <p tal:content="here/Description">Description</p>
+        <p class='documentDescription'><span id='parent-fieldname-description' tal:replace="here/Description"></span></p>
 
         <div class="downloads">
 
@@ -139,8 +139,9 @@
                 </p>
             </a>
 
-        <h2>Disclaimer</h2>
-          
+       <span tal:define="disclaimer nocall:context/disclaimer|nothing" tal:condition="disclaimer" tal:omit-tag="">
+        <h2 tal:content="disclaimer/Title">Disclaimer</h2>
+        <span tal:replace="structure disclaimer/getText">
         <p><b><i>Use of the Healthy Workplaces campaign logo</i></b></p>
         <p>As many people as possible should be involved in the Healthy Workplaces campaign. So we would like to see the logo used as widely as possible.</p>
         <p><i>But a few simple rules apply:</i></p>
@@ -154,7 +155,8 @@
         <li>Promotional items</li></ul>
         <p>The Healthy Workplaces campaign does not endorse commercial products or services. Thus, the name, slogan and logo cannot be used in any manner that suggests a direct product and services endorsement.</p>
         <p>If you have any questions concerning the use of the slogan and logo please contact the Agency for EU activities or your national contact.</p>
-
+      </span>
+    </span>
 
         </div>
 
