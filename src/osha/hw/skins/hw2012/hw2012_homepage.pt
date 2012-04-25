@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="osha">
 
 <body>
 
@@ -12,7 +12,7 @@
     tal:define="helper here/@@hw_view; news python:helper.getNews(limit=3); events python:helper.getEvents(limit=3)">
     <tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general main')" />
 
-        <div class="carouselContainer" id="news-container"  tal:define="limit python:1; strip_links python:1">
+        <div class="carouselContainer" id="news-container" tal:define="limit python:1; strip_links python:1" >
             <metal:macro metal:use-macro="here/@@osha.hw.macros/news" />
             <div class="balls">
                 <tal:rep repeat="n news">
@@ -21,7 +21,7 @@
                         tal:attributes="href string:nbp?no=$no#news-container;
                             class python:no==1 and 'current' or ''" tal:content="no">1</a>
                 </tal:rep>
-                <a href="#" class="more" tal:attributes="href helper/getNewsfolderUrl">More news&hellip;</a>
+                <a href="#" class="more" tal:attributes="href helper/getNewsfolderUrl"><span i18n:translate="label_more_events" tal:omit-tag="">More events</span>&hellip;</a>
              </div>
         </div>
             
@@ -34,7 +34,7 @@
                         tal:attributes="href string:ebp?no=$no#events-container;
                             class python:no==1 and 'current' or ''" tal:content="no">1</a>
                 </tal:rep>
-                <a href="#" class="more" tal:attributes="href helper/getEventsfolderUrl">More events&hellip;</a>
+                <a href="#" class="more" tal:attributes="href helper/getEventsfolderUrl"><span i18n:translate="label_more_events" tal:omit-tag="">More events</span>&hellip;</a>
              </div>
         </div>
 
