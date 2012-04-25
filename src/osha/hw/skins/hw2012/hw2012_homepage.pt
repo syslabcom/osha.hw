@@ -21,7 +21,7 @@
                         tal:attributes="href string:nbp?no=$no#news-container;
                             class python:no==1 and 'current' or ''" tal:content="no">1</a>
                 </tal:rep>
-                <a href="#" class="more" tal:attributes="href helper/getNewsfolderUrl"><span i18n:translate="label_more_events" tal:omit-tag="">More events</span>&hellip;</a>
+                <a href="#" class="more" tal:attributes="href helper/getNewsfolderUrl"><span i18n:translate="label_more_news" tal:omit-tag="">More events</span>&hellip;</a>
              </div>
         </div>
             
