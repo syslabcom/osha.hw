@@ -1,11 +1,11 @@
 Changelog
 =========
 
-0.4.8 (unreleased)
+0.4.8 (2012-05-07)
 ------------------
 
-- Nothing changed yet.
-
+- promo-materials: don't hard-code document description and disclaimer [thomasw] #4672
+- Added a more news / more events link to the telescope view [thomasw] #4648
 
 0.4.7 (2012-04-23)
 ------------------
