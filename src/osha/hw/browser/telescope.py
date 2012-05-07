@@ -56,6 +56,12 @@ class TelescopeView(BrowserView):
                     proxy_url = context.absolute_url() + "/" +\
                                  target_obj.getId()
                     target_url = '/'.join(target_obj.getPhysicalPath()).replace('/osha/portal', 'https://osha.europa.eu')
+                    if target_obj.portal_type == 'News Item':
+                        txt = '''<p id="more"><a href="../news" class="more"><span i18n:translate="label_more_news" tal:omit-tag="">More news</span>&hellip;</a>\n<h1 class="documentFirstHeading">'''
+                        view = view.replace('<h1 class="documentFirstHeading">', txt)
+                    elif target_obj.portal_type == 'Event':
+                        txt = '''<p id="more"><a href="../events" class="more"><span i18n:translate="label_more_events" tal:omit-tag="">More events</span>&hellip;</a>\n<h1 class="documentFirstHeading">'''
+                        view = view.replace('<h1 class="documentFirstHeading">', txt)
                     return view.replace(proxy_url, target_url)
 
         else:
