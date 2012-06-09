@@ -306,7 +306,7 @@ class HelperView(BrowserView):
         folder = self.root.restrictedTraverse(path)
         partners_folder = aq_parent(folder)
         images = folder.objectItems('ATImage')
-        res = list
+        res = list()
         for id, image in images:
             if '.' in id:
                 elems = id.split('.')
