@@ -3,6 +3,7 @@ from OFS.Image import File
 from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
 from Products.Five import BrowserView
+import random
 from zope.component import getUtility
 from zope.interface import implements
 from osha.hw.interfaces import IHelperView
@@ -305,6 +306,7 @@ class HelperView(BrowserView):
         folder = self.root.restrictedTraverse(path)
         partners_folder = aq_parent(folder)
         images = folder.objectItems('ATImage')
+        res = list
         for id, image in images:
             if '.' in id:
                 elems = id.split('.')
@@ -312,8 +314,10 @@ class HelperView(BrowserView):
             else:
                 stem = id
             if stem.split('_')[-1] == 'logo':
-                yield dict(src=image.absolute_url(),
-                link="%s/detail?id=%s" % (partners_folder.absolute_url(), stem.replace('_logo', '')))
+                res.append(dict(src=image.absolute_url(),
+                link="%s/detail?id=%s" % (partners_folder.absolute_url(), stem.replace('_logo', ''))))
+        random.shuffle(res)
+        return res
 
     def getNapofilmId(self):
         """ Looks for a property called napofilm on the subsite root"""
