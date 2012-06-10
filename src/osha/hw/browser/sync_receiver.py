@@ -2,7 +2,7 @@ import Acquisition
 from OFS.Image import File
 from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
-from collective.lead.interfaces import IDatabase
+from osha.policy.interfaces import IDatabaseSettings
 from Products.Five import BrowserView
 from zope.component import getUtility
 import sqlalchemy
@@ -17,7 +17,7 @@ class BaseDBView(BrowserView):
 
     def __init__(self, context, request, **kw):
         self.context = context
-        self.db = getUtility(IDatabase, name="osha.database")
+        self.db = getUtility(IDatabaseSettings)
         self.conn = self.db.connection
         self.subsite_path = getSubsiteRoot(Acquisition.aq_inner(context))
         self.root = self.context.restrictedTraverse(self.subsite_path)
