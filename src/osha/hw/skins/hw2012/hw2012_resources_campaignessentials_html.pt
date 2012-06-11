@@ -91,7 +91,7 @@
                        <p tal:content="pub/Description">Employees often have a detailed knowledge of their work and how it can be made safer.</p>
                 </a>
                <tal:repeat repeat="item python:ob.listFolderContents(contentFilter={'portal_type':'File'})">
-                <a href="#" xtal:on-error="nothing" tal:attributes="href python:item.absolute_url()">
+                <a href="#" tal:attributes="href python:item.absolute_url()">
                    <h3 tal:content="item/Title">Title</h3>
                    <img tal:attributes="src string:${item/absolute_url}/@@hw_get_thumb" />
                    <p class="byline"><span tal:replace="item/getFilename"/><span class="discreet"> - <span tal:replace="python:'%skb' % (item.get_size()/1024)"/></p>
