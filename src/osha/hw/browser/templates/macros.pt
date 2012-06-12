@@ -135,7 +135,7 @@
             <li tal:repeat="logo logos">
                 
                 <a href="#" tal:attributes="href logo/link">
-                    <img src="#" tal:attributes="src logo/src" height="80" />
+                    <img src="#" tal:attributes="src logo/src" />
                 </a>
             </li>
         </ul>
