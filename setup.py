@@ -51,6 +51,7 @@ setup(name='osha.hw',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
+          'htmllaundry',
           'setuptools',
           'SQLAlchemy'
       ],
