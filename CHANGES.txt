@@ -4,7 +4,7 @@ Changelog
 0.4.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- fixed the homepage news and events boxes to show the updated markup [pilz]
 
 
 0.4.8 (2012-05-07)
