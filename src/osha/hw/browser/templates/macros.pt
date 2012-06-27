@@ -50,7 +50,19 @@
           </ul>
         </tal:vars>
     </div>
-    <div metal:define-macro="news" tal:omit-tag="">
+    <div metal:define-macro="news" tal:omit-tag="" 
+		tal:define="helper here/@@hw_view; 
+					strip_links strip_links|python:0;
+					news python:helper.getNews(1, strip_links=strip_links)[0]">
+          
+		<a tal:attributes="href news/link" href="http://www/uk-hse-lead-olympic-park">
+        	<img width="85" tal:attributes="src news/img_url" src="https://osha.europa.eu/en/olympic-park/image">
+        	<h3 tal:content="news/title">UK, HSE, Leadership and worker involvement on the Olympic Park</h3> 
+      
+        	<p><strong tal:content="structure news/description">This research considers leadership and worker involvement practice across selected projects on the London 2012 Olympic Park.</strong></p>
+  		</a>
+    </div>
+    <!--div metal:define-macro="news" tal:omit-tag="">
           <ul tal:define="helper here/@@hw_view;
               limit limit|python:3;
               strip_links strip_links|python:0"
@@ -68,7 +80,7 @@
 		            </li>
 				</tal:rep>
           </ul>
-    </div>
+    </div-->
 
     <div metal:define-macro="news-listing">
         <tal:block define="helper here/@@hw_view;
