@@ -80,7 +80,10 @@
     </div>
 
 
-    <div metal:define-macro="events" tal:omit-tag="">
+    <div metal:define-macro="events" tal:omit-tag="" 
+		tal:define="helper here/@@hw_view;
+             		limit limit|python:3;
+					event python:list(helper.getEvents(limit))[0]">
           
 		<a href="http://hw2012.syslab.com/e6c994035f23f8151286119b2ca604604" tal:attributes="href event/link">
           	<p class="calendar-medium" tal:define="start event/start">
