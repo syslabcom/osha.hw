@@ -61,25 +61,6 @@
         	<p><strong tal:content="structure news/description">This research considers leadership and worker involvement practice across selected projects on the London 2012 Olympic Park.</strong></p>
   		</a>
     </div>
-    <!--div metal:define-macro="news" tal:omit-tag="">
-          <ul tal:define="helper here/@@hw_view;
-              limit limit|python:3;
-              strip_links strip_links|python:0"
-              class="carousel news" id="news">
-				<tal:rep repeat="news python:helper.getNews(limit, strip_links=strip_links)">
-		            <li tal:define="no repeat/news/number" 
-						tal:attributes="id string:item-$no">
-		              <tal:news_item>
-		                <a tal:attributes="href news/link">
-		                  <img tal:attributes="src news/img_url" width="85" tal:on-error="string:no image" />
-		                  <h3 tal:content="news/title">EU-OSHA targets health risks in cleaning industry for European Week 2009</h3>
-		                  <span tal:replace="structure news/description"></span>
-		                </a>
-		              </tal:news_item>
-		            </li>
-				</tal:rep>
-          </ul>
-    </div-->
 
     <div metal:define-macro="news-listing">
         <tal:block define="helper here/@@hw_view;

@@ -1,6 +1,14 @@
 <div class="carouselContainer" id="news-container"
     tal:define="news view/news; current_news view/current_news">
-    <ul class="carousel news" id="news">
+
+	<a tal:attributes="href current_news/link" href="http://www/uk-hse-lead-olympic-park">
+    	<img width="85" tal:attributes="src current_news/img_url" src="https://osha.europa.eu/en/olympic-park/image">
+    	<h3 tal:content="current_news/title">UK, HSE, Leadership and worker involvement on the Olympic Park</h3> 
+  
+    	<p><strong tal:content="structure current_news/description">This research considers leadership and worker involvement practice across selected projects on the London 2012 Olympic Park.</strong></p>
+	</a>
+
+    <!--ul class="carousel news" id="news">
         <li tal:attributes="id string:item-${request/no}">
               <tal:news_item>
                 <a tal:attributes="href current_news/link">
@@ -10,7 +18,7 @@
                 </a>
               </tal:news_item>
          </li>
-    </ul>
+    </ul-->
     <div class="balls">
         <tal:rep repeat="n news">
             <a data-injection="#news-container:content" 
