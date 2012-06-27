@@ -3,22 +3,10 @@
 
 	<a tal:attributes="href current_news/link" href="http://www/uk-hse-lead-olympic-park">
     	<img width="85" tal:attributes="src current_news/img_url" src="https://osha.europa.eu/en/olympic-park/image">
-    	<h3 tal:content="current_news/title">UK, HSE, Leadership and worker involvement on the Olympic Park</h3> 
-  
+    	<h3 tal:content="current_news/title">UK, HSE, Leadership and worker involvement on the Olympic Park</h3>   
     	<p><strong tal:content="structure current_news/description">This research considers leadership and worker involvement practice across selected projects on the London 2012 Olympic Park.</strong></p>
 	</a>
 
-    <!--ul class="carousel news" id="news">
-        <li tal:attributes="id string:item-${request/no}">
-              <tal:news_item>
-                <a tal:attributes="href current_news/link">
-                  <img tal:attributes="src current_news/img_url" width="85" tal:on-error="string:no image"/>
-                  <h3 tal:content="current_news/title">EU-OSHA targets health risks in cleaning industry for European Week 2009</h3> 
-                  <span tal:replace="structure current_news/description"></span>
-                </a>
-              </tal:news_item>
-         </li>
-    </ul-->
     <div class="balls">
         <tal:rep repeat="n news">
             <a data-injection="#news-container:content" 

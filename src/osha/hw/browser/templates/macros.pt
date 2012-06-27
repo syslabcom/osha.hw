@@ -81,7 +81,21 @@
 
 
     <div metal:define-macro="events" tal:omit-tag="">
-          <ul class="carousel" tal:define="helper here/@@hw_view;
+          
+		<a href="http://hw2012.syslab.com/e6c994035f23f8151286119b2ca604604" tal:attributes="href event/link">
+          	<p class="calendar-medium" tal:define="start event/start">
+              <strong class="day" tal:content="start/day">2</strong>
+              <strong class="month char-count-3" tal:define="ll python:helper.len_month(start.month()); ln python:ll[1]"
+                      tal:attributes="class string:month char-count-${ln}"
+                      tal:content="python:ll[0]">December</strong>
+            <strong class="year" tal:content="start/year">2010</strong></p>
+		  
+		  <h3 tal:content="event/title">Safe Maintenance Workshop</h3>
+            <p class="byline" tal:content="event/location">To be determined – Paris or Frankfurt are leading candidates</p>
+            <p class="description" tal:content="event/description">Paris or Frankfurt, date tbc/4th quarter: Dupont </p>
+          </a>
+
+		<!--ul class="carousel" tal:define="helper here/@@hw_view;
                  limit limit|python:3" id="upcomingEvent">
             <tal:block repeat="event python:helper.getEvents(limit)">
               <li>
@@ -102,7 +116,7 @@
                   </a>
               </li>
             </tal:block>
-          </ul>
+          </ul-->
     </div>
 
 
