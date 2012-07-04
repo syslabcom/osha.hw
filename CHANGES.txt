@@ -5,6 +5,7 @@ Changelog
 ------------------
 
 - fixed the homepage news and events boxes to show the updated markup [pilz]
+- Removed the label CEO / CEO quote from the partner detail view #5213 [thomasw]
 
 
 0.4.8 (2012-05-07)
