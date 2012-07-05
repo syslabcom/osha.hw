@@ -3,7 +3,7 @@ from OFS.Image import File
 from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
 from osha.policy.interfaces import IDatabaseSettings
-from Products.Five import BrowserView
+from Products.Five.browser import BrowserView
 from zope.component import getUtility
 import sqlalchemy
 from osha.hw.queries import *
@@ -17,8 +17,13 @@ class BaseDBView(BrowserView):
 
     def __init__(self, context, request, **kw):
         self.context = context
-        self.db = getUtility(IDatabaseSettings)
-        self.conn = self.db.connection
+        self.request = request
+        db_util = getUtility(IDatabaseSettings)
+        dsn = "%(driver)s://%(username)s:%(password)s@%(host)s:%(port)s/%(database)s" % dict(
+            driver=db_util.drivername, username=db_util.username, host=db_util.hostname,
+            password=db_util.password, database=db_util.database, port=db_util.port)
+        engine = sqlalchemy.create_engine(dsn)
+        self.conn = engine.connect()
         self.subsite_path = getSubsiteRoot(Acquisition.aq_inner(context))
         self.root = self.context.restrictedTraverse(self.subsite_path)
 
