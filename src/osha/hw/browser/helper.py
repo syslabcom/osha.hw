@@ -305,7 +305,7 @@ class HelperView(BrowserView):
         path = 'en/about/campaign-partners/img'
         folder = self.root.restrictedTraverse(path)
         partners_folder = aq_parent(folder)
-        images = folder.objectItems('ATImage')
+        images = folder.objectItems('ATImage', 'ATBlob')
         res = list()
         for id, image in images:
             if '.' in id:
@@ -314,7 +314,7 @@ class HelperView(BrowserView):
             else:
                 stem = id
             if stem.split('_')[-1] == 'logo':
-                res.append(dict(src=image.absolute_url(),
+                res.append(dict(src=image.absolute_url() + '/image_preview',
                 link="%s/detail?id=%s" % (partners_folder.absolute_url(), stem.replace('_logo', ''))))
         random.shuffle(res)
         return res
