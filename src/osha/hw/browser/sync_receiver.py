@@ -30,6 +30,8 @@ class BaseDBView(BrowserView):
 class DBSetup(BaseDBView):
 
     def __call__(self):
+        if self.request.get('drop_all', False):
+            self.conn.execute(drop_statements)
         for query in create_statements:
             self.conn.execute(query)
 

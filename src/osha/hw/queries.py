@@ -146,6 +146,15 @@ create_statements = (
     pg_create_fop_news,
 )
 
+drop_statements = """
+    DROP TABLE IF EXISTS hw_ocps;
+    DROP TABLE IF EXISTS hw_fops;
+    DROP TABLE IF EXISTS ocp_events;
+    DROP TABLE IF EXISTS fop_events;
+    DROP TABLE IF EXISTS ocp_news;
+    DROP TABLE IF EXISTS fop_news;
+"""
+
 is_ocp_available = """
 SELECT count(*) from hw_ocps
 WHERE id = '%(id)s'"""
