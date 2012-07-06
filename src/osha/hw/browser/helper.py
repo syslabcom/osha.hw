@@ -305,7 +305,7 @@ class HelperView(BrowserView):
         path = 'en/about/campaign-partners/img'
         folder = self.root.restrictedTraverse(path)
         partners_folder = aq_parent(folder)
-        images = folder.objectItems('ATImage', 'ATBlob')
+        images = folder.objectItems(['ATImage', 'ATBlob'])
         res = list()
         for id, image in images:
             if '.' in id:
