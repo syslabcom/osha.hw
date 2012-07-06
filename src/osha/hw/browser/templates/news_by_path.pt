@@ -1,26 +1,19 @@
-<div class="carouselContainer" id="events-container"
-    tal:define="helper here/@@hw_view; events view/events; current_event view/current_event">
+<div class="carouselContainer" id="news-container"
+    tal:define="news view/news; current_news view/current_news">
 
-	<a href="http://hw2012.syslab.com/e6c994035f23f8151286119b2ca604604" tal:attributes="href current_event/link">
-      	<p class="calendar-medium" tal:define="start current_event/start">
-          <strong class="day" tal:content="start/day">2</strong>
-          <strong class="month char-count-3" tal:define="ll python:helper.len_month(start.month()); ln python:ll[1]"
-                  tal:attributes="class string:month char-count-${ln}"
-                  tal:content="python:ll[0]">December</strong>
-        <strong class="year" tal:content="start/year">2010</strong></p>
-	  
-	  <h3 tal:content="current_event/title">Safe Maintenance Workshop</h3>
-        <p class="byline" tal:content="current_event/location">To be determined – Paris or Frankfurt are leading candidates</p>
-        <p class="description" tal:content="current_event/description">Paris or Frankfurt, date tbc/4th quarter: Dupont </p>
-      </a>
+	<a tal:attributes="href current_news/link" href="http://www/uk-hse-lead-olympic-park">
+    	<img width="85" tal:attributes="src current_news/img_url" src="https://osha.europa.eu/en/olympic-park/image">
+    	<h3 tal:content="current_news/title">UK, HSE, Leadership and worker involvement on the Olympic Park</h3>   
+    	<p><strong tal:content="structure current_news/description">This research considers leadership and worker involvement practice across selected projects on the London 2012 Olympic Park.</strong></p>
+	</a>
 
     <div class="balls">
-        <tal:rep repeat="e events">
-            <a data-injection="#events-container:content" 
-                tal:define="no repeat/e/number"
-                tal:attributes="href string:ebp?no=$no#events-container;
-                    class python:request.get('no', 1)==str(no) and 'current' or ''" tal:content="no">1</a>
+        <tal:rep repeat="n news">
+            <a data-injection="#news-container:content" 
+                tal:define="no repeat/n/number"
+                tal:attributes="href string:nbp?no=$no#news-container;
+                    class python:request.get('no', 1)==str(no) and 'current' or ''"  tal:content="no">1</a>
         </tal:rep>
-        <a href="#" class="more" tal:attributes="href view/eventsfolder_url">More events&hellip;</a>
+        <a href="#" class="more" tal:attributes="href view/newsfolder_url">More news&hellip;</a>
      </div>
 </div>
