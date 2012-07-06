@@ -11,13 +11,14 @@
 <metal:block fill-slot="main"
     tal:define="id request/id|nothing;
                 partner python:view.get_partner(id=id);
+                has_partner python:partner and True or False;
                 folder python:here.aq_parent;
                 img_folder python:getattr(folder.getCanonical(), 'img');
                 helper here/@@hw_view;
                 events_folder_url helper/getEventsfolderUrl;
                 news_folder_url helper/getNewsfolderUrl">
     <tal:set define="dummy python:request.RESPONSE.setHeader('X-Deliverance-Page-Class', 'general partner-detail')" />
-    <tal:block condition="partner">
+    <tal:block condition="has_partner">
 
         <tal:block define="ceo_img python:getattr(img_folder, '%s_ceo.jpg' % id, None) or getattr(img_folder, '%s_ceo.gif' % id, None) or
             getattr(img_folder, '%s_ceo.png' % id, None);
@@ -171,9 +172,9 @@
     </tal:block>
 </tal:block>
 
-<tal:block condition="not:partner">
-      <h1 class="documentFirstHeading"><span id="parent-fieldname-title">Not found</span></h1>
-       <div id="parent-fieldname-text">
+<tal:block condition="not:has_partner">
+      <h1 id="title"><span id="parent-fieldname-title">Not found</span></h1>
+       <div id="campaign-partner-details">
          The partner you have been looking for was not found.
        </div>
 
