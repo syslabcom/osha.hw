@@ -25,7 +25,7 @@
         <p i18n:translate="partner_form_instructions_official_partner">
             If you want to get involved in the Campaign more substantially and become an 
             <strong>official national Campaign partner</strong>, get in touch with your corresponding 
-            <a href="/en/campaigns/hw2010/partners/focal-points">national focal point</a>.
+            <a href="../campaigns/hw2010/partners/focal-points">national focal point</a>.
         </p> 
         <form id="national-partner-application-form" 
             class="concise" 
