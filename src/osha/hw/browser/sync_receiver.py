@@ -22,6 +22,10 @@ class BaseDBView(BrowserView):
         self.subsite_path = getSubsiteRoot(Acquisition.aq_inner(context))
         self.root = self.context.restrictedTraverse(self.subsite_path)
 
+    def execute(self, query):
+        query = query.replace('%', '%%')
+        self.conn.execute(query)
+
 class DBSetup(BaseDBView):
 
     def __call__(self):
@@ -39,9 +43,9 @@ class AddOCP(BaseDBView):
         fieldnames, p_data = partners
         values = dict(zip(fieldnames, p_data))
         if self.conn.scalar(is_ocp_available % values) > 0:
-            self.conn.execute(update_ocp % values)
+            self.execute(update_ocp % values)
         else:
-            self.conn.execute(insert_ocp % values)
+            self.execute(insert_ocp % values)
 
         print values
         return 0
@@ -57,9 +61,9 @@ class AddFOP(BaseDBView):
         fieldnames, p_data = partners
         values = dict(zip(fieldnames, p_data))
         if self.conn.scalar(is_fop_available % values) > 0:
-            self.conn.execute(update_fop % values)
+            self.execute(update_fop % values)
         else:
-            self.conn.execute(insert_fop % values)
+            self.execute(insert_fop % values)
 
         print values
         return 0
@@ -146,10 +150,10 @@ class AddEvent(BaseDBView):
 
             if self.conn.scalar(checker % \
             dict(partner_id=partner_id, id=id)) > 0:
-                self.conn.execute(updater % dict(partner_id=partner_id, id=id,
+                self.execute(updater % dict(partner_id=partner_id, id=id,
                     url='/'.join(ob.getPhysicalPath())))
             else:
-                self.conn.execute(inserter % dict(partner_id=partner_id,
+                self.execute(inserter % dict(partner_id=partner_id,
                     id=id, url='/'.join(ob.getPhysicalPath())))
 
         return 0
@@ -210,9 +214,9 @@ class AddNews(BaseDBView):
 
             if self.conn.scalar(checker % \
             dict(partner_id=partner_id, id=id)) > 0:
-                self.conn.execute(updater % dict(partner_id=partner_id, id=id,
+                self.execute(updater % dict(partner_id=partner_id, id=id,
                     url='/'.join(ob.getPhysicalPath())))
             else:
-                self.conn.execute(inserter % dict(partner_id=partner_id,
+                self.execute(inserter % dict(partner_id=partner_id,
                     id=id, url='/'.join(ob.getPhysicalPath())))
         return 0
