@@ -63,7 +63,7 @@
         <div id="portlet portletPartnerPortlet" class="portlet"
          tal:define="logo python:getattr(img_folder, '%s_logo.jpg' % id, None) or getattr(img_folder, '%s_logo.gif' % id, None) or
                             getattr(img_folder, '%s_logo.png' % id, None);
-                     logo_url python:logo and logo.absolute_url()+'/image_thumb' or ''">
+                     logo_url python:logo and logo.absolute_url()+'/image_preview' or ''">
 
 
                 <img src="" tal:attributes="src logo_url" />
