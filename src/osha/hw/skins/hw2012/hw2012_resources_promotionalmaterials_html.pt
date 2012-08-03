@@ -105,25 +105,6 @@
             </a>
           </tal:sigs>
 
-            <!--<p tal:condition="python:lang=='en'">Banner and E-Signature in other languages: 
-<tal:block repeat="otherlang python:['hr', 'mk', 'no', 'sh', 'sq', 'sr', 'tr']">
-<a tal:attributes="href string:/en/campaigns/hw2010/resources/promotional-materials/hw2010_resources_promotionalmaterials_additional_languages?lang=${otherlang}" tal:content="otherlang"></a> 
-<tal:cond condition="not: repeat/otherlang/end">|</tal:cond>
-</tal:block>
-            </p>-->
-
-<!--          <a name="hw2012launchaudio"></a>
-          <h2>HW2010 Launch Audiocast</h2>
-            <p><script language="JavaScript" type="text/javascript">
-            //<![CDATA[
-            embedPlayer("HW2010 Launch","/en/teaser/Files/2010-2011.mp3"); // title, filename
-            //]]>
-            </script></p>
-            <p><a href="/en/teaser/Files/2010-2011.mp3">Download</a></p>
-
-          <hr> 
--->
-        
           <h2 tal:content="context/logo/Title">Logo & Slogan</h2>
             <a href="#" 
                 tal:define="can context/getCanonical;
