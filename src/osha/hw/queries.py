@@ -22,6 +22,7 @@ CREATE TABLE hw_ocps
   missionstatement text,
   campaign_pledge text,
   ceoname character varying(255),
+  ceoposition character varying(255),
   keyname character varying(255),
   keyposition character varying(255),
   keyemail character varying(255),
@@ -164,7 +165,7 @@ INSERT INTO hw_ocps
 ("id", "title", "description", "manager", "street",
 "addressextra", "city", "zipcode", "country", "email", "phone", "fax", "url",
 "campaignurl", "organisationtype", "businesssector", "missionstatement",
-"campaign_pledge","ceoname", "keyname", "keyposition", "keyemail", "keytel",
+"campaign_pledge", "ceoname", "ceoposition", "keyname", "keyposition", "keyemail", "keytel",
 "representativename", "representativeemail", "representativetel", "subject",
 "location", "language", "effectivedate", "expirationdate", 
 "creation_date", "modification_date")
@@ -172,7 +173,7 @@ VALUES
 ('%(id)s', '%(title)s', '%(description)s', '%(manager)s', '%(street)s',
 '%(addressextra)s', '%(city)s', '%(zipcode)s', '%(country)s', '%(email)s', '%(phone)s', '%(fax)s', '%(url)s',
 '%(campaignurl)s', '%(organisationtype)s', '%(businesssector)s', '%(missionstatement)s',
-'%(campaign_pledge)s','%(ceoname)s', '%(keyname)s', '%(keyposition)s', '%(keyemail)s', '%(keytel)s',
+'%(campaign_pledge)s','%(ceoname)s', '%(ceoposition)s', '%(keyname)s', '%(keyposition)s', '%(keyemail)s', '%(keytel)s',
 '%(representativename)s', '%(representativeemail)s', '%(representativetel)s', '%(subject)s',
 '%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
 '%(creation_date)s', '%(modification_date)s')
@@ -183,14 +184,14 @@ UPDATE hw_ocps SET
 ("title", "description", "manager", "street",
 "addressextra", "city", "zipcode", "country", "email", "phone", "fax", "url",
 "campaignurl", "organisationtype", "businesssector", "missionstatement",
-"campaign_pledge","ceoname", "keyname", "keyposition", "keyemail", "keytel",
+"campaign_pledge", "ceoname", "ceoposition", "keyname", "keyposition", "keyemail", "keytel",
 "representativename", "representativeemail", "representativetel", "subject",
 "location", "language", "effectivedate", "expirationdate", 
 "creation_date", "modification_date") =
 ('%(title)s', '%(description)s', '%(manager)s', '%(street)s',
 '%(addressextra)s', '%(city)s', '%(zipcode)s', '%(country)s', '%(email)s', '%(phone)s', '%(fax)s', '%(url)s',
 '%(campaignurl)s', '%(organisationtype)s', '%(businesssector)s', '%(missionstatement)s',
-'%(campaign_pledge)s','%(ceoname)s', '%(keyname)s', '%(keyposition)s', '%(keyemail)s', '%(keytel)s',
+'%(campaign_pledge)s', '%(ceoname)s', '%(ceoposition)s', '%(keyname)s', '%(keyposition)s', '%(keyemail)s', '%(keytel)s',
 '%(representativename)s', '%(representativeemail)s', '%(representativetel)s', '%(subject)s',
 '%(location)s', '%(language)s', '%(effectivedate)s', '%(expirationdate)s', 
 '%(creation_date)s', '%(modification_date)s')
