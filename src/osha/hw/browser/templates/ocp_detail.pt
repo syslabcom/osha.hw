@@ -32,7 +32,8 @@
 
                 <p id="CEO">
                     <img src="" tal:attributes="src ceo_img_url" /><br />
-                    <span tal:replace="partner/ceoname">Name</span>
+                    <span tal:replace="partner/ceoname">Name</span><br />
+                    <span tal:replace="partner/ceoposition">Name</span>
                 </p>
                 <p class="documentDescription" id="parent-fieldname-description"><span tal:content="partner/description">quotes</span></p>
 
