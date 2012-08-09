@@ -65,11 +65,11 @@ class CharterView(BaseDBView):
         checkboxint=''.join(cb_list)
 
         if 1:
-            now = DateTime().ISO()  
-            
-            query = insert_hw2012_charter % dict( 
+            now = DateTime().ISO()
+
+            query = insert_hw2012_charter % dict(
                         Organisation    = organisation,
-                        Address         = address, 
+                        Address         = address,
                         Postalcode      = postal_code,
                         City            = city,
                         Country         = country,
@@ -95,12 +95,12 @@ class CharterView(BaseDBView):
             logit (" ... calling generatePDF, language: %s" % language)
             logit (" ... calling generatePDF")
             pdf = generatePDF(self.context,
-                                company=organisation, 
-                                language=language, 
-                                firstname=firstname, 
-                                lastname=lastname, 
-                                checkboxes=checkboxes, 
-                                usePDFTK=0 
+                                company=organisation,
+                                language=language,
+                                firstname=firstname,
+                                lastname=lastname,
+                                checkboxes=checkboxes,
+                                usePDFTK=0
                                 )
             #self.context.REQUEST.RESPONSE.setHeader('Content-type', 'application/pdf')
             #return pdf
