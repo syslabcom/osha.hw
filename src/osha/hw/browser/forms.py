@@ -18,21 +18,21 @@ class NationalPartnerForm(BrowserView):
     implements(INationalPartnerForm)
 
     def get_validation_messages(self):
-        """ """ 
+        """ """
         context = aq_inner(self.context)
         request = context.REQUEST
         fieldnames = {
             'organisation': translate(_('Company/Organisation')),
-            'address': translate(_('Address')), 	
+            'address': translate(_('Address')),
             'postal_code': translate(_('Postal Code')),
-            'city': translate(_('City')),	
-            'country': translate(_('Country')), 
-            'firstname': translate(_('Firstname')),	
-            'lastname': translate(_('Lastname')), 
+            'city': translate(_('City')),
+            'country': translate(_('Country')),
+            'firstname': translate(_('Firstname')),
+            'lastname': translate(_('Lastname')),
             'sector': translate(_('Sector')),
-            'email': translate(_('Email')), 
-            'telephone': translate(_('Telephone')), 
-            } 	
+            'email': translate(_('Email')),
+            'telephone': translate(_('Telephone')),
+            }
         lang = context.portal_languages.getPreferredLanguage()
         messages = {}
 
@@ -56,5 +56,3 @@ class NationalPartnerForm(BrowserView):
 
         data = {'messages': messages}
         return json.dumps(data)
-
-
