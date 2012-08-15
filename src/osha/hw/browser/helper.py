@@ -197,7 +197,6 @@ class HelperView(BrowserView):
         res = pc(portal_type='News Item',
             Language=['en', ''],
             sort_order='reverse', sort_on='effective',
-            expires={'query': DateTime(), 'range': 'min'},
             path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang),
             self.subsite_path],
             Subject=subject)
