@@ -1,22 +1,26 @@
 from Acquisition import aq_inner, aq_parent
-from OFS.Image import File
-from Products.CMFCore.utils import getToolByName
 from DateTime import DateTime
+from OFS.Image import File
+from Products.Archetypes import PloneMessageFactory as _
+from Products.CMFCore.utils import getToolByName
+from Products.CMFDefault.exceptions import EmailAddressInvalid
+from Products.CMFDefault.utils import checkEmailAddress
 from Products.Five import BrowserView
+from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import getUtility
+from zope.i18n import translate
 from zope.interface import implements
+
 from osha.hw.interfaces import IHelperView
 from slc.subsite.root import getSubsiteRoot
 from osha.policy.utils import logit
 from osha.hw.browser.sync_receiver import BaseDBView
+from osha.hw.browser.forms import NationalPartnerForm
 from osha.hw.queries import insert_hw2012_charter, create_hw2012_charter
 from osha.hw.util import generatePDF, send_charter_email
 
 from logging import getLogger
 log = getLogger('osha.hw helper')
-
-
-
 
 # consider translating the strings
 email_template = """<p>Thank you for signing the European Week Charter.</p>
@@ -28,12 +32,13 @@ email_template = """<p>Thank you for signing the European Week Charter.</p>
 
 """
 
-class CharterView(BaseDBView):
+class CharterView(BaseDBView, NationalPartnerForm):
 
     def __call__(self):
 
         request = self.context.REQUEST
         language = self.context.portal_languages.getPreferredLanguage()
+        messages = IStatusMessage(request)
 
         portal = self.context.portal_url.getPortalObject()
         url = "/%s/get-involved/become-a-national-partner/feedback" % language
@@ -50,6 +55,38 @@ class CharterView(BaseDBView):
         telephone       = request.get('telephone', '')
         checkboxlist    = request.get('checkboxlist', [])
         other           = request.get('other_activities_text', '')
+
+        required_fields = {
+            "organisation" : organisation,
+            "address" : address,
+            "postal_code" : postal_code,
+            "city" : city,
+            "country" : country,
+            "firstname" : firstname,
+            "lastname" : lastname,
+            "sector" : sector,
+            "email" : email,
+            "telephone" : telephone
+            }
+
+        error_messages = self.get_translated_validation_messages()["messages"]
+        has_errors = False
+        for required_field in required_fields.keys():
+            if (required_field == "email"):
+                try:
+                    checkEmailAddress(required_field)
+                except EmailAddressInvalid:
+                    has_errors = True
+                    messages.add(
+                        error_messages[required_field]["required"],
+                        type=u"error")
+            elif required_fields[required_field].strip() == "":
+                has_errors = True
+                messages.add(
+                    error_messages[required_field]["required"],
+                    type=u"error")
+        if has_errors:
+            return request.RESPONSE.redirect(url)
 
         checkboxes = {}
         for c in checkboxlist:

@@ -19,6 +19,10 @@ class NationalPartnerForm(BrowserView):
 
     def get_validation_messages(self):
         """ """
+        data = self.get_translated_validation_messages()
+        return json.dumps(data)
+
+    def get_translated_validation_messages(self):
         context = aq_inner(self.context)
         request = context.REQUEST
         fieldnames = {
@@ -54,5 +58,4 @@ class NationalPartnerForm(BrowserView):
 
             messages[field_id] = err_msgs
 
-        data = {'messages': messages}
-        return json.dumps(data)
+        return {'messages': messages}

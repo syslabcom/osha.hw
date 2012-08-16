@@ -4,7 +4,8 @@ Changelog
 0.4.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- National campaign partner application form: Check email address is
+  valid, and other required fields are not empty [deroiste] #4697
 
 
 0.4.8 (2012-05-07)
