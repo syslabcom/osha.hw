@@ -299,7 +299,7 @@ class HelperView(BrowserView):
         promo = getattr(aq_inner(self.langroot), 'promo', None)
         return promo
 
-    def getOCPLogos(self):
+    def getOCPLogos(self, scale_to_height=80):
         """ fetch the partner logos, the folder path is hardcoded """
         path = 'en/about/campaign-partners/img'
         folder = self.root.restrictedTraverse(path)
@@ -313,7 +313,10 @@ class HelperView(BrowserView):
             else:
                 stem = id
             if stem.split('_')[-1] == 'logo':
+                width, height = image.getSize(scale='preview')
+                new_width = int((float(scale_to_height) / height) * width)
                 res.append(dict(src=image.absolute_url() + '/image_preview',
+                height=scale_to_height, width=new_width,
                 link="%s/detail?id=%s" % (partners_folder.absolute_url(), stem.replace('_logo', ''))))
         random.shuffle(res)
         return res
