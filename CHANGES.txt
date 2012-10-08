@@ -4,8 +4,7 @@ Changelog
 0.5.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- don't show teasers on the camp site that are not effective yet #5631 [thomasw]
 
 0.5 (2012-09-17)
 ----------------
