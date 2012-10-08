@@ -193,9 +193,11 @@ class HelperView(BrowserView):
         subject = aq_inner(self.root).Subject()
         portal_path = self.ptool.getPortalPath()
         lang = self.context.portal_languages.getPreferredLanguage()
+        now = DateTime()
         pc = getToolByName(self.context, 'portal_catalog')
         res = pc(portal_type='News Item',
             Language=['en', ''],
+            effective={'query': now, 'range': 'max'},
             sort_order='reverse', sort_on='effective',
             path=['%s/en' % portal_path, '%s/%s' % (portal_path, self.pref_lang),
             self.subsite_path],
