@@ -45,7 +45,7 @@ class CharterView(BaseDBView, NationalPartnerForm):
 
         organisation    = request.get('organisation', '')
         address         = request.get('address', '')
-        postal_code     = request.get('portal_code', '')
+        postal_code     = request.get('postal_code', '')
         city            = request.get('city', '')
         country         = request.get('country', '')
         firstname       = request.get('firstname', '')
@@ -74,11 +74,11 @@ class CharterView(BaseDBView, NationalPartnerForm):
         for required_field in required_fields.keys():
             if (required_field == "email"):
                 try:
-                    checkEmailAddress(required_field)
+                    checkEmailAddress(required_fields.get(required_field, ""))
                 except EmailAddressInvalid:
                     has_errors = True
                     messages.add(
-                        error_messages[required_field]["required"],
+                        error_messages[required_field]["email"],
                         type=u"error")
             elif required_fields[required_field].strip() == "":
                 has_errors = True
@@ -86,7 +86,11 @@ class CharterView(BaseDBView, NationalPartnerForm):
                     error_messages[required_field]["required"],
                     type=u"error")
         if has_errors:
-            return request.RESPONSE.redirect(url)
+            form_path = (
+                "/%s/@@national-campaign-partner-application-form-2012"
+                % self.context.absolute_url(1))
+            return self.context.restrictedTraverse(
+                form_path)(form = request.form)
 
         checkboxes = {}
         for c in checkboxlist:

@@ -6,6 +6,10 @@ Changelog
 
 - don't show teasers on the camp site that are not effective yet #5631 [thomasw]
 
+- #4697 Fix validation for all fields, return to form without losing
+  the data already filled in, fix the path to the font for pdf
+  generation [deroiste]
+
 0.5 (2012-09-17)
 ----------------
 

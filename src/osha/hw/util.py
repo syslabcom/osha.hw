@@ -80,15 +80,15 @@ def generatePDF(self,
     my_canvas.setSubject('Charter of the Healthy Workplaces campaign')
 
     # register the font for writing company, name and actions
-    arial =  INSTANCE_HOME + '/../../data/arial.ttf'
+    arial =  INSTANCE_HOME + '/../../../../fonts/arial.ttf'
     pdfmetrics.registerFont( TTFont('Arial', arial) )
-    arial_bold =  INSTANCE_HOME + '/../../data/arialbd.ttf'
+    arial_bold =  INSTANCE_HOME + '/../../../../fonts/arialbd.ttf'
     pdfmetrics.registerFont( TTFont('ArialBold', arial_bold) )
-    arial_italic =  INSTANCE_HOME + '/../../data/ariali.ttf'
+    arial_italic =  INSTANCE_HOME + '/../../../../fonts/ariali.ttf'
     pdfmetrics.registerFont( TTFont('ArialItalic', arial_italic) )
-    arial_bi =  INSTANCE_HOME + '/../../data/arialbi.ttf'
+    arial_bi =  INSTANCE_HOME + '/../../../../fonts/arialbi.ttf'
     pdfmetrics.registerFont( TTFont('ArialBoldItalic', arial_bi) )
-    arial_nb =  INSTANCE_HOME + '/../../data/arialnb.ttf'
+    arial_nb =  INSTANCE_HOME + '/../../../../fonts/arialnb.ttf'
     pdfmetrics.registerFont( TTFont('ArialNarrowBold', arial_nb) )
 
     # get the frontimage and write it to the canvas

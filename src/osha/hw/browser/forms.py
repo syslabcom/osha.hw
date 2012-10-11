@@ -6,7 +6,7 @@ from zope.i18n import translate
 
 from Acquisition import aq_inner
 
-from Products.Five import BrowserView
+from Products.Five.browser import BrowserView
 from Products.Archetypes import PloneMessageFactory as _
 
 from osha.hw.interfaces import INationalPartnerForm
@@ -16,6 +16,11 @@ log = logging.getLogger('osha.hw2012.browser.forms')
 class NationalPartnerForm(BrowserView):
     """ """
     implements(INationalPartnerForm)
+
+    def __call__(self, form=None):
+        self.form = form
+        return super(
+            NationalPartnerForm, self).__call__(self.context, self.request)
 
     def get_validation_messages(self):
         """ """
