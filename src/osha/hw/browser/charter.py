@@ -87,8 +87,10 @@ class CharterView(BaseDBView, NationalPartnerForm):
                     type=u"error")
         if has_errors:
             form_path = (
-                "/%s/@@national-campaign-partner-application-form-2012"
-                % self.context.absolute_url(1))
+                "%s/@@national-campaign-partner-application-form-2012"
+                % "/".join(self.context.getPhysicalPath()))
+            request.RESPONSE.setHeader(
+                'X-Deliverance-Page-Class', 'general form')
             return self.context.restrictedTraverse(
                 form_path)(form = request.form)
 
