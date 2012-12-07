@@ -4,8 +4,7 @@ Changelog
 0.5.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Don't choke on wrong logo image types #6394 [thomasw]
 
 0.5.1 (2012-10-15)
 ------------------
