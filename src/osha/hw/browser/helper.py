@@ -316,6 +316,13 @@ class HelperView(BrowserView):
                 stem = id
             if stem.split('_')[-1] == 'logo':
                 width, height = image.getSize(scale='preview')
+                try:
+                    width = int(width)
+                    height = int(height)
+                except ValueError:
+                    # We can't use this logo, since Plone can't determine its size.
+                    # This can happen with tiff images, see #6394
+                    continue
                 new_width = int((float(scale_to_height) / height) * width)
                 res.append(dict(src=image.absolute_url() + '/image_preview',
                 height=scale_to_height, width=new_width,
