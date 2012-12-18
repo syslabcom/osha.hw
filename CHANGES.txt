@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5.2 (unreleased)
+0.5.2 (2012-12-18)
 ------------------
 
 - Don't choke on wrong logo image types #6394 [thomasw]
