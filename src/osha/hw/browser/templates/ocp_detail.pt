@@ -10,6 +10,7 @@
 
 <metal:block fill-slot="main"
     tal:define="id request/id|nothing;
+                toLocalizedTime nocall:context/@@plone/toLocalizedTime;
                 partner python:view.get_partner(id=id);
                 has_partner python:partner and True or False;
                 folder python:here.aq_parent;
@@ -114,7 +115,7 @@
                 <!-- Events -->
                 <div class="expandable opened"
                 tal:define="event_res python:view.get_partner_events(partner_id=id);
-                    events python:[here.restrictedTraverse(x['url'], None) for x in event_res];
+                    events python:[here.restrictedTraverse(str(x['url']), None) for x in event_res];
                     events python:[x for x in events if x is not None]"
                     tal:condition="events">
 
@@ -142,7 +143,7 @@
 
             <!-- News -->
             <tal:news define="news_res python:view.get_partner_news(partner_id=id);
-                    news python:[here.restrictedTraverse(x['url'], None) for x in news_res];
+                    news python:[here.restrictedTraverse(str(x['url']), None) for x in news_res];
                     news python:[x for x in news if x is not None]">
                 <div class="expandable closed"
                     tal:condition="python:len(news)">
