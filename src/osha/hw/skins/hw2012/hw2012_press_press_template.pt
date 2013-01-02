@@ -27,7 +27,7 @@
 		  <tal:def define="obj item/getObject" on-error="nothing">
 		    <div tal:define="first repeat/item/start; 
 		          dynclass python: first and 'first' or ''; 
-		          presslink string:$portalurl/$preflang/media/press/@@slc.telescope?path=${item/getPath}"  class="newsItem" tal:attributes="class python:'newsItem '+dynclass" >
+		          presslink string:$portalurl/$preflang/media/press/@@hw.telescope?path=${item/getPath}"  class="newsItem" tal:attributes="class python:'newsItem '+dynclass" >
 		    <p class="metaData">        
 		        <a tal:attributes="href presslink" 
 		           href="http://osha.europa.eu/en/teaser/health-risks-in-cleaning-industry" class="parent-fieldname-image">

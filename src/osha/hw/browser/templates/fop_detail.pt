@@ -112,7 +112,7 @@
                         <dd>
                             <h3 class="detailsHeadline">
                                 <a href="" class="summary url" tal:define="relpath python:'/'.join(item.getPhysicalPath())"
-                                tal:attributes="href string:${events_folder_url}/@@slc.telescope?path=$relpath"
+                                tal:attributes="href string:${events_folder_url}/@@hw.telescope?path=$relpath"
                                 tal:content="item/Title">
                                 Item Title
                                 </a>
@@ -141,7 +141,7 @@
                         <dd>
                             <h3 class="detailsHeadline">
                                 <a href="" class="summary url" tal:define="relpath python:'/'.join(item.getPhysicalPath())"
-                                tal:attributes="href string:${news_folder_url}/@@slc.telescope?path=$relpath"
+                                tal:attributes="href string:${news_folder_url}/@@hw.telescope?path=$relpath"
                                 tal:content="item/Title">
                                 Item Title
                                 </a>
