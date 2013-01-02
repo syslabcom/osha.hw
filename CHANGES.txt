@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5.4 (unreleased)
+0.5.4 (2013-01-02)
 ------------------
 
 - Bugfixes regarding the display of synced News and Events on the FOP/OCP
