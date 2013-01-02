@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.5.3 (unreleased)
+0.5.3 (2013-01-02)
 ------------------
 
 - Use hw.telescope instead of slc.telescope #6499 [thomasw]
