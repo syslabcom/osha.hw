@@ -1,8 +1,10 @@
 import logging
 
+from ordereddict import OrderedDict
 from Acquisition import aq_base, aq_inner, aq_acquire
 
 from Products.Five.browser import BrowserView
+from Products.CMFCore.utils import getToolByName
 from zope.publisher.interfaces import NotFound
 from zope.component import getMultiAdapter
 
@@ -67,3 +69,50 @@ class TelescopeView(BrowserView):
         else:
             logger.log(logging.INFO, "No path specified")
             raise NotFound
+
+    def telescope_translations(self):
+        """Return the titles and URLs of translations, include the
+        relevant telescope path if accessed via @@hw.telescope
+        #6509"""
+        context = self.context
+        request = context.REQUEST
+
+        actual_url = request.ACTUAL_URL
+        is_telescope = "hw.telescope" in actual_url
+        if is_telescope:
+            parent = request.PARENTS[0]
+            query_string = request.QUERY_STRING
+
+        translations = context.getTranslations()
+        lang_codes = sorted(translations.keys())
+
+        lang_tool = getToolByName(context, "portal_languages")
+        lang_info = lang_tool.getAvailableLanguageInformation()
+
+        transdict = OrderedDict()
+        for lang_code in lang_codes:
+            translation = translations[lang_code][0]
+            if is_telescope:
+                trans_parent = parent.getTranslation(lang_code)
+                # The target URL may exist even if there is no such
+                # translation for the telescope origin
+                if trans_parent:
+                    parent_url = "{0}/@@hw.telescope".format(
+                        trans_parent.absolute_url())
+                else:
+                    parent_url = actual_url
+                url = "{0}?path={1}".format(
+                        parent_url, translation.absolute_url_path())
+            else:
+                url = translation.absolute_url()
+
+            is_hw_root = context.getPhysicalPath()[-1] == 'hw2012'
+            quote = is_hw_root and translation.getText() or ''
+
+            transdict[lang_code] = {
+                'url': url,
+                'title': lang_info[lang_code]["native"],
+                'quote': quote,
+                'css_class': translation = context and 'current' or  ''
+                }
+        return transdict
