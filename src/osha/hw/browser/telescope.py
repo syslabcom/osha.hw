@@ -76,23 +76,22 @@ class TelescopeView(BrowserView):
         #6509"""
         context = self.context
         request = context.REQUEST
-
-        actual_url = request.ACTUAL_URL
-        is_telescope = "hw.telescope" in actual_url
-        if is_telescope:
-            parent = request.PARENTS[0]
-            query_string = request.QUERY_STRING
-
         translations = context.getTranslations()
         lang_codes = sorted(translations.keys())
 
         lang_tool = getToolByName(context, "portal_languages")
         lang_info = lang_tool.getAvailableLanguageInformation()
 
+        actual_url = request.ACTUAL_URL
+        is_telescope = "hw.telescope" in actual_url
+
         transdict = OrderedDict()
         for lang_code in lang_codes:
+            if lang_code not in lang_info.keys():
+                continue
             translation = translations[lang_code][0]
             if is_telescope:
+                parent = request.PARENTS[0]
                 trans_parent = parent.getTranslation(lang_code)
                 # The target URL may exist even if there is no such
                 # translation for the telescope origin
@@ -102,17 +101,18 @@ class TelescopeView(BrowserView):
                 else:
                     parent_url = actual_url
                 url = "{0}?path={1}".format(
-                        parent_url, translation.absolute_url_path())
+                    parent_url, "/".join(translation.getPhysicalPath()))
             else:
-                url = translation.absolute_url()
+                url = translation.absolute_url_path()
 
             is_hw_root = context.getPhysicalPath()[-1] == 'hw2012'
             quote = is_hw_root and translation.getText() or ''
 
+            css_class = translation == context and 'current' or ''
             transdict[lang_code] = {
                 'url': url,
                 'title': lang_info[lang_code]["native"],
                 'quote': quote,
-                'css_class': translation = context and 'current' or  ''
-                }
+                'css_class': css_class,
+            }
         return transdict

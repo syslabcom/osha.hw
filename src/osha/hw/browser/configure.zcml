@@ -152,6 +152,7 @@
         name="hw.telescope"
         class=".telescope.TelescopeView"
         permission="zope2.View"
+		allowed_attributes="telescope_translations"
         />
 
     <browser:viewlet

@@ -4,7 +4,7 @@ Changelog
 0.5.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- #6509 Handle tranlation links via the hw.telescope view [deroiste]
 
 
 0.5.4 (2013-01-02)
