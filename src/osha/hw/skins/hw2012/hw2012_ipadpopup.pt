@@ -35,10 +35,10 @@
 
 
 	#IpadPopup h2{
-		font-size: 42px;
-		line-height: 62px;
+		font-size: 26px;
+		line-height: 38px;
 		font-weight: normal;
-		margin: 5px 10px 30px 10px;
+		margin: 5px 10px 20px 10px;
 		padding-top: 155px;
 		background: url(image.png) no-repeat top center;
 	}
@@ -46,7 +46,7 @@
 	#thanks{
 		background: #ccc;
 		padding: 1em;
-		margin-top: 30px;
+		margin-top: 20px;
 		font-size: 120%;
 	}
 		#thanks a{
@@ -64,7 +64,7 @@
 	<h1>Healthy Workplaces</h1></div>
 
 
-<h2>Healthy Workplaces Campaign <br><strong>free iPad appplication</strong><br>
+<h2>Healthy Workplaces Campaign <br><strong>free iPad application</strong><br>
 
 Tools and resources for safer and healthier work</h2>
 
