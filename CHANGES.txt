@@ -5,6 +5,7 @@ Changelog
 ------------------
 
 - extended styles for popup page to contain drop shadow, refs #7658 [pilz] 
+- Updated styles for popup to fix ipdad display size, refs #7658 [pilz]
 
 
 0.5.6 (2013-06-05)
