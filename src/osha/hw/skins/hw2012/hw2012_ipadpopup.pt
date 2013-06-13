@@ -1,81 +1,77 @@
-
 <html>
-
-<style type="text/css">
-body {
-	border-radius: 10px;
-	border: 5px solid #ccc;
-	background-color: #EBEBE1;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
-	margin: 2em;
-   }
-#IpadPopup{
-	text-align: center;
-	background-color: #fff;
-   border: 1px solid #999;
-   white-space: normal;
-   box-shadow: 0 0 3em 0.5em #666;
-   -moz-box-shadow: 0 0 3em 0.5em #666;
-   -webkit-box-shadow: 0 0 3em #666;
-   margin: .5em 4em;
+    <style>
+    body {
+        border-radius: 10px;
+        border: 5px solid #ccc;
+        background-color: #EBEBE1;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        margin: 2em;
 }
+    #IpadPopup{
+        text-align: center;
+        background-color: #fff;
+    border: 1px solid #999;
+    white-space: normal;
+    box-shadow: 0 0 3em 0.5em #666;
+    -moz-box-shadow: 0 0 3em 0.5em #666;
+    -webkit-box-shadow: 0 0 3em #666;
+    margin: .5em 4em;
 
-#logo{
-	padding: 1em 0 0 0;
-	margin: 0 auto;
-	display: inline-block;
-}
+    }
 
-#logo h1{
-	color: #0C4DA2;
-	font-size: 28px;
-	font-weight: normal;
-	background: url(oshalogo.png) no-repeat top left;
-	margin:0;
-	padding-left: 87px;
-	line-height: 82px;
-}
-
-
-#IpadPopup h2{
-	font-size: 26px;
-	line-height: 38px;
-	font-weight: normal;
-	margin: 5px 10px 20px 10px;
-	padding-top: 150px;
-	background: url(image.png) no-repeat top center;
-}
-
-#thanks{
-	background: #ccc;
-	padding: 1em;
-	margin-top: 20px;
-	font-size: 120%;
-}
-#thanks a{
-	text-decoration:none;
-	color: #000;
-}
-</style>
-
-	<body>
-
-	<div id="IpadPopup">
-
-	<div id="logo">
-	<h1>Healthy Workplaces</h1></div>
+    #logo{
+        padding: 1em;
+        margin: 0 auto;
+        display: inline-block;
+    }
 
 
-<h2>Healthy Workplaces Campaign <br><strong>free iPad application</strong><br>
+    #logo h1{
+        color: #0C4DA2;
+        font-size: 28px;
+        font-weight: normal;
+        background: url(oshalogo.png) no-repeat top left;
+        margin:0;
+        padding-left: 87px;
+        line-height: 82px;
+    }
 
-Tools and resources for safer and healthier work</h2>
 
-<a href="http://www.healthy-workplaces.eu/en/media/ipad-app"><img width="400" src="app-store-ipad.png"></a>
+    #IpadPopup h2{
+        font-size: 30px;
+        line-height: 50px;
+        font-weight: normal;
+        margin: 20px 10px 20px 10px;
+        padding-top: 145px;
+        background: url(hw_people_image_ipad.png) no-repeat top center;
+		letter-spacing: 0 !important;
+		text-transform: inherit !important;
+    }
 
+    #thanks{
+        background: #ccc;
+        padding: 0.8em 1em;
+        margin-top: 10px;
+        font-size: 130%;
+    }
+    
+	#thanks a{
+        text-decoration:none;
+        color: #000;
+    }
 
-
-<div id="thanks"><a href="http://www.healthy-workplaces.eu/en/">No thanks, go to visit the site</a></div>
-
-
-
-	</body></html>
+    </style>
+    <body>
+    <div id="IpadPopup">
+        <div id="logo">
+            <h1>Healthy Workplaces</h1>
+        </div>
+            <h2>Healthy Workplaces Campaign <br><strong>free iPad appplication</strong><br>
+                Tools and resources for safer and healthier work</h2>
+            <a href="https://itunes.apple.com/it/app/working-together-healthy-workplaces/id509165073?mt=8" target=" "><img width="320" src="app-store-ipad.png"></a>
+            <div id="thanks">
+                <a href="http://www.healthy-workplaces.eu/en/" target=" ">No thanks, go to visit the site</a>
+        </div>
+    </div>
+    </body>
+</html>
